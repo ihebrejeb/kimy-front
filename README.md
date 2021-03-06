@@ -2,7 +2,7 @@
 
 ### Clone
 
-git clone https://github.com/ihebrejeb/kimy-front.git
+git clone https://github.com/ihebrejeb/kimy-front.git<br>
 cd kimy-front
 
 ### install yarn if you don't have it
