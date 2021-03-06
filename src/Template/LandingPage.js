@@ -1,7 +1,10 @@
 import React from 'react' ; 
 import './Landing.css' ;
+import { useHistory } from 'react-router-dom';
+
 
 function LandingPage() {
+    const history = useHistory();
     return (
     <div> 
         <div className="nav">
@@ -18,7 +21,7 @@ function LandingPage() {
               </div>
              
                  
-                 <button className="signin">Sign in </button>
+                 <button className="signin" onClick={()=> history.push('/login')} > Sign Up </button>
             
             
         </div>
