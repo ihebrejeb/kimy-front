@@ -1,0 +1,93 @@
+.logo {
+  position: fixed;
+  left: 0;
+  width: 100px;
+  object-fit: contain;
+  padding-left: 10px;
+  cursor: pointer;
+  top: 10px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.or {
+  color: #0056d2;
+}
+.signIn {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 5px rgba(103, 89, 246, 0.75);
+  border-radius: 20px;
+  text-align: center;
+  gap: 20px;
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+}
+.icon {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  padding: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}
+.linkedin {
+  color: #0e76a8;
+}
+.github {
+  color: #1d202d;
+}
+.twitter {
+  color: #00acee;
+}
+
+.text_field {
+  height: 30px;
+}
+
+.signup_grey {
+  color: blue;
+}
+.signup_link:hover {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.signup_link {
+  color: black;
+}
+.tos {
+  display: flex;
+  flex-direction: row;
+}
+
+p {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+span {
+  font-size: 12px;
+  font-weight: 400;
+}
+.title {
+  color: #0056d2;
+}
+.divider {
+  width: 100%;
+}
