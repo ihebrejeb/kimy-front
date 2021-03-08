@@ -1,0 +1,75 @@
+
+.logo{
+    position: fixed;
+    left: 0;
+    width: 100px;
+    object-fit: contain;
+    padding-left: 10px;
+    cursor: pointer;
+    top : 10px ;
+}
+
+.signIn{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    border: 2px solid rgb(93, 93, 223);
+    border-radius: 20px;
+    text-align: center;
+    position : fixed;    
+    width    : 200px;
+    height   : 150;
+    left     : 50%;
+    top      : 50%;
+    margin-left : -150px; /* half of the width  */
+    margin-top  : -200px; /* half of the height */
+    margin-bottom: -150px;
+}
+
+h2{
+color: #0056D2;
+}
+.icons{
+    
+    margin-right: 30px;
+
+   
+}
+
+
+
+.text_field{
+      height: 30px ;
+        
+ }
+
+ .signup_grey{
+
+    color: blue;
+
+}
+.signup_link:hover{
+    color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+
+}
+.signup_link{
+    color: black;
+}
+.tos{
+    display: flex ;
+     flex-direction: row;  
+ }
+
+ p{
+      font-size: 11px;
+      font-weight: 600;
+ }
+
+ span{
+      font-size: 12px;
+     font-weight: 400;
+     }
