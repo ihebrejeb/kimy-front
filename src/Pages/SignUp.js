@@ -2,15 +2,17 @@ import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import { useHistory } from "react-router-dom";
-
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+
+
 import styles from "./SignUp.module.css";
+
+
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
