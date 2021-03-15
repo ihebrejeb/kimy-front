@@ -9,7 +9,7 @@ form {
   
 }
 button:hover {
-  color: black;
+  
   cursor: pointer;
   text-decoration: none;
 }
@@ -45,8 +45,4 @@ span {
   color: black;
  
   word-wrap: break-word;
-}
-.input {
-  border-color : yellow  !important ;
-
 }
