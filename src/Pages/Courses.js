@@ -19,12 +19,12 @@ function Courses() {
 
   return (
 
-    <div>
+    
       <Container maxWidth="lg">
       
       <Grow in>
         <Container>
-          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
+          <Grid container display="flex "  justify="space-between" alignItems="stretch" spacing={3}>
             <Grid item xs={12} sm={4}>
                 <Addcourse/> 
            </Grid>
@@ -37,7 +37,7 @@ function Courses() {
     </Container>
        
      
-    </div>
+    
   )
 }
 

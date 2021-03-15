@@ -6,7 +6,7 @@ import useStyles from "./ListStyles"
 
 function CoursesList() {
     const classes= useStyles ;
-    const courses = useSelector((state)=> state.courses.value)
+    const courses = useSelector(selectcourses)
     console.log(courses)
     return (
         <div>
