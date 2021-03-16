@@ -1,0 +1,27 @@
+.paper{
+display: flex;
+flex-direction: column;
+color: blue;
+}
+
+.clean{
+    color: white;
+    background-color: red;
+    
+}
+.buttons{
+    margin-top: 20px;
+    margin-left: -20px;
+}
+
+.field{
+    margin-bottom: 20px !important ;
+    background-color: whitesmoke;
+}
+.upload{
+    margin-top: 40px;
+}
+.text{
+    color: rgba(57, 57, 235, 0.87) !important;
+    
+}

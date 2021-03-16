@@ -14,7 +14,7 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
-import LiveChat from "../AppBase/chat/LiveChat"
+import LiveChat from "../AppBase/chat/LiveChat" ;
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
