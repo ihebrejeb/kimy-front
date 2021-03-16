@@ -1,19 +1,23 @@
 import React from "react";
-
 import "./App.css";
-import LandingPage from "./Pages/LandingPage";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import SignUp from "./Pages/SignUp";
-import AppBase from "./features/AppBase/AppBase";
+
+import LandingPage from './Pages/LandingPage' ;
+import AppBase from  './features/AppBase/AppBase' ;
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
-import NoRoute from "./Pages/NoRoute";
-import LiveChat from "./features/AppBase/chat/LiveChat";
+
+const NoRoute = React.lazy(() => import("./Pages/NoRoute"));
+const LiveChat = React.lazy(()=> import("./features/AppBase/chat/LiveChat" )) ;
+const SignUp = React.lazy(()=> import ('./Pages/SignUp')) ;
+
+
+
 const theme = createMuiTheme({
   palette: {
     primary: {

@@ -2,25 +2,28 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import * as api from '../../../Api/index.js';
 
+let initialState = { 
+  values: [], 
+ 
+}
 export const coursesSlice = createSlice({
   name: 'courses',
-  initialState: {
-    value: [],
-  },
+  initialState ,
   reducers: {
     getcourses: ( state , action  )  => {
-      state.value = action.payload; 
+      state.values = action.payload; 
      
     },
     
-    setErrors(state, action) {
-      state.errors = action.payload;
+    AddCourse (state, action) {
+      
+     state.values = [...state.values, action.payload]
       }, 
      
   },
 });
 
-export const { getcourses , setErrors  } = coursesSlice.actions;
+export const { getcourses , AddCourse  } = coursesSlice.actions;
 
 //thunk
 export const GetCourses = () => async (dispatch)  => {
@@ -32,9 +35,22 @@ export const GetCourses = () => async (dispatch)  => {
       console.log(error.message);
     }
   };
- 
 
-export const selectcourses = state => state.courses.value;
+
+ export const createCourse =(courses )=> async(dispatch) => {
+   try {
+     const {data} = await api.CreateCourses(courses) ; 
+     dispatch({type :  AddCourse , payload : data})
+   }
+   catch(error) {
+     console.log(error.message)
+   }
+ }
+
+
+
+
+export const selectcourses = state => state.courses.values;
 
 
 export default coursesSlice.reducer;
