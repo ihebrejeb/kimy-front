@@ -14,7 +14,8 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
-import LiveChat from "../AppBase/chat/LiveChat" ;
+import LiveChat from "../AppBase/chat/LiveChat";
+import Lobby from "./onlinseSession/Lobby";
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -92,6 +93,9 @@ export default function ClippedDrawer() {
           <Route exact path="/app">
             <Redirect to="/app/courses"></Redirect>
           </Route>
+          <Route exact path="/app/video/:roomName">
+            <Lobby></Lobby>
+          </Route>
           <Route exact path="/app/courses">
             <Courses></Courses>
           </Route>
@@ -99,8 +103,8 @@ export default function ClippedDrawer() {
             <Forum></Forum>
           </Route>
           <Route exact path="/app/chat">
-          <LiveChat/>
-        </Route>
+            <LiveChat />
+          </Route>
           <Route exact path="/app/calendar">
             <Calendar></Calendar>
           </Route>
