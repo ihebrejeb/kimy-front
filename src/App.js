@@ -11,9 +11,13 @@ import LandingPage from './Pages/LandingPage' ;
 import AppBase from  './features/AppBase/AppBase' ;
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+import { Suspense } from "react";
+import AddPost from "./features/AppBase/forum/AddPost";
 
 const NoRoute = React.lazy(() => import("./Pages/NoRoute"));
 const LiveChat = React.lazy(()=> import("./features/AppBase/chat/LiveChat" )) ;
+
+
 const SignUp = React.lazy(()=> import ('./Pages/SignUp')) ;
 
 
@@ -30,7 +34,10 @@ const theme = createMuiTheme({
 });
 function App() {
   return (
+    <Suspense fallback={<p>...Loading page please wait</p>}>
+
     <Router>
+      
       <Switch>
         <Route path="/app">
           <ThemeProvider theme={theme}>
@@ -40,13 +47,13 @@ function App() {
         <Route exact path="/signup">
           <SignUp />
         </Route>
+       
         <Route exact path="/">
           <LandingPage />
         </Route>
         <Route exact path="/chat">
           <LiveChat />
         </Route>
-        
         <Route exact path="/404">
           <NoRoute />
         </Route>
@@ -54,6 +61,7 @@ function App() {
       </Switch>
       
     </Router>
+    </Suspense>
   );
 }
 

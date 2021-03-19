@@ -22,6 +22,7 @@
 .post__body{
     overflow-wrap: anywhere;
     cursor: pointer;
+    text-decoration: none;
 
 }
 .post__info> h2 {
@@ -30,4 +31,7 @@
 .post__buttons{
     display: flex;
    
+}
+.editor{
+    margin-top: 20px;
 }
