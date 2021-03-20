@@ -41,6 +41,9 @@ function App() {
         <Route exact path="/courses">
           <Courses />
         </Route>
+        <Route exact path="/activities">
+          <SignUp />
+        </Route>
         <Route exact path="/whiteboard">
           <Whiteboard />
         </Route>
