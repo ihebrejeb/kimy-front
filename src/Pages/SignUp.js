@@ -8,8 +8,8 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
-
+import { auth } from '../Firebase';
+import './Login.css'
 import styles from "./SignUp.module.css";
 
 
@@ -18,9 +18,41 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
 
 import { Button, Checkbox, Divider, FormControlLabel } from "@material-ui/core";
+import { useState } from "react";
 
 function SignUp() {
+
+  const [email, setemail] = useState('')
+  const [password, setpassword] = useState('') 
+
+
   const history = useHistory();
+
+  const register = (e) => {
+      e.preventDefault(); 
+
+      auth.createUserWithEmailAndPassword(
+          email, 
+          password
+      ).then((authUser)  => {
+          console.log(authUser)
+
+      })
+      .catch(error => {
+          alert(error.message);
+
+      }) ;
+      
+    
+  };
+
+  const signIn = (e) => {
+     
+
+  
+          history.push("/login")
+    
+  };
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -28,7 +60,7 @@ function SignUp() {
     weightRange: "",
     showPassword: false,
   });
-
+ 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -91,25 +123,26 @@ function SignUp() {
         <Divider variant="middle" className={styles.divider} />
         <p className={styles.or}>Or</p>
         <form className={styles.form}>
+       
           <TextField
-            label="Email"
-            inputProps={{
-              autocomplete: "new-password",
-              form: {
-                autocomplete: "off",
-              },
-            }}
+          value={email}
+          onChange={e => setemail(e.target.value)} 
+            label="Email" 
+            placeholder="email" type="email" 
+           
           />
+          
           <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
               Password
             </InputLabel>
 
-            <Input
+            <Input value={password} onChange={e => setpassword(e.target.value)} 
+            
               id="standard-adornment-password"
               type={values.showPassword ? "text" : "password"}
-              value={values.password}
-              onChange={handleChange("password")}
+              
+              
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -129,7 +162,7 @@ function SignUp() {
             label="I agree to terms and conditions"
           />
 
-          <Button variant="outlined" size="small" color="primary">
+          <Button variant="outlined" size="small" color="primary" onClick={register}   >
             Sign Up
           </Button>
           <h5>
@@ -138,7 +171,7 @@ function SignUp() {
               Do you already have an account ?
             </span>
 
-            <span className={styles.signup_link}> Login </span>
+            <span className={styles.signup_link}   onClick={signIn}> Login </span>
           </h5>
         </form>
       </div>

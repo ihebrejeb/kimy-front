@@ -17,6 +17,7 @@ import Calendar from "../../Pages/Calendar";
 import LiveChat from "../AppBase/chat/LiveChat" ;
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
+import { auth } from "../../Firebase";
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -48,12 +49,21 @@ const useStyles = makeStyles((theme) => ({
 export default function ClippedDrawer() {
   const classes = useStyles();
   const history = useHistory();
+
+
+  const signOut = () => {
+    auth.signOut() ;
+    history.push("/")
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <img src={logo} className={classes.logo} alt="logo"></img>
+          
+          <button onClick={signOut} className="Profile_screenSignOut"> Sign Out</button>
+        
         </Toolbar>
       </AppBar>
       <Drawer
