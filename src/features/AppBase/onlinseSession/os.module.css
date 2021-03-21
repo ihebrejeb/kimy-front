@@ -1,0 +1,67 @@
+.participant {
+  position: relative;
+}
+.participant video,
+.participant .placeholder {
+  border-radius: 5px;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+}
+.placeholder {
+  position: relative;
+  background-color: gray;
+  width: 320px;
+  height: 240px;
+}
+.room {
+  position: relative;
+  min-height: 100vh;
+}
+.localParticipant {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.remoteParticipants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  border-radius: 5px;
+}
+.controles {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  left: 0;
+  bottom: 10px;
+  gap: 10px;
+}
+
+.on svg {
+  color: #3d4849 !important;
+}
+.off svg {
+  color: white !important;
+}
+.off {
+  background-color: darkred !important;
+}
+.recordings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 10px;
+}
+.recording {
+  position: relative;
+  overflow-wrap: break-word;
+  width: 350px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.recording video {
+  width: 80%;
+}

@@ -1,7 +1,5 @@
-import axios from 'axios' 
-const url = 'http://localhost:4000/courses' ;
+import axios from "axios";
+const url = "http://localhost:5000/courses";
 
- export const fetchCourses =  () =>   axios.get(url);
- export const CreateCourses =  (newCourse) => axios.post(url , newCourse);
-
-                                      
+export const fetchCourses = () => axios.get(url);
+export const CreateCourses = (newCourse) => axios.post(url, newCourse);

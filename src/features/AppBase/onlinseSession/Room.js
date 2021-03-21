@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Participant from "./Participant";
-
-const Room = ({ roomName, room, me }) => {
+import styles from "./os.module.css";
+const Room = ({ room, me }) => {
   const [participants, setParticipants] = useState([]);
 
   useEffect(() => {
@@ -29,9 +29,8 @@ const Room = ({ roomName, room, me }) => {
   ));
 
   return (
-    <div className="room">
-      <h2>Room: {roomName}</h2>
-      <div className="local-participant">
+    <div className={styles.room}>
+      <div className={styles.localParticipant}>
         {room ? (
           <Participant
             me={me}
@@ -42,8 +41,8 @@ const Room = ({ roomName, room, me }) => {
           ""
         )}
       </div>
-      <h3>Remote Participants</h3>
-      <div className="remote-participants">{remoteParticipants}</div>
+
+      <div className={styles.remoteParticipants}>{remoteParticipants}</div>
     </div>
   );
 };

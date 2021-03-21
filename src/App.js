@@ -7,16 +7,15 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import LandingPage from './Pages/LandingPage' ;
-import AppBase from  './features/AppBase/AppBase' ;
+import LandingPage from "./Pages/LandingPage";
+import AppBase from "./features/AppBase/AppBase";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+import Lobby from "./features/AppBase/onlinseSession/Lobby";
 
 const NoRoute = React.lazy(() => import("./Pages/NoRoute"));
-const LiveChat = React.lazy(()=> import("./features/AppBase/chat/LiveChat" )) ;
-const SignUp = React.lazy(()=> import ('./Pages/SignUp')) ;
-
-
+const LiveChat = React.lazy(() => import("./features/AppBase/chat/LiveChat"));
+const SignUp = React.lazy(() => import("./Pages/SignUp"));
 
 const theme = createMuiTheme({
   palette: {
@@ -46,13 +45,14 @@ function App() {
         <Route exact path="/chat">
           <LiveChat />
         </Route>
-        
+        <Route exact path="/video/:roomName">
+          <Lobby></Lobby>
+        </Route>
         <Route exact path="/404">
           <NoRoute />
         </Route>
         <Redirect to="/404"></Redirect>
       </Switch>
-      
     </Router>
   );
 }

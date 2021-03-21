@@ -15,7 +15,8 @@ import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
 import LiveChat from "../AppBase/chat/LiveChat";
-import Lobby from "./onlinseSession/Lobby";
+import CourseDemo from "./onlinseSession/CourseDemo";
+import CourseRecordings from "./onlinseSession/CourseRecordings";
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
   },
 }));
 
@@ -93,8 +94,10 @@ export default function ClippedDrawer() {
           <Route exact path="/app">
             <Redirect to="/app/courses"></Redirect>
           </Route>
-          <Route exact path="/app/video/:roomName">
-            <Lobby></Lobby>
+
+          {/*   demo video chat */}
+          <Route exact path="/app/videodemo">
+            <CourseDemo></CourseDemo>
           </Route>
           <Route exact path="/app/courses">
             <Courses></Courses>
@@ -105,6 +108,10 @@ export default function ClippedDrawer() {
           <Route exact path="/app/chat">
             <LiveChat />
           </Route>
+          <Route exact path="/app/course/:courseId/recordings">
+            <CourseRecordings />
+          </Route>
+
           <Route exact path="/app/calendar">
             <Calendar></Calendar>
           </Route>
