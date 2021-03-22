@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Landing.module.css";
 import { useHistory } from "react-router-dom";
+import { auth } from "../Firebase";
 
 function LandingPage() {
   const history = useHistory();

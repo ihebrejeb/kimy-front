@@ -3,27 +3,48 @@ import Post from '../features/AppBase/forum/Post'
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import InputOption from '../features/AppBase/forum/Input'
 import './forum.css'
-import { TextField } from '@material-ui/core';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
+import SearchIcon from '@material-ui/icons/Search';
+
+import LastPageIcon from '@material-ui/icons/LastPage';
+import { useHistory } from 'react-router';
+import AddPost from '../features/AppBase/forum/AddPost';
 function Forum() {
+  const history = useHistory() ;
   return (
     <div className="forum ">
+      <AddPost/> 
       <div className="bar"> 
-      <button> Create a thread</button> 
-      <div className="rightside">  
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+    
+      
+      {/* <div className="rightside">  
+      <div className="header__search">
+                    <SearchIcon></SearchIcon>
+                    <input placeholder="search here" type="text"/>
+          </div>
+          <div className="rightside">  
 
-      <InputOption Icon={ThumbUpOutlinedIcon}  title="Like"
-                 color="blue"/>
+<InputOption Icon={ThumbUpOutlinedIcon}  title="Like"
+             color="grey"/>
+  <InputOption Icon={SortByAlphaIcon}  title="sort"
+             color="grey"/>    
+   <InputOption Icon={LastPageIcon}  title="previous"
+             color="grey"/>  
+   <InputOption Icon={FirstPageIcon}  title="next"
+             color="grey"/>    
+                 </div>        
+                 
 
-        <input type="text"  placeholder="search"/>
-       </div>
+        
+       </div> */}
     
       </div>
     
     <Post/>
     <Post/>
     <Post/>
-        
+          
     </div>
   )
 }

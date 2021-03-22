@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import * as api from '../../../Api/index.js';
 
+
+
 export const createCourse = createAsyncThunk(
   'courses/addcourse',
   async (courses, thunkAPI) => {
@@ -12,7 +14,6 @@ export const createCourse = createAsyncThunk(
 
 let initialState = { 
   values: [], 
- 
 }
 export const coursesSlice = createSlice({
   name: 'courses',
@@ -20,22 +21,30 @@ export const coursesSlice = createSlice({
   reducers: {
     getcourses: ( state , action  )  => {
       state.values = action.payload; 
-     
+    },
+    updateCourse: (state , action) => {
+        const payload = action.payload._id; 
+         state.values.map((course)=> course._id === payload ? payload : course )
+    },
+    deletecourse: (state , action) => {
+      const payload = action.payload; 
+
+        state.values.filter((course)=>course._id !== payload )
     },
     
-   
-     
   },
+
+
+  
   extraReducers : {
  
   [createCourse.fulfilled]: (state, action) => {
-    // Add user to the state array
     state.values.push(action.payload)
   },
 },});
 
 
-export const { getcourses , AddCourse  } = coursesSlice.actions;
+export const { getcourses , AddCourse ,updateCourse, deletecourse  } = coursesSlice.actions;
 
 //thunk
 export const GetCourses = () => async (dispatch)  => {
@@ -48,7 +57,27 @@ export const GetCourses = () => async (dispatch)  => {
     }
   };
 
+  export const update =(id, course) => async(dispatch) => {
+    try{
+     const {data } =  await api.UpdateCourses(id , course)
+     dispatch(updateCourse(data.data.data)) ; 
 
+    }
+    catch(error) {
+      console.log(error.message)
+
+    }
+  }
+
+export const deleteCourse=(id) => async(dispatch) => {
+  try{
+    await api.deleteCourses(id);
+    dispatch(deleteCourse(id))
+  }
+  catch{
+
+  }
+}
 //  export const createCourse =(courses )=> async(dispatch) => {
 //    try {
 //      const {data} = await api.CreateCourses(courses) ; 
