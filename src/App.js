@@ -1,23 +1,32 @@
 import React from "react";
 import "./App.css";
-import LandingPage from "./Pages/LandingPage";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import SignUp from "./Pages/SignUp";
 import Courses from "./Pages/Courses";
 import Whiteboard from "./Pages/Whiteboard";
 
 import AppBase from "./features/AppBase/AppBase";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
-import NoRoute from "./Pages/NoRoute";
 import Container from "./Pages/Container";
-import CourseActivity from "./features/CourseActivity/Activities";
-import ActivitiesGrid from "./features/CourseActivity/Activities";
+
+import LandingPage from "./Pages/LandingPage";
+import { Suspense } from "react";
+import Login from "./Pages/Login";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout, selectuser } from "./features/AppBase/user/UserSlice";
+import { useEffect } from "react";
+import { auth } from "./Firebase";
+
+const NoRoute = React.lazy(() => import("./Pages/NoRoute"));
+const LiveChat = React.lazy(() => import("./features/AppBase/chat/LiveChat"));
+
+const SignUp = React.lazy(() => import("./Pages/SignUp"));
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -29,36 +38,89 @@ const theme = createMuiTheme({
   },
 });
 function App() {
+  const user = useSelector(selectuser);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        console.log(userAuth);
+        dispatch(
+          login({
+            uid: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
+      } else {
+        dispatch(logout());
+      }
+    });
+    return unsubscribe;
+  }, [dispatch]);
   return (
-    <Router>
-      <Switch>
-        <Route path="/app">
-          <ThemeProvider theme={theme}>
-            <AppBase />
-          </ThemeProvider>
-        </Route>
-        <Route exact path="/signup">
-          <SignUp />
-        </Route>
-        <Route exact path="/courses">
-          <Courses />
-        </Route>
-        
-        <Route exact path="/whiteboard">
-          <Whiteboard />
-        </Route>
-        <Route exact path="/Container">
-          <Container />
-        </Route>
-        <Route exact path="/">
-          <LandingPage />
-        </Route>
-        <Route exact path="/404">
-          <NoRoute />
-        </Route>
-        <Redirect to="/404"></Redirect>
-      </Switch>
-    </Router>
+    <Suspense fallback={<p>...Loading page please wait</p>}>
+      <Router>
+        {!user ? (
+          <Switch>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+
+            <Route exact path="/chat">
+              <LiveChat />
+            </Route>
+
+            <Route exact path="/404">
+              <NoRoute />
+            </Route>
+          </Switch>
+        ) : (
+          <Switch>
+            <Route path="/app">
+              <ThemeProvider theme={theme}>
+                <AppBase />
+              </ThemeProvider>
+            </Route>
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+            <Route exact path="/courses">
+              <Courses />
+            </Route>
+
+            <Route exact path="/whiteboard">
+              <Whiteboard />
+            </Route>
+            <Route exact path="/Container">
+              <Container />
+            </Route>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
+            <Route exact path="/404">
+              <NoRoute />
+            </Route>
+            <Redirect to="/404"></Redirect>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
+
+            <Route path="/app">
+              <ThemeProvider theme={theme}>
+                <AppBase />
+              </ThemeProvider>
+            </Route>
+            <Redirect to="/404"></Redirect>
+          </Switch>
+        )}
+      </Router>
+    </Suspense>
   );
 }
 

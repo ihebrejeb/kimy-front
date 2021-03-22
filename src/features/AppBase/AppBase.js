@@ -16,6 +16,10 @@ import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
 import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
 
+import LiveChat from "../AppBase/chat/LiveChat";
+import AddPost from "./forum/AddPost";
+import SinglePost from "./forum/SinglePost";
+import { auth } from "../../Firebase";
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -47,12 +51,22 @@ const useStyles = makeStyles((theme) => ({
 export default function ClippedDrawer() {
   const classes = useStyles();
   const history = useHistory();
+
+  const signOut = () => {
+    auth.signOut();
+    history.push("/");
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <img src={logo} className={classes.logo} alt="logo"></img>
+
+          <button onClick={signOut} className="Profile_screenSignOut">
+            {" "}
+            Sign Out
+          </button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -70,6 +84,12 @@ export default function ClippedDrawer() {
                 <ViewCompactIcon></ViewCompactIcon>
               </ListItemIcon>
               <ListItemText primary="Courses" />
+            </ListItem>
+            <ListItem button onClick={() => history.push("/app/chat")}>
+              <ListItemIcon>
+                <ViewCompactIcon></ViewCompactIcon>
+              </ListItemIcon>
+              <ListItemText primary="livechat" />
             </ListItem>
             <ListItem button onClick={() => history.push("/app/forum")}>
               <ListItemIcon>
@@ -92,6 +112,15 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/forum">
             <Forum></Forum>
+          </Route>
+          <Route exact path="/app/singlepost">
+            <SinglePost />
+          </Route>
+          <Route exact path="/app/addPost">
+            <AddPost />
+          </Route>
+          <Route exact path="/app/chat">
+            <LiveChat />
           </Route>
           <Route exact path="/app/calendar">
             <Calendar></Calendar>
