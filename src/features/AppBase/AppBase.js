@@ -14,7 +14,9 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
-import LiveChat from "../AppBase/chat/LiveChat" ;
+import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
+
+import LiveChat from "../AppBase/chat/LiveChat";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
@@ -50,20 +52,21 @@ export default function ClippedDrawer() {
   const classes = useStyles();
   const history = useHistory();
 
-
   const signOut = () => {
-    auth.signOut() ;
-    history.push("/")
-  }
+    auth.signOut();
+    history.push("/");
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <img src={logo} className={classes.logo} alt="logo"></img>
-          
-          <button onClick={signOut} className="Profile_screenSignOut"> Sign Out</button>
-        
+
+          <button onClick={signOut} className="Profile_screenSignOut">
+            {" "}
+            Sign Out
+          </button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -111,16 +114,19 @@ export default function ClippedDrawer() {
             <Forum></Forum>
           </Route>
           <Route exact path="/app/singlepost">
-            <SinglePost/>
+            <SinglePost />
           </Route>
           <Route exact path="/app/addPost">
-            <AddPost/>
+            <AddPost />
           </Route>
           <Route exact path="/app/chat">
-          <LiveChat/>
-        </Route>
+            <LiveChat />
+          </Route>
           <Route exact path="/app/calendar">
             <Calendar></Calendar>
+          </Route>
+          <Route exact path="/app/activites">
+            <CourseActivitiesMainPage />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>
