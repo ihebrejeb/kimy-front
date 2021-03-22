@@ -14,6 +14,8 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
+import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
+
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -93,6 +95,9 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/calendar">
             <Calendar></Calendar>
+          </Route>
+          <Route exact path="/app/activites">
+            <CourseActivitiesMainPage />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>

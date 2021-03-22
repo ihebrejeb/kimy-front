@@ -16,6 +16,8 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import NoRoute from "./Pages/NoRoute";
 import Container from "./Pages/Container";
+import CourseActivity from "./features/CourseActivity/Activities";
+import ActivitiesGrid from "./features/CourseActivity/Activities";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -41,9 +43,7 @@ function App() {
         <Route exact path="/courses">
           <Courses />
         </Route>
-        <Route exact path="/activities">
-          <SignUp />
-        </Route>
+        
         <Route exact path="/whiteboard">
           <Whiteboard />
         </Route>
