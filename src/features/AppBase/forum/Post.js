@@ -9,7 +9,9 @@ import GradeIcon from '@material-ui/icons/Grade';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import { useHistory } from 'react-router';
-function Post ({showActions})  {
+import ReactHtmlParser from 'react-html-parser'
+
+function Post ({showActions , Posts: {text, title}})  {
 
    const history = useHistory();
     return (
@@ -17,18 +19,20 @@ function Post ({showActions})  {
             <div className="post__header"> 
             <Avatar/>
             <div className="post__info">  
-                    <h2>med habib dridi</h2>
+            <div className='avatar'> 
+            <h2>med habib dridi</h2>
                     <p>software dev</p>
+            </div>
+                 
+                   
+                  
+
               </div>
              </div>
 
              <div className="post__body" onClick={() => history.push("/app/singlePost")} >
-                 <p>On recrute des développeurs C#/.net #junior #confirmé et #senior
-
-                👉 Pour plus de détails , veuillez nous contacter par mail kimiy@es^rot.tn
-            On recrute des développeurs C#/.net #junior #confirmé et #senior
-
-               👉          Pour plus de détails , veuillez nous contacter par mail kimiy@es^rot.tn</p>
+            <h2> 
+              {' '}{ReactHtmlParser(title)} </h2>
              </div>
              {showActions  &&
              <div className="post__buttons">

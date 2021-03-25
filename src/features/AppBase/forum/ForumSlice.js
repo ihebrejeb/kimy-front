@@ -14,7 +14,10 @@ export const forumslice = createSlice({
     values: [],
   },
   reducers: {
-   
+      getPost :(state,action) => {
+        state.values= action.payload
+
+      }
   },
   extraReducers : {
  
@@ -25,7 +28,20 @@ export const forumslice = createSlice({
   },
 });
 
-export const {  } = forumslice.actions;
+
+
+export const { getPost } = forumslice.actions;
+
+//thunk
+export const getPosts = () => async (dispatch)  => {
+  try {
+    const { data } = await api.fetchPosts();
+
+    dispatch( getPost(data.data)  );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 
 //sleecotors
