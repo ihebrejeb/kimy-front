@@ -12,10 +12,14 @@ function SinglePost() {
                 back to all posts
             </button>
             </Link>
-
+            <h1 style={{marginTop:'30px'}}> FULL STACK DEV OFFER FOR A JUNIOR DEV</h1>
             <Post showActions={false}/>
-
+                 <div className="commentsection"></div>
+                <h2> Latest Answers </h2>
             <CommentItem/>
+            <CommentItem/>
+            <CommentItem/>
+
 
 
             

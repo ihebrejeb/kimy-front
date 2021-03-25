@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectuser } from "./features/AppBase/user/UserSlice";
 import { useEffect } from "react";
 import { auth } from "./Firebase";
+import Footer from "./Pages/Footer";
 
 const NoRoute = React.lazy(() => import("./Pages/NoRoute"));
 const LiveChat = React.lazy(()=> import("./features/AppBase/chat/LiveChat" )) ;
@@ -59,6 +60,7 @@ function App() {
     
   },[dispatch] );
   return (
+    
     <Suspense fallback={<p>...Loading page please wait</p>}>
 
     <Router>
@@ -96,7 +98,6 @@ function App() {
           <AppBase />
         </ThemeProvider>
       </Route>
-      <Redirect to="/404"></Redirect>
 
       </Switch>
       
@@ -107,6 +108,7 @@ function App() {
       
     </Router>
     </Suspense>
+
   );
 }
 

@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./Landing.module.css";
 import { useHistory } from "react-router-dom";
-import { auth } from "../Firebase";
+import Footer from "./Footer";
 
 function LandingPage() {
   const history = useHistory();
   return (
-    <div>
+    <div className={styles.LandingPage}>
       <div className={styles.nav}>
         <img className={styles.nav_img} src="/logo.png" alt="logo" />
         <div className={styles.navigation}>
@@ -47,9 +47,15 @@ function LandingPage() {
             <button className={styles.button}>Start free trial</button>
             <button className={styles.button_learn}>Learn more</button>
           </div>
+          
         </div>
+        
       </div>
+      
+      
+
     </div>
+    
   );
 }
 

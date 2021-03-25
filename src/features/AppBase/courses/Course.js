@@ -42,7 +42,7 @@ function Course({courses, setCurrentId}) {
       </CardContent>
       <CardActions className={styles.cardActions}>
         <div> 
-        <Button size="small" color="primary" onclick={() => history.push("/signup")} ><AddCircleOutlineIcon fontSize="small" /> Join</Button>
+        <Button size="small" color="primary" onclick={() => history.push("/app/forum")} ><AddCircleOutlineIcon fontSize="small" /> Join</Button>
 
         <Button size="small" color="primary" onClick={()=> dispatch(deleteCourse(courses._id))}><ExitToAppIcon fontSize="small" /> Quit</Button>
         </div>

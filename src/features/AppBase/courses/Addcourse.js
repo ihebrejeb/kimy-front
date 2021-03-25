@@ -11,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { createCourse , update } from './CoursesSlice';
 import { useEffect } from 'react';
+import { selectuser } from '../user/UserSlice';
 
 
 function Addcourse({currentId , setcurrentId}) {
@@ -29,7 +30,7 @@ function Addcourse({currentId , setcurrentId}) {
     setOpen(false);
     
   };
-
+  const user = useSelector(selectuser)
 
   useEffect(()=> {
 
@@ -39,7 +40,7 @@ function Addcourse({currentId , setcurrentId}) {
 
  const clear =( ) => {
     setcurrentId= null;
-   setcourseData({ creator: '', title: '', message: '', tags: '', selectedFile: ''})
+   setcourseData({ creator: ' ', title: '', message: '', tags: '', selectedFile: ''})
   
  }
 

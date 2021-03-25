@@ -18,6 +18,9 @@ import LiveChat from "../AppBase/chat/LiveChat" ;
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
+import { useSelector } from "react-redux";
+import {selectuser } from "./user/UserSlice";
+
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -41,12 +44,15 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   content: {
+    backgroundColor:'#f3f2ef',
     flexGrow: 1,
     padding: theme.spacing(3),
   },
 }));
 
 export default function ClippedDrawer() {
+  const user = useSelector(selectuser)
+
   const classes = useStyles();
   const history = useHistory();
 
@@ -61,10 +67,13 @@ export default function ClippedDrawer() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <img src={logo} className={classes.logo} alt="logo"></img>
+          <p> Welcome : {user.email}</p>
           
           <button onClick={signOut} className="Profile_screenSignOut"> Sign Out</button>
+          
         
         </Toolbar>
+        
       </AppBar>
       <Drawer
         className={classes.drawer}

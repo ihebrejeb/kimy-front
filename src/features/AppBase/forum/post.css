@@ -35,3 +35,7 @@
 .editor{
     margin-top: 20px;
 }
+.commentsection{
+ display: flex;
+ flex-direction: column;
+}
