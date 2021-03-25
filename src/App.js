@@ -13,9 +13,10 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import Lobby from "./features/AppBase/onlinseSession/Lobby";
 
-const NoRoute = React.lazy(() => import("./Pages/NoRoute"));
-const LiveChat = React.lazy(() => import("./features/AppBase/chat/LiveChat"));
-const SignUp = React.lazy(() => import("./Pages/SignUp"));
+import NoRoute from "./Pages/NoRoute";
+
+import SignUp from "./Pages/SignUp";
+import LiveChat from "./features/AppBase/chat/LiveChat";
 
 const theme = createMuiTheme({
   palette: {
@@ -45,9 +46,7 @@ function App() {
         <Route exact path="/chat">
           <LiveChat />
         </Route>
-        <Route exact path="/video/:roomName">
-          <Lobby></Lobby>
-        </Route>
+
         <Route exact path="/404">
           <NoRoute />
         </Route>

@@ -1,19 +1,17 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Video from "twilio-video";
+import LocalVideo from "./LocalVideo";
+import Room from "./Room";
 import { createRoom, getTwilioToken } from "./url";
-
-import VideoChat from "./VideoChat";
 const Lobby = () => {
   const [username] = useState("iheb@rejeb.tn" + Math.random());
   const { roomName } = useParams();
   const [room, setRoom] = useState(null);
   const [connecting, setConnecting] = useState(false);
-  useEffect(() => {
-    return () => {
-      if (room) room.disconnect();
-    };
-  }, [room]);
+  const [isVideo, setIsVideo] = useState(true);
+  const [isAudio, setIsAudio] = useState(true);
+
   const disableVideo = (a) => {
     const trackpubsToTracks = (trackMap) =>
       Array.from(trackMap.values())
@@ -39,25 +37,73 @@ const Lobby = () => {
     try {
       const room = await Video.connect(data.token, {
         name: roomName,
-        video: { width: 320 },
-        audio: true,
+        video: { height: 200, name: "camera" },
+        audio: { name: "microphone" },
+        dominantSpeaker: true,
         RecordParticipantsOnConnect: true,
       });
       createRoom(room.sid, roomName);
       setConnecting(false);
-      disableVideo(room);
-      disableAudio(room);
+      if (!isVideo) disableVideo(room);
+      if (!isAudio) disableAudio(room);
       setRoom(room);
     } catch (err) {
       console.error(err);
       setConnecting(false);
     }
   };
+  const handleLogout = useCallback(() => {
+    setRoom((prevRoom) => {
+      if (prevRoom) {
+        prevRoom.localParticipant.tracks.forEach((trackPub) => {
+          trackPub.track.stop();
+        });
+        prevRoom.disconnect();
+      }
+      return null;
+    });
+  }, [setRoom]);
+  useEffect(() => {
+    const tidyUp = (event) => {
+      if (event.persisted) {
+        return;
+      }
+      if (room) {
+        handleLogout();
+      }
+    };
+    if (room) {
+      window.addEventListener("pagehide", tidyUp);
+      window.addEventListener("beforeunload", tidyUp);
+      return () => {
+        window.removeEventListener("pagehide", tidyUp);
+        window.removeEventListener("beforeunload", tidyUp);
+      };
+    }
+  }, [handleLogout, room]);
+  useEffect(() => {
+    return () => {
+      if (room) {
+        room.localParticipant.tracks.forEach((trackPub) => {
+          trackPub.track.stop();
+        });
+        room.disconnect();
+
+        setRoom(null);
+      }
+    };
+  }, [room]);
 
   return room ? (
-    <VideoChat room={room} setRoom={setRoom} me={username}></VideoChat>
+    <Room room={room} me={username} isVideo={isVideo} isAudio={isAudio} />
   ) : (
     <form onSubmit={handleSubmit}>
+      <LocalVideo
+        setIsVideo={setIsVideo}
+        isAudio={isAudio}
+        isVideo={isVideo}
+        setIsAudio={setIsAudio}
+      ></LocalVideo>
       <button type="submit" disabled={connecting}>
         {connecting ? "Connecting" : "Start Now"}
       </button>

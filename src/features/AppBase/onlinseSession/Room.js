@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Participant from "./Participant";
 import styles from "./os.module.css";
-const Room = ({ room, me }) => {
+import Participant from "./Participant";
+const Room = ({ room, me, isVideo, isAudio }) => {
   const [participants, setParticipants] = useState([]);
-
+  const [dominantSpeaker, setdominantSpeaker] = useState(null);
+  useEffect(() => {
+    room.on("dominantSpeakerChanged", (participant) => {
+      setdominantSpeaker(participant);
+      console.log("The new dominant speaker in the Room is:", participant);
+    });
+  }, [room]);
   useEffect(() => {
     const participantConnected = (participant) => {
       setParticipants((prevParticipants) => [...prevParticipants, participant]);
@@ -27,22 +33,33 @@ const Room = ({ room, me }) => {
   const remoteParticipants = participants.map((participant) => (
     <Participant key={participant.sid} participant={participant} />
   ));
+  const test = [...Array(2).keys()].map((x) => (
+    <div className={styles.regular}></div>
+  ));
+  let func = () => {
+    switch (participants.length) {
+      case 1:
+        return styles.grid1;
+      case 2:
+        return styles.grid2;
+      default:
+        return styles.grid3;
+    }
+  };
 
   return (
     <div className={styles.room}>
       <div className={styles.localParticipant}>
-        {room ? (
-          <Participant
-            me={me}
-            key={room.localParticipant.sid}
-            participant={room.localParticipant}
-          />
-        ) : (
-          ""
-        )}
+        <Participant
+          me={me}
+          key={room.localParticipant.sid}
+          participant={room.localParticipant}
+          isLocalVideo={isVideo}
+          isLocalAudio={isAudio}
+        />
       </div>
 
-      <div className={styles.remoteParticipants}>{remoteParticipants}</div>
+      <div className={func()}>{remoteParticipants}</div>
     </div>
   );
 };
