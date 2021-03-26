@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import styles from "./chat.module.css";
+import styles from "./x.module.css";
 import io from "socket.io-client";
 
 import { useState } from "react";

@@ -1,0 +1,51 @@
+.recordings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 10px;
+}
+.recording {
+  position: relative;
+  overflow-wrap: break-word;
+  width: 350px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.recording video {
+  width: 80%;
+}
+.header {
+  display: flex;
+  align-items: center;
+}
+.title {
+  padding: 0;
+}
+.video {
+  max-width: 350px;
+}
+.backButton {
+  padding: 5px 3px 5px 7px !important;
+  min-width: 0 !important;
+  margin: 5px 10px 5px 10px !important;
+}
+
+.buttonProgress {
+  color: darkgreen !important;
+  margin-left: 5px;
+}
+.button {
+  cursor: not-allowed !important;
+  border-color: darkgreen !important;
+  color: darkgreen !important;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hidden {
+  display: none;
+}

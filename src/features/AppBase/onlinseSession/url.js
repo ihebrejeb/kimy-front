@@ -22,7 +22,10 @@ export const getRoomsByCourseId = async (courseId) => {
   const res = await Axios.get("/rooms/" + courseId);
   return res;
 };
-
+export const deleteRoomApi = async (roomSID) => {
+  const res = await Axios.delete("/rooms/" + roomSID);
+  return res;
+};
 export const getRoomStatus = async (courseId) => {
   const res = await Axios.get("/twilio/roomStatus/" + courseId);
   return res;

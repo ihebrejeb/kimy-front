@@ -27,6 +27,7 @@ export default function Participant({
   const localVideoRef = useRef();
   const [isVideo, setIsVideo] = useState(isLocalVideo);
   const [isAudio, setIsAudio] = useState(isLocalAudio);
+  const [isRemoteAudio, setIsRemoteAudio] = useState(false);
   useEffect(() => {
     if (participant.identity === me) setisLocal(true);
   }, [me, participant.identity]);
@@ -91,6 +92,13 @@ export default function Participant({
     audioTracks.forEach((track) => {
       audiosRef.current.appendChild(track.attach());
     });
+    setIsRemoteAudio(audioTracks[0]?.isEnabled);
+    audioTracks[0]?.on("disabled", () => {
+      setIsRemoteAudio(false);
+    });
+    audioTracks[0]?.on("enabled", () => {
+      setIsRemoteAudio(true);
+    });
   }, [audioTracks]);
 
   function shareScreenHandler() {
@@ -98,10 +106,12 @@ export default function Participant({
       navigator.mediaDevices
         .getDisplayMedia()
         .then((stream) => {
+          toggleVideo();
           const screenTrack = new Video.LocalVideoTrack(stream.getTracks()[0]);
           setshareScreen(screenTrack);
           participant.publishTrack(screenTrack);
           screenTrack.mediaStreamTrack.onended = () => {
+            toggleVideo();
             participant.unpublishTrack(screenTrack);
             screenTrack.stop();
             setshareScreen(null);
@@ -111,6 +121,7 @@ export default function Participant({
           alert("Could not share the screen.");
         });
     } else {
+      toggleVideo();
       participant.unpublishTrack(shareScreen);
       shareScreen.stop();
       setshareScreen(null);
@@ -142,11 +153,16 @@ export default function Participant({
     return () => localVideoTrack?.stop();
   }, [localVideoTrack]);
   return (
-    <div className={styles.regular}>
-      <div ref={videosRef} className={styles.bgb}></div>
+    <>
+      <div ref={videosRef} className="myvideos">
+        <div className="micOff">
+          {!isRemoteAudio && !isLocal && <MicOff></MicOff>}
+        </div>
+      </div>
+
       <div ref={audiosRef}></div>
-      <div ref={localVideoRef}></div>
-      <div className={styles.controles}>
+      <div ref={localVideoRef} className="localVideo"></div>
+      <div className="localControls">
         {isLocal && (
           <Fab
             size="small"
@@ -179,6 +195,6 @@ export default function Participant({
           </Fab>
         )}
       </div>
-    </div>
+    </>
   );
 }

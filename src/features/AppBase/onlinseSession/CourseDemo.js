@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -38,20 +39,29 @@ export default function CourseDemo() {
     <>
       <h1>course:{course.title}</h1>
       <h2>online session:{status}</h2>
-
-      {course.owner === u.id && (
-        <button onClick={() => history.push(`/app/video/${course.id}`)}>
-          Create an online session
-        </button>
-      )}
-      {course.owner !== u.id && status !== "off" && (
-        <button onClick={joinLobby}>Join</button>
-      )}
-      <button
-        onClick={() => history.push("/app/course/" + course.id + "/recordings")}
-      >
-        Course Recordings
-      </button>
+      <div className="flex">
+        {course.owner === u.id && (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => history.push(`/app/video/${course.id}`)}
+          >
+            Create an online session
+          </Button>
+        )}
+        {course.owner !== u.id && status !== "off" && (
+          <Button variant="contained" color="secondary" onClick={joinLobby}>
+            Join
+          </Button>
+        )}
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => history.push("/app/course/recordings")}
+        >
+          Course Recordings
+        </Button>
+      </div>
     </>
   );
 }

@@ -3,7 +3,9 @@ import { useParams } from "react-router";
 import Video from "twilio-video";
 import LocalVideo from "./LocalVideo";
 import Room from "./Room";
+import styles from "./lobby.module.css";
 import { createRoom, getTwilioToken } from "./url";
+import { Button, CircularProgress } from "@material-ui/core";
 const Lobby = () => {
   const [username] = useState("iheb@rejeb.tn" + Math.random());
   const { roomName } = useParams();
@@ -97,17 +99,30 @@ const Lobby = () => {
   return room ? (
     <Room room={room} me={username} isVideo={isVideo} isAudio={isAudio} />
   ) : (
-    <form onSubmit={handleSubmit}>
+    <div className={styles.lobby}>
       <LocalVideo
         setIsVideo={setIsVideo}
         isAudio={isAudio}
         isVideo={isVideo}
         setIsAudio={setIsAudio}
+        connecting={connecting}
       ></LocalVideo>
-      <button type="submit" disabled={connecting}>
-        {connecting ? "Connecting" : "Start Now"}
-      </button>
-    </form>
+      <Button
+        variant="outlined"
+        color="primary"
+        disabled={connecting}
+        onClick={handleSubmit}
+      >
+        {connecting ? (
+          <CircularProgress
+            className={styles.buttonProgress}
+            size={16}
+          ></CircularProgress>
+        ) : (
+          "Join now"
+        )}
+      </Button>
+    </div>
   );
 };
 

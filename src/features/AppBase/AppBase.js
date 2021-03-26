@@ -1,14 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ViewCompactIcon from "@material-ui/icons/ViewCompact";
 import logo from "./Logo.png";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
@@ -26,9 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: "#fff",
   },
   logo: {
     height: "40px",
+    cursor: "pointer",
   },
   drawer: {
     width: drawerWidth,
@@ -54,10 +50,15 @@ export default function ClippedDrawer() {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <img src={logo} className={classes.logo} alt="logo"></img>
+          <img
+            src={logo}
+            className={classes.logo}
+            alt="logo"
+            onClick={() => history.push("/app")}
+          ></img>
         </Toolbar>
       </AppBar>
-      <Drawer
+      {/* <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{
@@ -88,6 +89,7 @@ export default function ClippedDrawer() {
           </List>
         </div>
       </Drawer>
+       */}
       <main className={classes.content}>
         <Toolbar />
 
@@ -113,7 +115,7 @@ export default function ClippedDrawer() {
           <Route exact path="/app/videodemo">
             <CourseDemo></CourseDemo>
           </Route>
-          <Route exact path="/app/course/:courseId/recordings">
+          <Route exact path="/app/course/recordings">
             <CourseRecordings />
           </Route>
           <Route exact path="/app/video/:roomName">

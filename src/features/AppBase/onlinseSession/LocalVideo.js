@@ -2,12 +2,13 @@ import { Fab } from "@material-ui/core";
 import { Mic, MicOff, Videocam, VideocamOff } from "@material-ui/icons";
 import { useEffect, useRef, useState } from "react";
 import Video from "twilio-video";
-import styles from "./os.module.css";
+import styles from "./lobby.module.css";
 export default function LocalVideo({
   isVideo,
   setIsVideo,
   isAudio,
   setIsAudio,
+  connecting,
 }) {
   const videoRef = useRef();
   const [track, settrack] = useState(null);
@@ -28,23 +29,25 @@ export default function LocalVideo({
     setIsVideo(!isVideo);
   };
   return (
-    <div ref={videoRef}>
-      <div className={styles.controles}>
-        <Fab
-          size="small"
-          onClick={toggleVideo}
-          className={isVideo ? styles.on : styles.off}
-        >
-          {isVideo ? <Videocam></Videocam> : <VideocamOff></VideocamOff>}
-        </Fab>
-        <Fab
-          size="small"
-          className={isAudio ? styles.on : styles.off}
-          onClick={() => setIsAudio(!isAudio)}
-        >
-          {isAudio ? <Mic></Mic> : <MicOff></MicOff>}
-        </Fab>
-      </div>
+    <div ref={videoRef} className={styles.localVideo}>
+      {!connecting && (
+        <div className={styles.localVideoControls}>
+          <Fab
+            size="small"
+            onClick={toggleVideo}
+            className={isVideo ? styles.on : styles.off}
+          >
+            {isVideo ? <Videocam></Videocam> : <VideocamOff></VideocamOff>}
+          </Fab>
+          <Fab
+            size="small"
+            className={isAudio ? styles.on : styles.off}
+            onClick={() => setIsAudio(!isAudio)}
+          >
+            {isAudio ? <Mic></Mic> : <MicOff></MicOff>}
+          </Fab>
+        </div>
+      )}
     </div>
   );
 }
