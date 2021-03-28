@@ -8,7 +8,7 @@ function ForumList({setcurrentId}) {
     return (
         <div>
              {Posts.map((forum)=> (
-                 <div key={forum.id}>
+                 <div key={forum._id}>
       <Post Posts={forum} setCurrentId={setcurrentId}/>
       </div>
       ))}

@@ -1,7 +1,10 @@
-import { Avatar } from '@material-ui/core'
+import { Avatar, Card, CardContent, CardHeader, Divider, IconButton, makeStyles, Typography } from '@material-ui/core'
 
 import InputOption from './Input'
 import './post.css'
+import { Link } from 'react-router-dom'
+import { red } from '@material-ui/core/colors';
+
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
@@ -10,51 +13,99 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import { useHistory } from 'react-router';
 import ReactHtmlParser from 'react-html-parser'
+import { useDispatch, useSelector } from 'react-redux';
+import { deletePost, getOnePost, selectForum } from './ForumSlice';
+import moment from 'moment'
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-function Post ({showActions , Posts: {text, title}})  {
+import { Fragment } from 'react';
 
+function Post ({showActions , Posts, })  {
+   const dispatch = useDispatch()
    const history = useHistory();
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            maxWidth: 1960,
+            marginBottom:'10px'
+        },
+        media: {
+            height: 0,
+            paddingTop: '56.25%', // 16:9
+        },
+        expand: {
+            transform: 'rotate(0deg)',
+            marginLeft: 'auto',
+            transition: theme.transitions.create('transform', {
+                duration: theme.transitions.duration.shortest,
+            }),
+        },
+        expandOpen: {
+            transform: 'rotate(180deg)',
+        },
+        avatar: {
+            backgroundColor: red[500],
+        },
+    }));
+    const classes = useStyles();
+
     return (
-        <div  className="post" >
-            <div className="post__header"> 
-            <Avatar/>
-            <div className="post__info">  
-            <div className='avatar'> 
-            <h2>med habib dridi</h2>
-                    <p>software dev</p>
-            </div>
+        
+             <Card className={classes.root}>
                  
-                   
-                  
+            <CardHeader
+                avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                        </Avatar>
 
-              </div>
-             </div>
+                }
+                action={ 
+                    <IconButton aria-label="settings">
+                      
+                      <MoreVertIcon onClick={()=> dispatch(deletePost(Posts._id))} />
+                    </IconButton>
+                }
+                title=' Med habib'
+                subheader={moment(Posts.date).format('MMMM Do YYYY')}
+            />
+           
+            <CardContent>
+            
+                <Typography variant="h4" color="textprimary" component="h4">
+                    {ReactHtmlParser(Posts.title)}
+                </Typography>
+                 <Fragment> <h3 className={classes.root}>
+                    
+                </h3>
 
-             <div className="post__body" onClick={() => history.push("/app/singlePost")} >
-            <h2> 
-              {' '}{ReactHtmlParser(title)} </h2>
-             </div>
-             {showActions  &&
+                    
+                    {showActions  &&
              <div className="post__buttons">
+                <IconButton aria-label="view" >
                  <InputOption Icon={ThumbUpIcon}  title="Like"
-                 color="blue"/>
-                 
+                 color="blue"/> </IconButton>
+                 <IconButton aria-label="view" >
                    <InputOption Icon={ThumbDownIcon}  title="dislike"
-                 color="blue"/>
+                 color="blue"/> </IconButton>
+                 <IconButton aria-label="view" >
                    <InputOption Icon={VisibilityIcon}  title="views"
-                 color="blue"/>
+                 color="blue"/></IconButton>
+                 <IconButton aria-label="view" >
                    <InputOption Icon={GradeIcon}  title="Rating"
-                 color="blue"/>
+                 color="blue"/></IconButton>
+                 <IconButton aria-label="view" >
+                   <Link to={`/app/singlePost/${Posts._id}`}> 
                  <InputOption  Icon={QuestionAnswerOutlinedIcon}  title="Comments"
-                 color="blue"/>
+                 color="blue"/> 
                  {/* { !auth.loading && user === auth.user._id } */}
-                  <InputOption Icon={DeleteOutlineOutlinedIcon}  title="Delete"
-                 color="blue"/>
-                
+                 </Link></IconButton> 
              </div> }
+                </Fragment>
+            </CardContent>
+       
+        </Card>
+            
 
           
-        </div>
     )
 }
 Post.defaultProps = {

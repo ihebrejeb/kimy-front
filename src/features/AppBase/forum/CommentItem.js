@@ -1,7 +1,14 @@
 import { Avatar } from '@material-ui/core'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { Removecomment } from './ForumSlice'
+
 import './comments.css'
-function CommentItem() {
+import { useParams } from 'react-router'
+function CommentItem({comment, postId}) {
+    const dispatch = useDispatch() ;
+    let { id } = useParams();
+
     return (
         <div className="section">
 
@@ -10,17 +17,15 @@ function CommentItem() {
             <Avatar/>
             <div className="post__info">  
                     <h2>med habib dridi</h2>
-                    <p>software dev</p>
+                    
               </div>
              </div>
 
-             <div className="post__body"  >
-                 <p>On recrute des développeurs C#/.net #junior #confirmé et #senior
-
-                👉 Pour plus de détails , veuillez nous contacter par mail kimiy@es^rot.tn
-            On recrute des développeurs C#/.net #junior #confirmé et #senior
-
-               👉          Pour plus de détails , veuillez nous contacter par mail kimiy@es^rot.tn</p>
+             <div className="post__bodfy"  >
+                 <p>
+            {comment.text}
+             </p>
+             <button  onClick={()=>dispatch(Removecomment(postId, comment._id)) }> Delete </button>
              </div>
         </div>
         </div>

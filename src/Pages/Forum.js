@@ -5,9 +5,11 @@ import { getPosts, selectForum } from '../features/AppBase/forum/ForumSlice';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import ForumList from '../features/AppBase/forum/ForumList';
+import { useState } from 'react';
 function Forum() {
   // const history = useHistory() ;
   const dispatch = useDispatch()
+  const [currentId, setcurrentId] = useState(null) ;
 
   useEffect(() => { 
     dispatch(getPosts()) ;
@@ -18,7 +20,7 @@ function Forum() {
     <div className="forum ">
       <AddPost/> 
 
-     <ForumList/>
+     <ForumList setcurrentId={setcurrentId} />
    
      
 

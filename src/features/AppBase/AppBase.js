@@ -119,7 +119,7 @@ export default function ClippedDrawer() {
           <Route exact path="/app/forum">
             <Forum></Forum>
           </Route>
-          <Route exact path="/app/singlepost">
+          <Route exact path="/app/singlepost/:id">
             <SinglePost/>
           </Route>
           <Route exact path="/app/addPost">
