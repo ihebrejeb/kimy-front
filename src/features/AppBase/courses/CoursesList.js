@@ -13,7 +13,7 @@ function CoursesList({setcurrentId}) {
     return (
         <div>
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
-        {courses.map((courses) => (
+        {courses?.map((courses) => (
           <Grid key={courses._id} item xs={12} sm={4} md={3}>
             <Course courses={courses}  setCurrentId={setcurrentId} />
           </Grid>
