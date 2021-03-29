@@ -1,12 +1,13 @@
 import { createSlice , createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../../Api/postApi.js';
 import * as CommentApi from '../../../Api/CommentApi.js';
+import axios from 'axios';
 
 
 export const createComment = createAsyncThunk(
-  'forum/comment/:id',
-  async (id, comment , thunkAPI) => {
-    const response = await CommentApi.postComment(id, comment)
+  '',
+  async ( id ,comment , thunkAPI) => {
+    const response = await CommentApi.postComment(id , comment)
     return response.data 
   }
 )
@@ -49,7 +50,7 @@ export const forumslice = createSlice({
       state.values.push(action.payload.data)
     },
     [createComment.fulfilled]: (state, action) => {
-       state.posts.push(action.payload.data)
+       state.coment.push(action.payload.data)
     },
   },
 });

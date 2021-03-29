@@ -25,8 +25,9 @@ function Post ({showActions , Posts, })  {
    const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         root: {
-            maxWidth: 1960,
-            marginBottom:'10px'
+            maxWidth: 800,
+            marginBottom:'10px',
+            margin:'auto'
         },
         media: {
             height: 0,
@@ -70,7 +71,7 @@ function Post ({showActions , Posts, })  {
            
             <CardContent>
             
-                <Typography variant="h4" color="textprimary" component="h4">
+                <Typography variant="p" color="textprimary" component="p">
                     {ReactHtmlParser(Posts.title)}
                 </Typography>
                  <Fragment> <h3 className={classes.root}>

@@ -61,13 +61,11 @@ function SinglePost({ Posts}) {
            
           
              <Card className={classes.root}>
+            
              <Typography style= {{padding:'20px'}} variant="h4" color="textprimary" component="h4">
                     {post.title}
                 </Typography>
-                <div className='items'> 
-                 <p>  asked : {moment(post.date).format('MMMM Do YYYY')}  </p>  
-                  <p className=''>  Owner : Med habib Dridi</p>
-                </div>
+               
 
 
             <CardContent>
@@ -83,21 +81,28 @@ function SinglePost({ Posts}) {
 
                  
                 </Fragment>
-            </CardContent>           
-                     <Link className='decoarion' to='/app/forum' >
-
-                     <IconButton aria-label="view" >
-                    <DynamicFeedIcon  /> all Posts
-                    
-                        
-                    </IconButton> 
-                    </Link>
-                    <IconButton aria-label="view" >
-                      <ThumbUpIcon/>  Like 
-                         </IconButton>
-                       
+            </CardContent>  
+                     
+                   
       
+                         <div className='items'> 
+                         <div className='tags'> 
+                 <p>  asked : {moment(post.date).format('MMMM Do YYYY')}  </p>  
+                  <p className=''>  Owner : Med habib Dridi</p>
+                  <p> Viewed : 20 </p>
+                  <p> 30 likes</p>
+                  </div>
+                  <div> 
+                  <Link className='decoarion' to='/app/forum' >
 
+                <IconButton aria-label="view" >
+                <DynamicFeedIcon  /> all Posts
+
+   
+                </IconButton> 
+                </Link>
+                </div>
+                </div>
         </Card>
 
                  <div className="commentsection"></div>

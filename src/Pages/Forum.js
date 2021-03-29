@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import ForumList from '../features/AppBase/forum/ForumList';
 import { useState } from 'react';
+import'./forum.css'
 function Forum() {
   // const history = useHistory() ;
   const dispatch = useDispatch()
@@ -18,6 +19,7 @@ function Forum() {
 
   return (
     <div className="forum ">
+      <div> </div>
       <AddPost/> 
 
      <ForumList setcurrentId={setcurrentId} />

@@ -1,13 +1,13 @@
-import { Avatar } from '@material-ui/core'
+import { Avatar, IconButton } from '@material-ui/core'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Removecomment } from './ForumSlice'
-
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import './comments.css'
 import { useParams } from 'react-router'
+import moment from 'moment';
 function CommentItem({comment, postId}) {
     const dispatch = useDispatch() ;
-    let { id } = useParams();
 
     return (
         <div className="section">
@@ -17,15 +17,18 @@ function CommentItem({comment, postId}) {
             <Avatar/>
             <div className="post__info">  
                     <h2>med habib dridi</h2>
+                    {moment(comment.date).format('MMMM Do YYYY')}
                     
               </div>
              </div>
 
-             <div className="post__bodfy"  >
-                 <p>
+             <div className="body"  >
+                 <h4>
             {comment.text}
-             </p>
-             <button  onClick={()=>dispatch(Removecomment(postId, comment._id)) }> Delete </button>
+             </h4> <IconButton aria-label="view" >
+
+             <DeleteOutlineOutlinedIcon style={{color:'blue'}}  onClick={()=>dispatch(Removecomment(postId, comment._id)) } />
+             </IconButton>
              </div>
         </div>
         </div>
