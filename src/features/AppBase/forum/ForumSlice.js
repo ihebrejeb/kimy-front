@@ -1,7 +1,6 @@
 import { createSlice , createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../../Api/postApi.js';
 import * as CommentApi from '../../../Api/CommentApi.js';
-import axios from 'axios';
 
 
 export const createComment = createAsyncThunk(

@@ -20,7 +20,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 function SinglePost({ Posts}) {
     const useStyles = makeStyles((theme) => ({
         root: {
-            maxWidth: 1960,
+            maxWidth: 2500,
         },
         media: {
             height: 0,
@@ -40,7 +40,6 @@ function SinglePost({ Posts}) {
             backgroundColor: red[500],
         },
     }));
-    const classes = useStyles();
 
     const post = useSelector(selectPost)
     const dispatch = useDispatch()
@@ -57,34 +56,18 @@ function SinglePost({ Posts}) {
 <div> 
         <div className="post" >
             
-           
-           
-          
-             <Card className={classes.root}>
-            
              <Typography style= {{padding:'20px'}} variant="h4" color="textprimary" component="h4">
                     {post.title}
                 </Typography>
                
-
-
             <CardContent>
-            
-           
-                
-                 <Fragment> <h3 className={classes.root}>
+                 <Fragment> <h3 style={{marginLeft:'-20px'}} >
                  <Typography variant="h4" color="textprimary" component="h4">
                     {ReactHtmlParser(post.text)}
                 </Typography>
-                
                 </h3>
-
-                 
                 </Fragment>
             </CardContent>  
-                     
-                   
-      
                          <div className='items'> 
                          <div className='tags'> 
                  <p>  asked : {moment(post.date).format('MMMM Do YYYY')}  </p>  
@@ -93,23 +76,21 @@ function SinglePost({ Posts}) {
                   <p> 30 likes</p>
                   </div>
                   <div> 
-                  <Link className='decoarion' to='/app/forum' >
+                      
+                  <Link  className='decoarion' to='/app/forum' >
 
-                <IconButton aria-label="view" >
-                <DynamicFeedIcon  /> all Posts
-
-   
+                <IconButton  aria-label="view" >
+                <DynamicFeedIcon  style={{color:'blue'}}  />  all Posts
                 </IconButton> 
                 </Link>
                 </div>
                 </div>
-        </Card>
 
                  <div className="commentsection"></div>
               
            
         </div>
-        
+
         {post?.comments?.map(comment => (
                 <CommentItem key={comment._id} comment={comment} postId={post._id} />
             ))}

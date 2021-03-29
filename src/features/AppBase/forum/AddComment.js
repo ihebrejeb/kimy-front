@@ -3,13 +3,12 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { createComment } from './ForumSlice';
 import { useState } from 'react';
-import { makeStyles, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 function AddComment({postId}) {
     const dispatch = useDispatch()
@@ -43,7 +42,6 @@ function AddComment({postId}) {
     return (
         <div style={{marginTop: '20 px', backgroundColor:'white', width:'2Ovw', padding:'15px',paddingleft:'15px'}}>
             <FormControl fullWidth className={classes.margin} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-amount">Reply  </InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
             value={CommentData.text} 
@@ -52,6 +50,7 @@ function AddComment({postId}) {
             <AccountCircle style={{color:'blue'}} />
             </InputAdornment>}
             labelWidth={30}
+            placeholder='write a comment....'
             onClick={submit} 
           />
         </FormControl>

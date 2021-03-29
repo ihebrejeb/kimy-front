@@ -7,14 +7,13 @@ import { red } from '@material-ui/core/colors';
 
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import GradeIcon from '@material-ui/icons/Grade';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import { useHistory } from 'react-router';
 import ReactHtmlParser from 'react-html-parser'
-import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, getOnePost, selectForum } from './ForumSlice';
+import { useDispatch } from 'react-redux';
+import { deletePost } from './ForumSlice';
 import moment from 'moment'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -25,7 +24,7 @@ function Post ({showActions , Posts, })  {
    const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         root: {
-            maxWidth: 800,
+            maxWidth: 665,
             marginBottom:'10px',
             margin:'auto'
         },
