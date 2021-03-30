@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import AddComment from './AddComment'
 import CommentItem from './CommentItem'
-import { getOnePost, selectPost } from './ForumSlice'
+import { addLike, getOnePost, selectPost } from './ForumSlice'
 import { red } from '@material-ui/core/colors';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
@@ -13,9 +13,11 @@ import { useParams } from "react-router";
 import ReactHtmlParser from 'react-html-parser'
 import './SingePost.css'
 import moment from 'moment'
-import {  Card , CardContent,   IconButton, makeStyles, Typography } from '@material-ui/core'
+import {  Box, Card , CardContent,   IconButton, makeStyles, Typography } from '@material-ui/core'
 import { Fragment } from 'react'
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import { useState } from 'react'
+import { Rating } from '@material-ui/lab'
 
 function SinglePost({ Posts}) {
     const useStyles = makeStyles((theme) => ({
@@ -40,10 +42,30 @@ function SinglePost({ Posts}) {
             backgroundColor: red[500],
         },
     }));
-
+    const labels = {
+        0.5: 'Useless',
+        1: 'Useless+',
+        1.5: 'Poor',
+        2: 'Poor+',
+        2.5: 'Ok',
+        3: 'Ok+',
+        3.5: 'Good',
+        4: 'Good+',
+        4.5: 'Excellent',
+        5: 'Excellent+',
+    };
     const post = useSelector(selectPost)
     const dispatch = useDispatch()
-    let { id } = useParams();
+    let { id } = useParams(); 
+    const [rating, setValue] = useState(1);
+
+    const onsubmit = (e) => {
+            e.preventDefault(); 
+
+        addLike(post._id, { rating })
+
+    }
+    const [hover, setHover] = useState(-1);
 
     useEffect(() => { 
        
@@ -85,6 +107,27 @@ function SinglePost({ Posts}) {
                 </Link>
                 </div>
                 </div>
+                <Fragment> <h3 >
+                    <Rating
+                        name="hover-feedback"
+                        value={rating}
+                        precision={0.5}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                            setHover(newHover);
+                        }}
+
+                    />
+
+                    {rating !== null && <Box ml={2}>{labels[hover !== -1 ? hover : rating]}</Box>}
+                </h3>
+                        <button onClick={e => onsubmit(e)}> </button>
+                    <IconButton aria-label="view" onClick={e => onsubmit(e)}>
+                        <DynamicFeedIcon /> send feedback
+                    </IconButton>
+                </Fragment>
 
                  <div className="commentsection"></div>
               

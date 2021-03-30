@@ -1,4 +1,4 @@
-import { createSlice , createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice , createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import * as api from '../../../Api/postApi.js';
 import * as CommentApi from '../../../Api/CommentApi.js';
 
@@ -18,6 +18,17 @@ export const createPosts = createAsyncThunk(
     return response.data
   }
 )
+export const updatelikes = createAsyncThunk(
+  'forum',
+  async (id ) => {
+    const response = await api.AddLike(id)
+    return response.data
+  }
+)
+const likeadapter = createEntityAdapter({
+  selectId: (posts) => posts._id
+ });
+ 
 export const forumslice = createSlice({
   name: 'forum',
   initialState: {
@@ -41,7 +52,16 @@ export const forumslice = createSlice({
       DeleteCommento : ( state, action) => {
         const payload = action.payload; 
         state.post.comments = state.post.filter((comment)=>comment._id !== payload )
-      }
+      },
+      Like:(state,action)=>{
+        const payload = action.payload._id; 
+        state.values = state.values.map((post) => post._id === payload ? action.payload : post)
+        console.log(action.payload)
+
+      },
+      rate:(state,action) => {
+        state.rate.push(action.payload.data)
+      },
   },
   extraReducers : {
  
@@ -51,11 +71,14 @@ export const forumslice = createSlice({
     [createComment.fulfilled]: (state, action) => {
        state.coment.push(action.payload.data)
     },
+    [updatelikes.fulfilled]: (state, action) => {
+      state.coment.push(action.payload.data)
+   },
   },
 });
 
 
-export const { getPost , UnlistPost , getOne ,DeleteCommento} = forumslice.actions;
+export const {rate, getPost , UnlistPost , getOne ,DeleteCommento,Like} = forumslice.actions;
 
 //thunk
 export const getPosts = () => async (dispatch)  => {
@@ -97,8 +120,30 @@ export const Removecomment= ( id , C_id) => async(dispatch) => {
 
   }
 }
+export const addLike = (id) => async (dispatch) => {
+  try {
+      const {data} = await api.AddLike(id)
+      dispatch(Like(data.data))
+         
+  } catch (error) {
+    console.log(error.message)
 
+  }
 
+}
+//Rate
+export const addrate = (postId, formData) => async dispatch => {
+  
+  try {
+      const {data}  = await api.rating(postId , formData)
+      dispatch(rate(data.data))
+   
+
+     
+  } catch (error) {
+console.log(error.message)  }
+
+}
 
 //sleecotors
 export const selectForum = (state) => state.forum.values;

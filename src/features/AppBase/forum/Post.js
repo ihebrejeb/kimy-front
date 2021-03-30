@@ -12,16 +12,15 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import { useHistory } from 'react-router';
 import ReactHtmlParser from 'react-html-parser'
-import { useDispatch } from 'react-redux';
-import { deletePost } from './ForumSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addLike, deletePost, selectPost, updatelikes } from './ForumSlice';
 import moment from 'moment'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { Fragment } from 'react';
 
-function Post ({showActions , Posts, })  {
+function Post ({showActions , Posts, setcurrentId })  {
    const dispatch = useDispatch()
-   const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         root: {
             maxWidth: 665,
@@ -47,6 +46,12 @@ function Post ({showActions , Posts, })  {
         },
     }));
     const classes = useStyles();
+
+    const id = Posts._id
+    const LIKE =(e) => {
+       e.preventDefault()
+       dispatch(addLike(id))
+    }
 
     return (
         
@@ -80,21 +85,27 @@ function Post ({showActions , Posts, })  {
                     
                     {showActions  &&
              <div className="post__buttons">
-                <IconButton aria-label="view" >
-                 <InputOption Icon={ThumbUpIcon}  title="Like"
+                <IconButton aria-label="view"  onClick={LIKE}>
+                    
+                 <InputOption Icon={ThumbUpIcon}  title=  {Posts.like}
+
+                
+                color="blue"    / > </IconButton>
+                
+                 <IconButton aria-label="view" >
+                     
+                   <InputOption Icon={ThumbDownIcon}  title=""
                  color="blue"/> </IconButton>
                  <IconButton aria-label="view" >
-                   <InputOption Icon={ThumbDownIcon}  title="dislike"
-                 color="blue"/> </IconButton>
-                 <IconButton aria-label="view" >
-                   <InputOption Icon={VisibilityIcon}  title="views"
+                   <InputOption Icon={VisibilityIcon}  title={Posts.views}
                  color="blue"/></IconButton>
                  <IconButton aria-label="view" >
-                   <InputOption Icon={GradeIcon}  title="Rating"
+                   <InputOption Icon={GradeIcon}  title={Posts.avg}
                  color="blue"/></IconButton>
                  <IconButton aria-label="view" >
                    <Link to={`/app/singlePost/${Posts._id}`}> 
-                 <InputOption  Icon={QuestionAnswerOutlinedIcon}  title="Comments"
+                 <InputOption  Icon={QuestionAnswerOutlinedIcon}  title={Posts.comments.length }
+
                  color="blue"/> 
                  {/* { !auth.loading && user === auth.user._id } */}
                  </Link></IconButton> 
