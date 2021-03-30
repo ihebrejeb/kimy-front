@@ -1,24 +1,19 @@
-import { Button } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import { useHistory } from "react-router";
-//import Activities from "../features/CourseActivity/Activities";
-//import VideoConferenceParticipate from "../features/CourseActivity/VideoConferenceParticipate";
 import { useDispatch } from "react-redux";
-//import { GetCourseActivity } from "../features/CourseActivity/CourseActivitySlice";
-//import ActivitiesList from "../features/CourseActivity/ActivitiesList";
+import CoursesActivitiesList from "../features/AppBase/CourseActivity/CoursesActivitiesList";
+import { GetCoursesActivities } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 
 function CourseActivitiesMainPage() {
+  const [currentId, setcurrentId] = useState(null);
   const dispatch = useDispatch();
-  const history = useHistory();
   useEffect(() => {
-    dispatch(GetCourseActivity());
-  }, [dispatch]);
+    dispatch(GetCoursesActivities());
+  }, [currentId, dispatch]);
 
   return (
     <div>
-      <VideoConferenceParticipate></VideoConferenceParticipate>
-      <ActivitiesList></ActivitiesList>
+      <CoursesActivitiesList></CoursesActivitiesList>
     </div>
   );
 }

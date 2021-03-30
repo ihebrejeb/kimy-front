@@ -60,9 +60,9 @@ export const GetCoursesActivities = () => async (dispatch) => {
   }
 };
 
-export const update = (id, course) => async (dispatch) => {
+export const update = (id, courseActivity) => async (dispatch) => {
   try {
-    const { data } = await api.UpdateCoursesActivities(id, course);
+    const { data } = await api.UpdateCoursesActivities(id, courseActivity);
     dispatch(updateCourseActivities(data.data));
   } catch (error) {
     console.log(error.message);
