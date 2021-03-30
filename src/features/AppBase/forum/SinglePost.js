@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import AddComment from './AddComment'
 import CommentItem from './CommentItem'
-import { addLike, getOnePost, selectPost } from './ForumSlice'
+import { addLike, getOnePost, selectForum, selectPost } from './ForumSlice'
 import { red } from '@material-ui/core/colors';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
@@ -54,6 +54,7 @@ function SinglePost({ Posts}) {
         4.5: 'Excellent',
         5: 'Excellent+',
     };
+    const P = useSelector(selectForum)
     const post = useSelector(selectPost)
     const dispatch = useDispatch()
     let { id } = useParams(); 
@@ -62,7 +63,7 @@ function SinglePost({ Posts}) {
     const onsubmit = (e) => {
             e.preventDefault(); 
 
-        addLike(post._id, { rating })
+        addLike(P._id, { rating })
 
     }
     const [hover, setHover] = useState(-1);

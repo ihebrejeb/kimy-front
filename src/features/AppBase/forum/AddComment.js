@@ -36,7 +36,7 @@ function AddComment({postId}) {
       
     const submit = (e) => {
         e.preventDefault()
-        dispatch(createComment(postId, {CommentData}))
+        dispatch(createComment({postId, CommentData}))
 
     }
     return (
@@ -51,8 +51,9 @@ function AddComment({postId}) {
             </InputAdornment>}
             labelWidth={30}
             placeholder='write a comment....'
-            onClick={submit} 
+           
           />
+          <button  onClick={submit}  > test </button>
         </FormControl>
         </div>
     )

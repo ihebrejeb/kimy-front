@@ -19,7 +19,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { Fragment } from 'react';
 
-function Post ({showActions , Posts, setcurrentId })  {
+function Post ({showActions , Posts, currentId })  {
    const dispatch = useDispatch()
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -47,10 +47,10 @@ function Post ({showActions , Posts, setcurrentId })  {
     }));
     const classes = useStyles();
 
-    const id = Posts._id
+    
     const LIKE =(e) => {
        e.preventDefault()
-       dispatch(addLike(id))
+       dispatch(addLike(Posts._id))
     }
 
     return (

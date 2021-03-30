@@ -5,9 +5,12 @@ import * as CommentApi from '../../../Api/CommentApi.js';
 
 export const createComment = createAsyncThunk(
   '',
-  async ( id ,comment , thunkAPI) => {
-    const response = await CommentApi.postComment(id , comment)
+  async ( Data_comment , thunkAPI) => {
+    
+        const response = await CommentApi.postComment(Data_comment.postId , Data_comment.CommentData)
+    
     return response.data 
+    
   }
 )
 
@@ -25,15 +28,13 @@ export const updatelikes = createAsyncThunk(
     return response.data
   }
 )
-const likeadapter = createEntityAdapter({
-  selectId: (posts) => posts._id
- });
+
  
 export const forumslice = createSlice({
   name: 'forum',
   initialState: {
     values: [],
-    post : [] , 
+    post : {} , 
 
   },
   reducers: {
@@ -51,16 +52,17 @@ export const forumslice = createSlice({
       },
       DeleteCommento : ( state, action) => {
         const payload = action.payload; 
-        state.post.comments = state.post.filter((comment)=>comment._id !== payload )
+        state.post.comments = state.post.comments.filter((comment)=>comment._id !== payload )
       },
       Like:(state,action)=>{
         const payload = action.payload._id; 
-        state.values = state.values.map((post) => post._id === payload ? action.payload : post)
+        state.values = state.values.map((forum) => forum._id === payload ? action.payload : forum )
         console.log(action.payload)
 
       },
       rate:(state,action) => {
         state.rate.push(action.payload.data)
+        
       },
   },
   extraReducers : {
@@ -69,7 +71,9 @@ export const forumslice = createSlice({
       state.values.push(action.payload.data)
     },
     [createComment.fulfilled]: (state, action) => {
-       state.coment.push(action.payload.data)
+      console.log(action.payload)
+       state.post.comments= action.payload
+       
     },
     [updatelikes.fulfilled]: (state, action) => {
       state.coment.push(action.payload.data)
@@ -123,7 +127,8 @@ export const Removecomment= ( id , C_id) => async(dispatch) => {
 export const addLike = (id) => async (dispatch) => {
   try {
       const {data} = await api.AddLike(id)
-      dispatch(Like(data.data))
+      dispatch(Like(data))
+      console.log(data)
          
   } catch (error) {
     console.log(error.message)
