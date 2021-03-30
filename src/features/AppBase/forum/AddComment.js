@@ -3,12 +3,13 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { createComment } from './ForumSlice';
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import SendIcon from '@material-ui/icons/Send';
 
 function AddComment({postId}) {
     const dispatch = useDispatch()
@@ -32,15 +33,17 @@ function AddComment({postId}) {
         const classes = useStyles();
        
       
-      
+      const clear = ( )=> {
+        setCommentData({text:''})
+      }
       
     const submit = (e) => {
         e.preventDefault()
         dispatch(createComment({postId, CommentData}))
-
+        clear()
     }
     return (
-        <div style={{marginTop: '20 px', backgroundColor:'white', width:'2Ovw', padding:'15px',paddingleft:'15px'}}>
+        <div style={{marginTop: '20 px', backgroundColor:'white', width:'2Ovw', padding:'15px',paddingleft:'15px', marginBottom:'15px'}}>
             <FormControl fullWidth className={classes.margin} variant="outlined">
           <OutlinedInput
             id="outlined-adornment-amount"
@@ -51,10 +54,11 @@ function AddComment({postId}) {
             </InputAdornment>}
             labelWidth={30}
             placeholder='write a comment....'
-           
+            endAdornment={   <IconButton aria-label="view" onClick={submit} >  <SendIcon  style={{color:'blue'}}  />  </IconButton>        
+            }
           />
-          <button  onClick={submit}  > test </button>
         </FormControl>
+
         </div>
     )
 }

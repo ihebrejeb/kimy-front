@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import AddComment from './AddComment'
 import CommentItem from './CommentItem'
-import { addLike, getOnePost, selectForum, selectPost } from './ForumSlice'
+import { addLike, addrate, getOnePost, selectForum, selectPost } from './ForumSlice'
 import { red } from '@material-ui/core/colors';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
@@ -18,6 +18,7 @@ import { Fragment } from 'react'
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { useState } from 'react'
 import { Rating } from '@material-ui/lab'
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 
 function SinglePost({ Posts}) {
     const useStyles = makeStyles((theme) => ({
@@ -58,12 +59,12 @@ function SinglePost({ Posts}) {
     const post = useSelector(selectPost)
     const dispatch = useDispatch()
     let { id } = useParams(); 
-    const [rating, setValue] = useState(1);
+    const [rating, setValue] = useState('');
 
     const onsubmit = (e) => {
             e.preventDefault(); 
+            dispatch(addrate(post._id,  rating))
 
-        addLike(P._id, { rating })
 
     }
     const [hover, setHover] = useState(-1);
@@ -73,7 +74,6 @@ function SinglePost({ Posts}) {
         dispatch(getOnePost(id)) 
        
     }, [ dispatch , id  ] ) 
-    console.log(post)
 
     return (
 <div> 
@@ -95,20 +95,18 @@ function SinglePost({ Posts}) {
                          <div className='tags'> 
                  <p>  asked : {moment(post.date).format('MMMM Do YYYY')}  </p>  
                   <p className=''>  Owner : Med habib Dridi</p>
-                  <p> Viewed : 20 </p>
-                  <p> 30 likes</p>
+                  <p> Viewed : {post.views} </p>
+                  <p> {post.like} likes</p>
                   </div>
                   <div> 
                       
-                  <Link  className='decoarion' to='/app/forum' >
-
-                <IconButton  aria-label="view" >
-                <DynamicFeedIcon  style={{color:'blue'}}  />  all Posts
-                </IconButton> 
-                </Link>
+                
                 </div>
                 </div>
-                <Fragment> <h3 >
+                <Fragment><div className="iconss"> <div className="voting"> 
+                    
+                     <h3 >
+                     
                     <Rating
                         name="hover-feedback"
                         value={rating}
@@ -122,23 +120,33 @@ function SinglePost({ Posts}) {
 
                     />
 
-                    {rating !== null && <Box ml={2}>{labels[hover !== -1 ? hover : rating]}</Box>}
+                    {rating !== null && <Box ml={0}>{labels[hover !== -1 ? hover : rating]}</Box>}
                 </h3>
-                        <button onClick={e => onsubmit(e)}> </button>
                     <IconButton aria-label="view" onClick={e => onsubmit(e)}>
-                        <DynamicFeedIcon /> send feedback
+                    <TrendingUpIcon style={{color:'blue', marginRight:'15px'}}  /> 
                     </IconButton>
+                    </div>
+                    <div> 
+                    <Link  className='decoarion' to='/app/forum' >
+
+                    <IconButton  aria-label="view" >
+                    <DynamicFeedIcon  style={{color:'blue'}}  />  all Posts
+                    </IconButton> 
+                    </Link>
+                    </div>
+                    </div>
                 </Fragment>
 
                  <div className="commentsection"></div>
               
            
         </div>
+        <AddComment  postId={post._id}/>
+
 
         {post?.comments?.map(comment => (
                 <CommentItem key={comment._id} comment={comment} postId={post._id} />
             ))}
-        <AddComment  postId={post._id}/>
 
         </div>
     )

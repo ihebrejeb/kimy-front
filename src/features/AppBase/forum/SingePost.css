@@ -21,3 +21,12 @@ p{
 .tags{
     display: flex;
 }
+.iconss{
+    display: flex;
+    justify-content: space-between;
+}
+.voting{
+    display: flex;
+    color: blue;
+    margin-top: 10px;
+}

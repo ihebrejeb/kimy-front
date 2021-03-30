@@ -21,13 +21,7 @@ export const createPosts = createAsyncThunk(
     return response.data
   }
 )
-export const updatelikes = createAsyncThunk(
-  'forum',
-  async (id ) => {
-    const response = await api.AddLike(id)
-    return response.data
-  }
-)
+
 
  
 export const forumslice = createSlice({
@@ -61,7 +55,7 @@ export const forumslice = createSlice({
 
       },
       rate:(state,action) => {
-        state.rate.push(action.payload.data)
+        state.post.rate.push(action.payload)
         
       },
   },
@@ -75,9 +69,7 @@ export const forumslice = createSlice({
        state.post.comments= action.payload
        
     },
-    [updatelikes.fulfilled]: (state, action) => {
-      state.coment.push(action.payload.data)
-   },
+   
   },
 });
 
@@ -141,7 +133,7 @@ export const addrate = (postId, formData) => async dispatch => {
   
   try {
       const {data}  = await api.rating(postId , formData)
-      dispatch(rate(data.data))
+      dispatch(rate(data))
    
 
      

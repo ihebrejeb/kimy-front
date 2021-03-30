@@ -22,7 +22,7 @@ function Forum() {
       <div> </div>
       <AddPost/> 
 
-     <ForumList setcurrentId={setcurrentId} />
+      <ForumList setcurrentId={setcurrentId} />
    
      
 
