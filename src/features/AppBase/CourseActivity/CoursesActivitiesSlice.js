@@ -14,13 +14,13 @@ let initialState = {
   values: [],
 };
 export const coursesActivitiesSlice = createSlice({
-  name: "activities",
+  name: "coursesActivities",
   initialState,
   reducers: {
     getcoursesActivities: (state, action) => {
       state.values = action.payload;
     },
-    updateCourseActivities: (state, action) => {
+    /* updateCourseActivities: (state, action) => {
       const payload = action.payload._id;
       state.values = state.values.map((courseActivity) =>
         courseActivity._id === payload ? action.payload : courseActivity
@@ -33,7 +33,7 @@ export const coursesActivitiesSlice = createSlice({
       state.values = state.values.filter(
         (courseActivity) => courseActivity._id !== payload
       );
-    },
+    },*/
   },
 
   extraReducers: {
@@ -45,7 +45,7 @@ export const coursesActivitiesSlice = createSlice({
 
 export const {
   getcoursesActivities,
-  updateCourseActivities,
+  // updateCourseActivities,
   deletecourseActivitiesRedcuer,
 } = coursesActivitiesSlice.actions;
 
@@ -60,7 +60,7 @@ export const GetCoursesActivities = () => async (dispatch) => {
   }
 };
 
-export const update = (id, courseActivity) => async (dispatch) => {
+/*export const update = (id, courseActivity) => async (dispatch) => {
   try {
     const { data } = await api.UpdateCoursesActivities(id, courseActivity);
     dispatch(updateCourseActivities(data.data));
@@ -83,9 +83,8 @@ export const deleteCourseActivities = (id) => async (dispatch) => {
 //    catch(error) {
 //      console.log(error.message)
 //    }
-//  }
+//  }*/
 
-export const selectcoursesActivities = (state) =>
-  state.coursesActivities.values;
+export const selectactivities = (state) => state.coursesActivities.values;
 
 export default coursesActivitiesSlice.reducer;

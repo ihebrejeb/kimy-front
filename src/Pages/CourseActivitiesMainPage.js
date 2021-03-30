@@ -9,11 +9,13 @@ function CourseActivitiesMainPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetCoursesActivities());
-  }, [currentId, dispatch]);
+  }, [dispatch]);
 
   return (
     <div>
-      <CoursesActivitiesList></CoursesActivitiesList>
+      <CoursesActivitiesList
+        setcurrentId={setcurrentId}
+      ></CoursesActivitiesList>
     </div>
   );
 }
