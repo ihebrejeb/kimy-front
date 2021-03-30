@@ -12,8 +12,8 @@ function CoursesActivitiesList({ setcurrentId }) {
   //console.log(coursesActivities);
   return (
     <div>
-      {coursesActivities?.map((courseActivity) => (
-        <Grid key={courseActivity?._id} item xs={12} sm={4} md={3}>
+      {coursesActivities.map((courseActivity) => (
+        <Grid key={courseActivity._id} item xs={12} sm={4} md={3}>
           <CourseActivity
             coursesActivities={courseActivity}
             setCurrentId={setcurrentId}
