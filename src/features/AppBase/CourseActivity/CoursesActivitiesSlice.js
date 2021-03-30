@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import * as api from "../../../Api/ActivitiesApi";
 
-export const createCourse = createAsyncThunk(
-  "courses/addcourse",
-  async (courses, thunkAPI) => {
-    const response = await api.CreateCourses(courses);
+export const createCourseActivities = createAsyncThunk(
+  "activites/addcourseactivity",
+  async (coursesActivities, thunkAPI) => {
+    const response = await api.CreateCoursesActivities(coursesActivities);
     return response.data;
   }
 );
@@ -13,46 +13,48 @@ export const createCourse = createAsyncThunk(
 let initialState = {
   values: [],
 };
-export const coursesSlice = createSlice({
-  name: "courses",
+export const coursesActivitiesSlice = createSlice({
+  name: "activities",
   initialState,
   reducers: {
-    getcourses: (state, action) => {
+    getcoursesActivities: (state, action) => {
       state.values = action.payload;
     },
-    updateCourse: (state, action) => {
+    updateCourseActivities: (state, action) => {
       const payload = action.payload._id;
-      state.values = state.values.map((course) =>
-        course._id === payload ? action.payload : course
+      state.values = state.values.map((courseActivity) =>
+        courseActivity._id === payload ? action.payload : courseActivity
       );
       console.log(action.payload);
     },
-    deletecourseRedcuer: (state, action) => {
+    deletecourseActivitiesRedcuer: (state, action) => {
       const payload = action.payload;
 
-      state.values = state.values.filter((course) => course._id !== payload);
+      state.values = state.values.filter(
+        (courseActivity) => courseActivity._id !== payload
+      );
     },
   },
 
   extraReducers: {
-    [createCourse.fulfilled]: (state, action) => {
+    [createCourseActivities.fulfilled]: (state, action) => {
       state.values.push(action.payload.data);
     },
   },
 });
 
 export const {
-  getcourses,
-  updateCourse,
-  deletecourseRedcuer,
-} = coursesSlice.actions;
+  getcoursesActivities,
+  updateCourseActivities,
+  deletecourseActivitiesRedcuer,
+} = coursesActivitiesSlice.actions;
 
 //thunk
-export const GetCourses = () => async (dispatch) => {
+export const GetCoursesActivities = () => async (dispatch) => {
   try {
-    const { data } = await api.fetchCourses();
+    const { data } = await api.fetchCoursesActivities();
 
-    dispatch(getcourses(data.data));
+    dispatch(getcoursesActivities(data.data));
   } catch (error) {
     console.log(error.message);
   }
@@ -60,17 +62,17 @@ export const GetCourses = () => async (dispatch) => {
 
 export const update = (id, course) => async (dispatch) => {
   try {
-    const { data } = await api.UpdateCourses(id, course);
-    dispatch(updateCourse(data.data));
+    const { data } = await api.UpdateCoursesActivities(id, course);
+    dispatch(updateCourseActivities(data.data));
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const deleteCourse = (id) => async (dispatch) => {
+export const deleteCourseActivities = (id) => async (dispatch) => {
   try {
-    await api.deleteCourses(id);
-    dispatch(deletecourseRedcuer(id));
+    await api.deleteCoursesActivities(id);
+    dispatch(deletecourseActivitiesRedcuer(id));
   } catch {}
 };
 //  export const createCourse =(courses )=> async(dispatch) => {
@@ -83,6 +85,7 @@ export const deleteCourse = (id) => async (dispatch) => {
 //    }
 //  }
 
-export const selectcourses = (state) => state.courses.values;
+export const selectcoursesActivities = (state) =>
+  state.coursesActivities.values;
 
-export default coursesSlice.reducer;
+export default coursesActivitiesSlice.reducer;

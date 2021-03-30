@@ -14,12 +14,13 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
-import LiveChat from "../AppBase/chat/LiveChat" ;
+import LiveChat from "../AppBase/chat/LiveChat";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
 import { useSelector } from "react-redux";
-import {selectuser } from "./user/UserSlice";
+import { selectuser } from "./user/UserSlice";
+import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
 
 const drawerWidth = 200;
 
@@ -44,23 +45,22 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   content: {
-    backgroundColor:'#f3f2ef',
+    backgroundColor: "#f3f2ef",
     flexGrow: 1,
     padding: theme.spacing(3),
   },
 }));
 
 export default function ClippedDrawer() {
-  const user = useSelector(selectuser)
+  const user = useSelector(selectuser);
 
   const classes = useStyles();
   const history = useHistory();
 
-
   const signOut = () => {
-    auth.signOut() ;
-    history.push("/")
-  }
+    auth.signOut();
+    history.push("/");
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -68,12 +68,12 @@ export default function ClippedDrawer() {
         <Toolbar>
           <img src={logo} className={classes.logo} alt="logo"></img>
           <p> Welcome : {user.email}</p>
-          
-          <button onClick={signOut} className="Profile_screenSignOut"> Sign Out</button>
-          
-        
+
+          <button onClick={signOut} className="Profile_screenSignOut">
+            {" "}
+            Sign Out
+          </button>
         </Toolbar>
-        
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -120,16 +120,19 @@ export default function ClippedDrawer() {
             <Forum></Forum>
           </Route>
           <Route exact path="/app/singlepost/:id">
-            <SinglePost/>
+            <SinglePost />
           </Route>
           <Route exact path="/app/addPost">
-            <AddPost/>
+            <AddPost />
           </Route>
           <Route exact path="/app/chat">
-          <LiveChat/>
-        </Route>
+            <LiveChat />
+          </Route>
           <Route exact path="/app/calendar">
             <Calendar></Calendar>
+          </Route>
+          <Route exact path="/app/activites">
+            <CourseActivitiesMainPage />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>
