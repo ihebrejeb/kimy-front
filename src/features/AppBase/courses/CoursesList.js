@@ -12,18 +12,13 @@ function CoursesList({ setcurrentId }) {
   console.log(courses);
   return (
     <div>
-      <Grid
-        className={classes.container}
-        container
-        alignItems="stretch"
-        spacing={3}
-      >
-        {courses?.map((course) => (
-          <Grid key={course?._id} item xs={12} sm={4} md={3}>
-            <Course courses={course} setCurrentId={setcurrentId} />
-          </Grid>
-        ))}
-      </Grid>
+      className={classes.container}
+      container alignItems="stretch" spacing={3}>
+      {courses?.map((course) => (
+        <Grid key={course?._id} item xs={12} sm={4} md={3}>
+          <Course courses={course} setCurrentId={setcurrentId} />
+        </Grid>
+      ))}
     </div>
   );
 }

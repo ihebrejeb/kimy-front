@@ -60,7 +60,7 @@ function AddActivity({ currentId, setcurrentId }) {
   return (
     <div>
       <button variant="outlined" color="secondary" onClick={handleClickOpen}>
-        {currentId ? "Edit this course here" : "create another  activity "}
+        {currentId ? "Edit this course here" : "create an  activity  "}
       </button>
       <Dialog
         open={open}
@@ -82,6 +82,8 @@ function AddActivity({ currentId, setcurrentId }) {
               variant="outlined"
               label="Title"
               fullWidth
+              multiline
+              rows={4}
               value={activityData.title}
               onChange={(e) =>
                 setactivityData({ ...activityData, title: e.target.value })
@@ -103,6 +105,8 @@ function AddActivity({ currentId, setcurrentId }) {
               variant="outlined"
               label="Description"
               fullWidth
+              multiline
+              rows={4}
               value={activityData.description}
               onChange={(e) =>
                 setactivityData({
@@ -116,10 +120,7 @@ function AddActivity({ currentId, setcurrentId }) {
               InputProps={{ className: styles.field }}
               name="nbSeances"
               variant="outlined"
-              label="NbSeances"
-              fullWidth
-              multiline
-              rows={4}
+              label="Number of sessions"
               value={activityData.nbSeances}
               onChange={(e) =>
                 setactivityData({ ...activityData, nbSeances: e.target.value })
@@ -131,11 +132,14 @@ function AddActivity({ currentId, setcurrentId }) {
               name="ressources"
               variant="outlined"
               label="Ressources "
+              fullWidth
+              multiline
+              rows={4}
               value={activityData.ressources}
               onChange={(e) =>
                 setactivityData({
                   ...activityData,
-                  ressources: e.target.value.split(","),
+                  ressources: e.target.value,
                 })
               }
             />
