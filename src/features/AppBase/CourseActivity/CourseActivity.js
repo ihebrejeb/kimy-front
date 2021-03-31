@@ -17,41 +17,73 @@ import { useDispatch } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { deleteCourseActivities } from "./CoursesActivitiesSlice";
 import { useHistory } from "react-router";
+import classes from "../CourseActivity/CourseActivity.module.css";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import FolderIcon from "@material-ui/icons/Folder";
+import VideoCallIcon from "@material-ui/icons/VideoCall";
+import LanguageIcon from "@material-ui/icons/Language";
+import { makeStyles } from "@material-ui/core/styles";
 
 function CourseActivity({ coursesActivities, setCurrentId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      width: "35%",
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular,
+    },
+  }));
   return (
-    <div>
-      <Card className={styles.card}>
-        <CardHeader
-          avatar={<Avatar aria-label="course"></Avatar>}
-          action={
-            <IconButton aria-label="settings">
-              <MoreHorizIcon
-                onClick={() => setCurrentId(coursesActivities._id)}
-              />
-            </IconButton>
-          }
+    <div className={classes.root}>
+      <Accordion className={styles.accor}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography className={classes.heading}>Files</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <FolderIcon></FolderIcon>
+          <Typography>Insert Files here</Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
           title={coursesActivities.title}
-        />
-
-        <CardMedia
-          className={styles.media}
-          image={
-            coursesActivities.selectedFile ||
-            "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-          }
-          title={coursesActivities.title}
-        ></CardMedia>
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {coursesActivities.title}
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography className={classes.heading}>
+            Videos <VideoCallIcon></VideoCallIcon>
           </Typography>
-        </CardContent>
-        <CardActions className={styles.cardActions}></CardActions>
-      </Card>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>Insert videos here</Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography className={classes.heading}>
+            Resources <LanguageIcon></LanguageIcon>
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>Insert Resources here</Typography>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 }
