@@ -2,7 +2,7 @@
   margin-top: 50px;
   display: inline-flex;
   justify-content: start;
-  align-items: flex-start;
+  align-items: inline-flex;
   flex-flow: row;
   flex-wrap: wrap;
   gap: 10px;
