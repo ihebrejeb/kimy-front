@@ -103,6 +103,12 @@ export default function ClippedDrawer() {
               </ListItemIcon>
               <ListItemText primary="Forum" />
             </ListItem>
+            <ListItem button onClick={() => history.push("/app/activites")}>
+              <ListItemIcon>
+                <ViewCompactIcon></ViewCompactIcon>
+              </ListItemIcon>
+              <ListItemText primary="Activities" />
+            </ListItem>
           </List>
         </div>
       </Drawer>

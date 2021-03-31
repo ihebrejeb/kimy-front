@@ -1,7 +1,9 @@
 .activities {
-  display: flex;
-  justify-content: space-between;
+  margin-top: 50px;
+  display: inline-flex;
+  justify-content: start;
   align-items: flex-start;
   flex-flow: row;
   flex-wrap: wrap;
+  gap: 10px;
 }
