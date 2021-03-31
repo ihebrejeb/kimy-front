@@ -13,7 +13,7 @@ import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutline
 import { useHistory } from 'react-router';
 import ReactHtmlParser from 'react-html-parser'
 import { useDispatch, useSelector } from 'react-redux';
-import { addLike, deletePost, selectPost, updatelikes } from './ForumSlice';
+import { addLike, deletePost, selectPost, unlike, updatelikes } from './ForumSlice';
 import moment from 'moment'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -52,6 +52,10 @@ function Post ({showActions , Posts, currentId })  {
        e.preventDefault()
        dispatch(addLike(Posts._id))
     }
+    const UNLIKE =(e) => {
+        e.preventDefault()
+        dispatch(unlike(Posts._id))
+     }
 
     return (
         
@@ -92,7 +96,7 @@ function Post ({showActions , Posts, currentId })  {
                 
                 color="blue"    / > </IconButton>
                 
-                 <IconButton aria-label="view" >
+                 <IconButton aria-label="view" onClick={UNLIKE} >
                      
                    <InputOption Icon={ThumbDownIcon}  title=""
                  color="blue"/> </IconButton>

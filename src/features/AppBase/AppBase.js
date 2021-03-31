@@ -74,6 +74,7 @@ export default function ClippedDrawer() {
         
         </Toolbar>
         
+        
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -81,33 +82,33 @@ export default function ClippedDrawer() {
         classes={{
           paper: classes.drawerPaper,
         }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List>
-            <ListItem button onClick={() => history.push("/app/courses")}>
-              <ListItemIcon>
-                <ViewCompactIcon></ViewCompactIcon>
-              </ListItemIcon>
-              <ListItemText primary="Courses" />
-            </ListItem>
-            <ListItem button onClick={() => history.push("/app/chat")}>
-              <ListItemIcon>
-                <ViewCompactIcon></ViewCompactIcon>
-              </ListItemIcon>
-              <ListItemText primary="livechat" />
-            </ListItem>
-            <ListItem button onClick={() => history.push("/app/forum")}>
-              <ListItemIcon>
-                <ViewCompactIcon></ViewCompactIcon>
-              </ListItemIcon>
-              <ListItemText primary="Forum" />
-            </ListItem>
-          </List>
-        </div>
-      </Drawer>
-      <main className={classes.content}>
-        <Toolbar />
+      > <Toolbar />
+      <div className={classes.drawerContainer}>
+        <List>
+          <ListItem button onClick={() => history.push("/app/courses")}>
+            <ListItemIcon>
+              <ViewCompactIcon></ViewCompactIcon>
+            </ListItemIcon>
+            <ListItemText primary="Courses" />
+          </ListItem>
+          <ListItem button onClick={() => history.push("/app/chat")}>
+            <ListItemIcon>
+              <ViewCompactIcon></ViewCompactIcon>
+            </ListItemIcon>
+            <ListItemText primary="livechat" />
+          </ListItem>
+          <ListItem button onClick={() => history.push("/app/forum")}>
+            <ListItemIcon>
+              <ViewCompactIcon></ViewCompactIcon>
+            </ListItemIcon>
+            <ListItemText primary="Forum" />
+          </ListItem>
+        </List>
+      </div>
+    </Drawer>
+    <main className={classes.content}>
+      <Toolbar />
+       
 
         <Switch>
           <Route exact path="/app">

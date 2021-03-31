@@ -89,15 +89,16 @@ function App() {
 
      ):  ( 
       <Switch>
-      <Route exact path="/">
-      <LandingPage />
-    </Route>
-     
-      <Route path="/app">
+        <Route path="/app">
         <ThemeProvider theme={theme}>
           <AppBase />
         </ThemeProvider>
       </Route>
+      <Route exact path="/">
+      <LandingPage />
+    </Route>
+     
+      
 
       </Switch>
       

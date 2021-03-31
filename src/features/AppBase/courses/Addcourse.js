@@ -67,9 +67,17 @@ function Addcourse({currentId , setcurrentId}) {
 
     return (
       <div> 
+        <div className={styles.searchfield}>
       <button variant="outlined" color="secondary" onClick={handleClickOpen}>
       {currentId ? 'Edit this course here' : 'create your own  course '}
      </button>
+     <TextField
+    id="outlined-secondary"
+    label=" Join Using Invite Code"
+    variant="outlined"
+    color="secondary"
+  />
+   </div>
      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
        <DialogTitle id="form-dialog-title"> </DialogTitle>
        <DialogContent>

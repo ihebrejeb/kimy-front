@@ -2,6 +2,7 @@ import axios from 'axios'
 const url = 'http://localhost:4000/forum' ;
 const url1 = 'http://localhost:4000/forum/like' ;
 const url3 = 'http://localhost:4000/forum/rate' ;
+const url4 = 'http://localhost:4000/forum/unlike' ;
 
 
 
@@ -12,3 +13,4 @@ export const deletePosts = (id ) => axios.delete(`${url}/${id}` );
 export const fetchOnePost = (id ) => axios.get(`${url}/${id}` );
 export const AddLike= (id) => axios.patch(`${url1}/${id}`) ;
 export const rating =(id) => axios.post(`${url3}/${id}`) ; 
+export const removeLike= (id) => axios.patch(`${url4}/${id}`) ;

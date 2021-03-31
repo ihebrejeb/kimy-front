@@ -58,6 +58,7 @@ export const forumslice = createSlice({
         state.post.rate.push(action.payload)
         
       },
+
   },
   extraReducers : {
  
@@ -119,6 +120,18 @@ export const Removecomment= ( id , C_id) => async(dispatch) => {
 export const addLike = (id) => async (dispatch) => {
   try {
       const {data} = await api.AddLike(id)
+      dispatch(Like(data))
+      console.log(data)
+         
+  } catch (error) {
+    console.log(error.message)
+
+  }
+
+}
+export const unlike = (id) => async (dispatch) => {
+  try {
+      const {data} = await api.removeLike(id)
       dispatch(Like(data))
       console.log(data)
          
