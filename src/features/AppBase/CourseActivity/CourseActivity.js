@@ -43,7 +43,20 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
   return (
     <div className={classes.root}>
       <Card>
-        <CardHeader title={coursesActivities.title} />
+        <CardHeader
+          title={coursesActivities.title}
+          action={
+            <Button
+              size="small"
+              color="primary"
+              onClick={() =>
+                dispatch(deleteCourseActivities(coursesActivities._id))
+              }
+            >
+              <DeleteIcon />
+            </Button>
+          }
+        />
 
         <Accordion className={styles.accor}>
           <AccordionSummary
