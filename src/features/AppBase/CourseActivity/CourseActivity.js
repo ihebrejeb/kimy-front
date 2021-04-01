@@ -57,18 +57,32 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
             </Button>
           }
         />
-
         <Accordion className={styles.accor}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>Files</Typography>
+            <Typography className={classes.heading}>
+              Files / video recordings <FolderIcon></FolderIcon>
+            </Typography>
           </AccordionSummary>
+
           <AccordionDetails>
-            <FolderIcon></FolderIcon>
-            <Typography>{coursesActivities.file}</Typography>
+            <Typography>insert files here </Typography>
+          </AccordionDetails>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography className={classes.heading}>
+              videos <FolderIcon></FolderIcon>
+            </Typography>
+          </AccordionSummary>
+
+          <AccordionDetails>
+            <Typography>insert videos here </Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion>
@@ -78,11 +92,11 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
             id="panel2a-header"
           >
             <Typography className={classes.heading}>
-              Videos <VideoCallIcon></VideoCallIcon>
+              Description of the chapter <LanguageIcon></LanguageIcon>
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>Insert videos here</Typography>
+            <Typography>Insert Desc here</Typography>
           </AccordionDetails>
         </Accordion>
 
