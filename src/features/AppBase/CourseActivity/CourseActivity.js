@@ -28,6 +28,7 @@ import LanguageIcon from "@material-ui/icons/Language";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DescriptionIcon from "@material-ui/icons/Description";
+import EditIcon from "@material-ui/icons/Edit";
 
 function CourseActivity({ coursesActivities, setCurrentId }) {
   const dispatch = useDispatch();
@@ -47,15 +48,14 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
         <CardHeader
           title={coursesActivities.title}
           action={
-            <Button
-              size="small"
-              color="primary"
-              onClick={() =>
-                dispatch(deleteCourseActivities(coursesActivities._id))
-              }
-            >
-              <DeleteIcon />
-            </Button>
+            <IconButton>
+              <DeleteIcon
+                onClick={() =>
+                  dispatch(deleteCourseActivities(coursesActivities._id))
+                }
+              />
+              <EditIcon onClick={() => setCurrentId(coursesActivities._id)} />
+            </IconButton>
           }
         />
         <Accordion className={styles.accor}>

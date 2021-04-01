@@ -13,7 +13,7 @@ import { createCourseActivities, update } from "./CoursesActivitiesSlice";
 
 function AddActivity({ currentId, setcurrentId }) {
   const activity = useSelector((state) =>
-    currentId ? state.activities.values.find((c) => c._id === currentId) : null
+    currentId ? state.activities?.values.find((c) => c._id === currentId) : null
   );
   const [activityData, setactivityData] = useState({
     title: "",
@@ -49,7 +49,7 @@ function AddActivity({ currentId, setcurrentId }) {
     e.preventDefault();
 
     if (currentId) {
-      // dispatch(update(currentId ,courseData))
+      dispatch(update(currentId, activityData));
     } else {
       dispatch(createCourseActivities(activityData));
     }
@@ -60,7 +60,7 @@ function AddActivity({ currentId, setcurrentId }) {
   return (
     <div>
       <button variant="outlined" color="secondary" onClick={handleClickOpen}>
-        {currentId ? "Edit this course here" : "create an  activity  "}
+        {currentId ? "Edit this activity" : "create an  activity  "}
       </button>
       <Dialog
         open={open}
