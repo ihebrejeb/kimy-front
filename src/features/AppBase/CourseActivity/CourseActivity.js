@@ -27,6 +27,7 @@ import VideoCallIcon from "@material-ui/icons/VideoCall";
 import LanguageIcon from "@material-ui/icons/Language";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
+import DescriptionIcon from "@material-ui/icons/Description";
 
 function CourseActivity({ coursesActivities, setCurrentId }) {
   const dispatch = useDispatch();
@@ -92,11 +93,14 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
             id="panel2a-header"
           >
             <Typography className={classes.heading}>
-              Description of the chapter <LanguageIcon></LanguageIcon>
+              Description of the chapter <DescriptionIcon></DescriptionIcon>
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>Insert Desc here</Typography>
+            <Typography>
+              {coursesActivities.description}
+              Sessions
+            </Typography>
           </AccordionDetails>
         </Accordion>
 
