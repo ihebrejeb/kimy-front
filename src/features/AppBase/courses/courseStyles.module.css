@@ -1,54 +1,51 @@
-
-  .media {
-  padding-top: 56.25%;  
+.media {
+  padding-top: 56.25%;
   background-blend-mode: darken;
-   width:5px, ;
-  height: 10px ; 
+  width: 5px;
+  height: 10px;
   position: relative;
- 
-  }
-  .border {
-    border: solid
-  }
-  .fullHeightCard {
-    height: 100%; 
-  }
-  .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 15px;
-    height: 100%;
-    position: absolute,
-  }
-  .overlay {
-    
-    top: 40px;
-    left: 20px;
-    color: black;
-  }
-  .overlay2 {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-  }
-  .grid {
-    display: 'flex',
-  }
-  .details {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px,
-  }
-  title {
-    padding: 0 16px,
-  }
-  .cardActions {
-    padding: 0 16px 8px 16px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .edit{
-    float: right; 
- }
+}
+.border {
+  border: solid;
+}
+.fullHeightCard {
+  height: 100%;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 15px;
+  height: 100%;
+  position: absolute;
+}
+.overlay {
+  top: 40px;
+  left: 20px;
+  color: black;
+}
+.overlay2 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+}
+.grid {
+  display: "flex";
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+title {
+  padding: 0 16px;
+}
+.cardActions {
+  padding: 0 16px 8px 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.edit {
+  float: right;
+}

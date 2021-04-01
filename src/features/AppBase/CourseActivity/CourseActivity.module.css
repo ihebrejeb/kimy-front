@@ -1,32 +1,36 @@
 .flex {
-    display: flex;
-    flex-direction: column;
-  }
-  .act {
-    margin-left: 50px;
-  }
-  
-  .btn {
-    position: absolute;
-    margin-bottom: -20px;
-    bottom: 30%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    background-color: blue;
-    color: white;
-    font-size: 16px;
-    padding: 8px;
-    border: 12px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .btn:hover {
-    background-color: black;
-  }
-  
-  .accor {
-    margin-top: 80px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+}
+.act {
+  margin-left: 50px;
+}
+
+.btn {
+  position: absolute;
+  margin-bottom: -20px;
+  bottom: 30%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: blue;
+  color: white;
+  font-size: 16px;
+  padding: 8px;
+  border: 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: black;
+}
+
+.accor {
+  margin-top: 80px;
+}
+.cardActions {
+  padding: 0 16px 8px 16px;
+  display: flex;
+  justify-content: space-between;
+}

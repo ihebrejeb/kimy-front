@@ -26,6 +26,7 @@ import FolderIcon from "@material-ui/icons/Folder";
 import VideoCallIcon from "@material-ui/icons/VideoCall";
 import LanguageIcon from "@material-ui/icons/Language";
 import { makeStyles } from "@material-ui/core/styles";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 function CourseActivity({ coursesActivities, setCurrentId }) {
   const dispatch = useDispatch();
