@@ -18,11 +18,14 @@ import {
   CardMedia,
   CircularProgress,
 } from "@material-ui/core";
+import { useHistory } from "react-router";
 
 export default function Recording({ room, isOwner, setRooms }) {
   const [mediaLink, setMediaLink] = useState(null);
+
   const [recordingStatus, setRecordingStatus] = useState(room.recordingStatus);
   const [loading, setloading] = useState(true);
+  const history = useHistory();
   useEffect(() => {
     const getVideo = async () => {
       const res = await getMediaLinks(room.roomSID);
@@ -77,6 +80,12 @@ export default function Recording({ room, isOwner, setRooms }) {
           )}
           <Button color="primary" onClick={deleteRoom}>
             Delete recording
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => history.push("/app/attendance/" + room._id)}
+          >
+            Attendance
           </Button>
         </CardActions>
       </Card>

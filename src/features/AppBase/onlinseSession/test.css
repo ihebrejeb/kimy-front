@@ -25,10 +25,13 @@
 }
 .micOff {
   position: absolute;
-  bottom: 30%;
-  left: 50%;
+  bottom: 15px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
   z-index: 20;
-  color: darkred;
+  color: rgb(201, 25, 25);
   text-shadow: 0px 12px 22px rgba(0, 0, 0, 0.6);
 }
 .localVideo video {
@@ -57,6 +60,7 @@
   position: relative;
   gap: 10px;
   justify-content: center;
+  align-items: center;
 }
 .myvideos {
   display: flex;
@@ -70,6 +74,7 @@
 
 .myvideos video {
   width: 100%;
+  min-height: 100%;
   position: relative;
   vertical-align: middle;
   align-self: center;
@@ -89,7 +94,7 @@
 .Camera {
   position: relative;
   width: 30%;
-  height: 100%;
+  min-height: 300px;
   animation: show 0.4s ease;
   overflow: hidden;
   display: flex;
@@ -107,4 +112,26 @@
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+.selected {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 30;
+}
+
+.selected video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: 100%;
+}
+.btn {
+  z-index: 50;
 }

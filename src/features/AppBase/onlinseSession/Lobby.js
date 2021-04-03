@@ -4,7 +4,7 @@ import Video from "twilio-video";
 import LocalVideo from "./LocalVideo";
 import Room from "./Room";
 import styles from "./lobby.module.css";
-import { createRoom, getTwilioToken } from "./url";
+import { createRoom, getTwilioToken, markAttendance } from "./url";
 import { Button, CircularProgress } from "@material-ui/core";
 const Lobby = () => {
   const [username] = useState("iheb@rejeb.tn" + Math.random());
@@ -48,6 +48,7 @@ const Lobby = () => {
       setConnecting(false);
       if (!isVideo) disableVideo(room);
       if (!isAudio) disableAudio(room);
+      markAttendance(room.sid);
       setRoom(room);
     } catch (err) {
       console.error(err);

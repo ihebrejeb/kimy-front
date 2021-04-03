@@ -12,6 +12,7 @@ import LiveChat from "../AppBase/chat/LiveChat";
 import CourseDemo from "./onlinseSession/CourseDemo";
 import CourseRecordings from "./onlinseSession/CourseRecordings";
 import Lobby from "./onlinseSession/Lobby";
+import Attendance from "./onlinseSession/Attendance";
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -120,6 +121,9 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/video/:roomName">
             <Lobby></Lobby>
+          </Route>
+          <Route exact path="/app/attendance/:roomId">
+            <Attendance></Attendance>
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>

@@ -26,6 +26,9 @@
 }
 .video {
   max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .backButton {
   padding: 5px 3px 5px 7px !important;
@@ -48,4 +51,7 @@
 }
 .hidden {
   display: none;
+}
+.mt {
+  justify-self: flex-end;
 }

@@ -45,3 +45,13 @@ export const composeVideo = async (roomSID) => {
   const res = await Axios.get("/twilio/composevideo/" + roomSID);
   return res;
 };
+export const markAttendance = async (roomSID) => {
+  const res = await Axios.post("/attendance", {
+    roomSID,
+  });
+  return res;
+};
+export const getAttendance = async (roomId) => {
+  const res = await Axios.get("/attendance/" + roomId);
+  return res;
+};
