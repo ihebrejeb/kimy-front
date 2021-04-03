@@ -1,62 +1,69 @@
-import {  TextField } from '@material-ui/core';
-import React from 'react'
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import FileBase from 'react-file-base64';
-import styles from './addcourse.module.css'
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { createCourse , update } from './CoursesSlice';
-import { useEffect } from 'react';
-import { selectuser } from '../user/UserSlice';
+import { TextField } from "@material-ui/core";
+import React from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import FileBase from "react-file-base64";
+import styles from "./addcourse.module.css";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { createCourse, update } from "./CoursesSlice";
+import { useEffect } from "react";
+import { selectuser } from "../user/UserSlice";
 
+function Addcourse({ currentId, setcurrentId }) {
+  const course = useSelector((state) =>
+    currentId ? state.courses.values.find((c) => c._id === currentId) : null
+  );
 
-function Addcourse({currentId , setcurrentId}) {
-  const course = useSelector((state) => currentId ? state.courses.values.find((c)=> c._id === currentId) :null);
-
-
-    const [courseData, setcourseData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
-    const dispatch = useDispatch();
-    const [open, setOpen] = React.useState(false);
+  const [courseData, setcourseData] = useState({
+    creator: "",
+    title: "",
+    message: "",
+    tags: "",
+    selectedFile: "",
+  });
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-  
+
   const handleClose = () => {
     setOpen(false);
-    
   };
-  const user = useSelector(selectuser)
+  const user = useSelector(selectuser);
 
-  useEffect(()=> {
+  useEffect(() => {
+    if (course) setcourseData(course);
+  }, [course]);
 
-    if (course) setcourseData(course)
-
-  }, [course])
-
- const clear =( ) => {
-    setcurrentId= null;
-   setcourseData({ creator: ' ', title: '', message: '', tags: '', selectedFile: ''})
-  
- }
+  const clear = () => {
+    setcurrentId = null;
+    setcourseData({
+      creator: " ",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault() ; 
+    e.preventDefault();
 
-    if(currentId) {
-      dispatch(update(currentId ,courseData))
-    
-    } else {    
-       dispatch(createCourse(courseData)) ;
+    if (currentId) {
+      dispatch(update(currentId, courseData));
+    } else {
+      dispatch(createCourse(courseData));
     }
-    
 
     setOpen(false);
     clear();
+  };
 
 
     }
@@ -108,4 +115,4 @@ function Addcourse({currentId , setcurrentId}) {
     )
 }
 
-export default Addcourse
+export default Addcourse;

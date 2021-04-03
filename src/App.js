@@ -59,7 +59,6 @@ function App() {
     return unsubscribe;
   }, [dispatch]);
   return (
-    
     <Suspense fallback={<p>...Loading page please wait</p>}>
       <Router>
         {!user ? (
@@ -118,7 +117,6 @@ function App() {
         )}
       </Router>
     </Suspense>
-
   );
 }
 

@@ -14,14 +14,13 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
-import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
-
 import LiveChat from "../AppBase/chat/LiveChat";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
 import { useSelector } from "react-redux";
 import { selectuser } from "./user/UserSlice";
+import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
 
 const drawerWidth = 200;
 
@@ -104,6 +103,12 @@ export default function ClippedDrawer() {
                 <ViewCompactIcon></ViewCompactIcon>
               </ListItemIcon>
               <ListItemText primary="Forum" />
+            </ListItem>
+            <ListItem button onClick={() => history.push("/app/activites")}>
+              <ListItemIcon>
+                <ViewCompactIcon></ViewCompactIcon>
+              </ListItemIcon>
+              <ListItemText primary="Activities" />
             </ListItem>
           </List>
         </div>
