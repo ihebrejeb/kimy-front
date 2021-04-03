@@ -1,0 +1,17 @@
+.comment{
+    background-color: white;
+    padding: 15px;
+    max-width: 800;
+    margin: auto;
+    margin-bottom: 10px;
+    
+}
+.body{
+    display: flex;
+    justify-content: space-between;
+}
+
+.post__info{
+    display: flex;
+    flex-direction: column;
+}

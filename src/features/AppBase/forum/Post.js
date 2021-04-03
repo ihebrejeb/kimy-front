@@ -1,56 +1,126 @@
-import { Avatar } from '@material-ui/core'
+import { Avatar, Card, CardContent, CardHeader, Divider, IconButton, makeStyles, Typography } from '@material-ui/core'
 
 import InputOption from './Input'
 import './post.css'
+import { Link } from 'react-router-dom'
+import { red } from '@material-ui/core/colors';
+
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import GradeIcon from '@material-ui/icons/Grade';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import { useHistory } from 'react-router';
-function Post ({showActions})  {
+import ReactHtmlParser from 'react-html-parser'
+import { useDispatch, useSelector } from 'react-redux';
+import { addLike, deletePost, selectPost, unlike, updatelikes } from './ForumSlice';
+import moment from 'moment'
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-   const history = useHistory();
+import { Fragment } from 'react';
+
+function Post ({showActions , Posts, currentId })  {
+   const dispatch = useDispatch()
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            maxWidth: 665,
+            marginBottom:'10px',
+            margin:'auto'
+        },
+        media: {
+            height: 0,
+            paddingTop: '56.25%', // 16:9
+        },
+        expand: {
+            transform: 'rotate(0deg)',
+            marginLeft: 'auto',
+            transition: theme.transitions.create('transform', {
+                duration: theme.transitions.duration.shortest,
+            }),
+        },
+        expandOpen: {
+            transform: 'rotate(180deg)',
+        },
+        avatar: {
+            backgroundColor: red[500],
+        },
+    }));
+    const classes = useStyles();
+
+    
+    const LIKE =(e) => {
+       e.preventDefault()
+       dispatch(addLike(Posts._id))
+    }
+    const UNLIKE =(e) => {
+        e.preventDefault()
+        dispatch(unlike(Posts._id))
+     }
+
     return (
-        <div  className="post" >
-            <div className="post__header"> 
-            <Avatar/>
-            <div className="post__info">  
-                    <h2>med habib dridi</h2>
-                    <p>software dev</p>
-              </div>
-             </div>
-
-             <div className="post__body" onClick={() => history.push("/app/singlePost")} >
-                 <p>On recrute des développeurs C#/.net #junior #confirmé et #senior
-
-                👉 Pour plus de détails , veuillez nous contacter par mail kimiy@es^rot.tn
-            On recrute des développeurs C#/.net #junior #confirmé et #senior
-
-               👉          Pour plus de détails , veuillez nous contacter par mail kimiy@es^rot.tn</p>
-             </div>
-             {showActions  &&
-             <div className="post__buttons">
-                 <InputOption Icon={ThumbUpIcon}  title="Like"
-                 color="blue"/>
+        
+             <Card className={classes.root}>
                  
-                   <InputOption Icon={ThumbDownIcon}  title="dislike"
-                 color="blue"/>
-                   <InputOption Icon={VisibilityIcon}  title="views"
-                 color="blue"/>
-                   <InputOption Icon={GradeIcon}  title="Rating"
-                 color="blue"/>
-                 <InputOption  Icon={QuestionAnswerOutlinedIcon}  title="Comments"
-                 color="blue"/>
-                 {/* { !auth.loading && user === auth.user._id } */}
-                  <InputOption Icon={DeleteOutlineOutlinedIcon}  title="Delete"
-                 color="blue"/>
+            <CardHeader
+                avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                        </Avatar>
+
+                }
+                action={ 
+                    <IconButton aria-label="settings">
+                      
+                      <MoreVertIcon onClick={()=> dispatch(deletePost(Posts._id))} />
+                    </IconButton>
+                }
+                title=' Med habib'
+                subheader={moment(Posts.date).format('MMMM Do YYYY')}
+            />
+           
+            <CardContent>
+            
+                <Typography variant="p" color="textprimary" component="p">
+                    {ReactHtmlParser(Posts.title)}
+                </Typography>
+                 <Fragment> <h3 className={classes.root}>
+                    
+                </h3>
+
+                    
+                    {showActions  &&
+             <div className="post__buttons">
+                <IconButton aria-label="view"  onClick={LIKE}>
+                    
+                 <InputOption Icon={ThumbUpIcon}  title=  {Posts.like}
+
                 
+                color="blue"    / > </IconButton>
+                
+                 <IconButton aria-label="view" onClick={UNLIKE} >
+                     
+                   <InputOption Icon={ThumbDownIcon}  title=""
+                 color="blue"/> </IconButton>
+                 <IconButton aria-label="view" >
+                   <InputOption Icon={VisibilityIcon}  title={Posts.views}
+                 color="blue"/></IconButton>
+                 <IconButton aria-label="view" >
+                   <InputOption Icon={GradeIcon}  title={Posts.avg}
+                 color="blue"/></IconButton>
+                 <IconButton aria-label="view" >
+                   <Link to={`/app/singlePost/${Posts._id}`}> 
+                 <InputOption  Icon={QuestionAnswerOutlinedIcon}  title={Posts.comments.length }
+
+                 color="blue"/> 
+                 {/* { !auth.loading && user === auth.user._id } */}
+                 </Link></IconButton> 
              </div> }
+                </Fragment>
+            </CardContent>
+       
+        </Card>
+            
 
           
-        </div>
     )
 }
 Post.defaultProps = {
