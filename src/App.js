@@ -77,23 +77,18 @@ function App() {
               <LiveChat />
             </Route>
 
-            <Route exact path="/404">
-              <NoRoute />
-            </Route>
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path="/app">
-              <ThemeProvider theme={theme}>
-                <AppBase />
-              </ThemeProvider>
-            </Route>
-            <Route exact path="/signup">
-              <SignUp />
-            </Route>
-            <Route exact path="/courses">
-              <Courses />
-            </Route>
+     ):  ( 
+      <Switch>
+        <Route path="/app">
+        <ThemeProvider theme={theme}>
+          <AppBase />
+        </ThemeProvider>
+      </Route>
+      <Route exact path="/">
+      <LandingPage />
+    </Route>
+     
+      
 
             <Route exact path="/whiteboard">
               <Whiteboard />
