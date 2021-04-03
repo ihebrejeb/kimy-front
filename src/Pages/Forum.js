@@ -1,29 +1,33 @@
 import React from 'react'
-import Post from '../features/AppBase/forum/Post'
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
-import InputOption from '../features/AppBase/forum/Input'
-import './forum.css'
-import { TextField } from '@material-ui/core';
+
+import AddPost from '../features/AppBase/forum/AddPost';
+import { getPosts } from '../features/AppBase/forum/ForumSlice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import ForumList from '../features/AppBase/forum/ForumList';
+import { useState } from 'react';
+import'./forum.css'
 function Forum() {
+  // const history = useHistory() ;
+  const dispatch = useDispatch()
+  const [currentId, setcurrentId] = useState(null) ;
+
+  useEffect(() => { 
+    dispatch(getPosts()) ;
+    
+}, [ dispatch  ] ) 
+
   return (
     <div className="forum ">
-      <div className="bar"> 
-      <button> Create a thread</button> 
-      <div className="rightside">  
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+      <div> </div>
+      <AddPost/> 
 
-      <InputOption Icon={ThumbUpOutlinedIcon}  title="Like"
-                 color="blue"/>
+      <ForumList setcurrentId={setcurrentId} />
+   
+     
 
-        <input type="text"  placeholder="search"/>
-       </div>
     
-      </div>
-    
-    <Post/>
-    <Post/>
-    <Post/>
-        
+          
     </div>
   )
 }

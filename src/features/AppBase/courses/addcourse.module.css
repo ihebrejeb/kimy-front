@@ -25,3 +25,6 @@ color: blue;
     color: rgba(57, 57, 235, 0.87) !important;
     
 }
+.searchfield{
+    display: flex;
+justify-content: space-between;}

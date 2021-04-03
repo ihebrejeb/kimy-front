@@ -13,6 +13,13 @@ import CourseDemo from "./onlinseSession/CourseDemo";
 import CourseRecordings from "./onlinseSession/CourseRecordings";
 import Lobby from "./onlinseSession/Lobby";
 import Attendance from "./onlinseSession/Attendance";
+import AddPost from "./forum/AddPost";
+import SinglePost from "./forum/SinglePost";
+import { auth } from "../../Firebase";
+import { useSelector } from "react-redux";
+import { selectuser } from "./user/UserSlice";
+import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
+
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -38,25 +45,34 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   content: {
+    backgroundColor: "#f3f2ef",
     flexGrow: 1,
     padding: theme.spacing(1),
   },
 }));
 
 export default function ClippedDrawer() {
+  const user = useSelector(selectuser);
+
   const classes = useStyles();
   const history = useHistory();
+
+  const signOut = () => {
+    auth.signOut();
+    history.push("/");
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <img
-            src={logo}
-            className={classes.logo}
-            alt="logo"
-            onClick={() => history.push("/app")}
-          ></img>
+          <img src={logo} className={classes.logo} alt="logo"></img>
+          <p> Welcome : {user.email}</p>
+
+          <button onClick={signOut} className="Profile_screenSignOut">
+            {" "}
+            Sign Out
+          </button>
         </Toolbar>
       </AppBar>
       {/* <Drawer
@@ -66,6 +82,7 @@ export default function ClippedDrawer() {
           paper: classes.drawerPaper,
         }}
       >
+        {" "}
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
@@ -87,6 +104,12 @@ export default function ClippedDrawer() {
               </ListItemIcon>
               <ListItemText primary="Forum" />
             </ListItem>
+            <ListItem button onClick={() => history.push("/app/activites")}>
+              <ListItemIcon>
+                <ViewCompactIcon></ViewCompactIcon>
+              </ListItemIcon>
+              <ListItemText primary="Activities" />
+            </ListItem>
           </List>
         </div>
       </Drawer>
@@ -105,13 +128,17 @@ export default function ClippedDrawer() {
           <Route exact path="/app/forum">
             <Forum></Forum>
           </Route>
+          <Route exact path="/app/singlepost/:id">
+            <SinglePost />
+          </Route>
+          <Route exact path="/app/addPost">
+            <AddPost />
+          </Route>
           <Route exact path="/app/chat">
             <LiveChat />
           </Route>
 
-          <Route exact path="/app/calendar">
-            <Calendar></Calendar>
-          </Route>
+         
           {/*   demo video chat */}
           <Route exact path="/app/videodemo">
             <CourseDemo></CourseDemo>
@@ -124,6 +151,12 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/attendance/:roomId">
             <Attendance></Attendance>
+            </Route>
+          <Route exact path="/app/calendar">
+            <Calendar></Calendar>
+          </Route>
+          <Route exact path="/app/activites">
+            <CourseActivitiesMainPage />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>

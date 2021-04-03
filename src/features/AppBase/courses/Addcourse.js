@@ -1,21 +1,32 @@
-import {  TextField } from '@material-ui/core';
-import React from 'react'
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import FileBase from 'react-file-base64';
-import styles from './addcourse.module.css'
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { createCourse } from './CoursesSlice';
-function Addcourse() {
+import { TextField } from "@material-ui/core";
+import React from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import FileBase from "react-file-base64";
+import styles from "./addcourse.module.css";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { createCourse, update } from "./CoursesSlice";
+import { useEffect } from "react";
+import { selectuser } from "../user/UserSlice";
 
+function Addcourse({ currentId, setcurrentId }) {
+  const course = useSelector((state) =>
+    currentId ? state.courses.values.find((c) => c._id === currentId) : null
+  );
 
-    const [courseData, setcourseData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
-    const dispatch = useDispatch();
-    const [open, setOpen] = React.useState(false);
+  const [courseData, setcourseData] = useState({
+    creator: "",
+    title: "",
+    message: "",
+    tags: "",
+    selectedFile: "",
+  });
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,24 +35,56 @@ function Addcourse() {
   const handleClose = () => {
     setOpen(false);
   };
+  const user = useSelector(selectuser);
+
+  useEffect(() => {
+    if (course) setcourseData(course);
+  }, [course]);
+
+  const clear = () => {
+    setcurrentId = null;
+    setcourseData({
+      creator: " ",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault() ; 
-    dispatch(createCourse(courseData)) ;
+    e.preventDefault();
+
+    if (currentId) {
+      dispatch(update(currentId, courseData));
+    } else {
+      dispatch(createCourse(courseData));
+    }
+
     setOpen(false);
+    clear();
+  };
 
 
     }
     
-
+    
 
 
 
     return (
       <div> 
+        <div className={styles.searchfield}>
       <button variant="outlined" color="secondary" onClick={handleClickOpen}>
-      Create Your own  course
+      {currentId ? 'Edit this course here' : 'create your own  course '}
      </button>
+     <TextField
+    id="outlined-secondary"
+    label=" Join Using Invite Code"
+    variant="outlined"
+    color="secondary"
+  />
+   </div>
      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
        <DialogTitle id="form-dialog-title"> </DialogTitle>
        <DialogContent>
@@ -51,7 +94,7 @@ function Addcourse() {
         <TextField  InputLabelProps={{ className :styles.text }}  InputProps={{ className :styles.field }}  name="title" variant="outlined" label="Title" fullWidth value={courseData.title} onChange={(e) => setcourseData({ ...courseData, title: e.target.value })} />
         <TextField InputLabelProps={{ className :styles.text }}  InputProps={{ className :styles.field }} name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={courseData.message} onChange={(e) => setcourseData({ ...courseData, message: e.target.value })} />
         <TextField InputLabelProps={{ className :styles.text }}  InputProps={{ className :styles.field }}  name="tags" variant="outlined" label="Tags "  value={courseData.tags} onChange={(e) => setcourseData({ ...courseData, tags: e.target.value.split(',') })} />
-        <div className={styles.upload} ><FileBase type="file" multiple={false} onDone={({ base64 }) => setcourseData({ ...courseData, selectedFile: base64 })} /></div>
+        <div className={styles.fileInput} ><FileBase type="file" multiple={false} onDone={({ base64 }) => setcourseData({ ...courseData, selectedFile: base64 })} /></div>
         
       
       </form>
@@ -64,6 +107,7 @@ function Addcourse() {
 
        </DialogActions>
      </Dialog>
+
      </div>
   
       
@@ -71,4 +115,4 @@ function Addcourse() {
     )
 }
 
-export default Addcourse
+export default Addcourse;

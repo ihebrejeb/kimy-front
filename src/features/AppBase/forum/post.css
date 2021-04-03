@@ -1,9 +1,6 @@
 .post{
-    background-color: white;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    margin-top: 20px ;
+   max-width: 80;
+   margin: auto;
     
 }
 .post__header{
@@ -17,11 +14,15 @@
 .post__info{
     font-size: 12px;
     color: blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 
 }
 .post__body{
     overflow-wrap: anywhere;
     cursor: pointer;
+    text-decoration: none;
 
 }
 .post__info> h2 {
@@ -29,5 +30,17 @@
 }
 .post__buttons{
     display: flex;
+    width: 10px;
    
+}
+.editor{
+    margin-top: 20px;
+}
+.commentsection{
+ display: flex;
+ flex-direction: column;
+}
+.avatar{
+    display: flex;
+    flex-direction: column;
 }

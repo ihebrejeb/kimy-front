@@ -1,7 +1,33 @@
 .bar {
     display: flex;
     justify-content: space-between;
+
 }
 .rightside{
     display: flex;
+    justify-content: space-around;
+}
+.header__search {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    height: 30px;
+    background-color: #eef3f8;
+    color: gray;
+    margin-top: 22px;
+}
+.header__search > input {
+    outline : none ; 
+    border: none;
+    background: none;
+}
+.icons{
+    display: flex;
+    flex-direction: column;
+}
+.forum{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }

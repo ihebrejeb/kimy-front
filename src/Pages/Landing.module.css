@@ -4,6 +4,7 @@
   margin-left: 20px;
   cursor: pointer;
 }
+
 .nav {
   padding-top: 20px;
   position: relative;
@@ -43,7 +44,6 @@
 }
 .signupButton {
   cursor: pointer;
-
   outline: none;
   font-weight: 600;
   border-radius: 0.2vw;
@@ -62,7 +62,13 @@
   font-weight: bold;
   color: #373f41;
 }
-
+.footer{
+width: 100%;
+position: sticky;
+}
+.LandingPage{
+  width: 100%;
+}
 .content {
   display: flex;
   flex-direction: column;
