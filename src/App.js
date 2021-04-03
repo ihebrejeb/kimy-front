@@ -72,23 +72,15 @@ function App() {
             <Route exact path="/login">
               <Login />
             </Route>
-
-            <Route exact path="/chat">
-              <LiveChat />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route path="/app">
+              <AppBase />
             </Route>
-
-     ):  ( 
-      <Switch>
-        <Route path="/app">
-        <ThemeProvider theme={theme}>
-          <AppBase />
-        </ThemeProvider>
-      </Route>
-      <Route exact path="/">
-      <LandingPage />
-    </Route>
-     
-      
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
 
             <Route exact path="/whiteboard">
               <Whiteboard />
@@ -96,22 +88,11 @@ function App() {
             <Route exact path="/Container">
               <Container />
             </Route>
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
+
             <Route exact path="/404">
               <NoRoute />
             </Route>
-            <Redirect to="/404"></Redirect>
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
 
-            <Route path="/app">
-              <ThemeProvider theme={theme}>
-                <AppBase />
-              </ThemeProvider>
-            </Route>
             <Redirect to="/404"></Redirect>
           </Switch>
         )}
