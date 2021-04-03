@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import coursesReducer from "../features/AppBase/courses/CoursesSlice";
+import courseSliceReducer from "../features/AppBase/onlinseSession/CourseDemoSlice";
 import coursesActivitiesReducer from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 
 import forumReducer from "../features/AppBase/forum/ForumSlice";
@@ -18,6 +19,7 @@ export default configureStore({
 
   reducer: {
     courses: coursesReducer,
+    coursedemo: courseSliceReducer,
     user: userReducer,
     forum: forumReducer,
     coursesActivities: coursesActivitiesReducer,

@@ -1,0 +1,9 @@
+.on svg {
+  color: #3d4849 !important;
+}
+.off svg {
+  color: white !important;
+}
+.off {
+  background-color: darkred !important;
+}

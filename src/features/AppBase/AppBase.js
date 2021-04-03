@@ -1,20 +1,18 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ViewCompactIcon from "@material-ui/icons/ViewCompact";
 import logo from "./Logo.png";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
 import LiveChat from "../AppBase/chat/LiveChat";
+import CourseDemo from "./onlinseSession/CourseDemo";
+import CourseRecordings from "./onlinseSession/CourseRecordings";
+import Lobby from "./onlinseSession/Lobby";
+import Attendance from "./onlinseSession/Attendance";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
@@ -30,9 +28,11 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: "#fff",
   },
   logo: {
     height: "40px",
+    cursor: "pointer",
   },
   drawer: {
     width: drawerWidth,
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     backgroundColor: "#f3f2ef",
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
   },
 }));
 
@@ -75,7 +75,7 @@ export default function ClippedDrawer() {
           </button>
         </Toolbar>
       </AppBar>
-      <Drawer
+      {/* <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{
@@ -113,6 +113,7 @@ export default function ClippedDrawer() {
           </List>
         </div>
       </Drawer>
+       */}
       <main className={classes.content}>
         <Toolbar />
 
@@ -120,6 +121,7 @@ export default function ClippedDrawer() {
           <Route exact path="/app">
             <Redirect to="/app/courses"></Redirect>
           </Route>
+
           <Route exact path="/app/courses">
             <Courses></Courses>
           </Route>
@@ -135,6 +137,21 @@ export default function ClippedDrawer() {
           <Route exact path="/app/chat">
             <LiveChat />
           </Route>
+
+         
+          {/*   demo video chat */}
+          <Route exact path="/app/videodemo">
+            <CourseDemo></CourseDemo>
+          </Route>
+          <Route exact path="/app/course/recordings">
+            <CourseRecordings />
+          </Route>
+          <Route exact path="/app/video/:roomName">
+            <Lobby></Lobby>
+          </Route>
+          <Route exact path="/app/attendance/:roomId">
+            <Attendance></Attendance>
+            </Route>
           <Route exact path="/app/calendar">
             <Calendar></Calendar>
           </Route>
