@@ -69,14 +69,19 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
         <CardHeader
           title={coursesActivities.title}
           action={
-            <IconButton>
-              <EditIcon onClick={() => setCurrentId(coursesActivities._id)} />
-              <DeleteIcon
-                onClick={() =>
-                  dispatch(deleteCourseActivities(coursesActivities._id))
-                }
-              />
-            </IconButton>
+            <div>
+              <IconButton>
+                <EditIcon onClick={() => setCurrentId(coursesActivities._id)} />
+              </IconButton>
+
+              <IconButton>
+                <DeleteIcon
+                  onClick={() =>
+                    dispatch(deleteCourseActivities(coursesActivities._id))
+                  }
+                />
+              </IconButton>
+            </div>
           }
         />
         <div className={classes.root}>

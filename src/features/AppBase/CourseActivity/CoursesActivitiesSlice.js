@@ -19,7 +19,7 @@ export const coursesActivitiesSlice = createSlice({
   reducers: {
     getcoursesActivities: (state, action) => {
       console.log(action.payload);
-      state.values = action.payload.data;
+      state.values = action.payload;
     },
     updateCourseActivities: (state, action) => {
       const payload = action.payload._id;
