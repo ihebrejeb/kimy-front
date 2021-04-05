@@ -67,7 +67,7 @@ export default function ClippedDrawer() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <img src={logo} className={classes.logo} alt="logo"></img>
-          <p> Welcome : {user.email}</p>
+          <p> Welcome</p>
 
           <button onClick={signOut} className="Profile_screenSignOut">
             {" "}
@@ -138,7 +138,6 @@ export default function ClippedDrawer() {
             <LiveChat />
           </Route>
 
-         
           {/*   demo video chat */}
           <Route exact path="/app/videodemo">
             <CourseDemo></CourseDemo>
@@ -151,7 +150,7 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/attendance/:roomId">
             <Attendance></Attendance>
-            </Route>
+          </Route>
           <Route exact path="/app/calendar">
             <Calendar></Calendar>
           </Route>
