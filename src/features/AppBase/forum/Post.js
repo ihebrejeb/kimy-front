@@ -7,26 +7,25 @@ import { red } from '@material-ui/core/colors';
 
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import GradeIcon from '@material-ui/icons/Grade';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import { useHistory } from 'react-router';
 import ReactHtmlParser from 'react-html-parser'
 import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, getOnePost, selectForum } from './ForumSlice';
+import { addLike, deletePost, selectPost, unlike, updatelikes } from './ForumSlice';
 import moment from 'moment'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { Fragment } from 'react';
 
-function Post ({showActions , Posts, })  {
+function Post ({showActions , Posts, currentId })  {
    const dispatch = useDispatch()
-   const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         root: {
-            maxWidth: 1960,
-            marginBottom:'10px'
+            maxWidth: 665,
+            marginBottom:'10px',
+            margin:'auto'
         },
         media: {
             height: 0,
@@ -47,6 +46,16 @@ function Post ({showActions , Posts, })  {
         },
     }));
     const classes = useStyles();
+
+    
+    const LIKE =(e) => {
+       e.preventDefault()
+       dispatch(addLike(Posts._id))
+    }
+    const UNLIKE =(e) => {
+        e.preventDefault()
+        dispatch(unlike(Posts._id))
+     }
 
     return (
         
@@ -70,7 +79,7 @@ function Post ({showActions , Posts, })  {
            
             <CardContent>
             
-                <Typography variant="h4" color="textprimary" component="h4">
+                <Typography variant="p" color="textprimary" component="p">
                     {ReactHtmlParser(Posts.title)}
                 </Typography>
                  <Fragment> <h3 className={classes.root}>
@@ -80,21 +89,27 @@ function Post ({showActions , Posts, })  {
                     
                     {showActions  &&
              <div className="post__buttons">
-                <IconButton aria-label="view" >
-                 <InputOption Icon={ThumbUpIcon}  title="Like"
+                <IconButton aria-label="view"  onClick={LIKE}>
+                    
+                 <InputOption Icon={ThumbUpIcon}  title=  {Posts.like}
+
+                
+                color="blue"    / > </IconButton>
+                
+                 <IconButton aria-label="view" onClick={UNLIKE} >
+                     
+                   <InputOption Icon={ThumbDownIcon}  title=""
                  color="blue"/> </IconButton>
                  <IconButton aria-label="view" >
-                   <InputOption Icon={ThumbDownIcon}  title="dislike"
-                 color="blue"/> </IconButton>
-                 <IconButton aria-label="view" >
-                   <InputOption Icon={VisibilityIcon}  title="views"
+                   <InputOption Icon={VisibilityIcon}  title={Posts.views}
                  color="blue"/></IconButton>
                  <IconButton aria-label="view" >
-                   <InputOption Icon={GradeIcon}  title="Rating"
+                   <InputOption Icon={GradeIcon}  title={Posts.avg}
                  color="blue"/></IconButton>
                  <IconButton aria-label="view" >
                    <Link to={`/app/singlePost/${Posts._id}`}> 
-                 <InputOption  Icon={QuestionAnswerOutlinedIcon}  title="Comments"
+                 <InputOption  Icon={QuestionAnswerOutlinedIcon}  title={Posts.comments.length }
+
                  color="blue"/> 
                  {/* { !auth.loading && user === auth.user._id } */}
                  </Link></IconButton> 

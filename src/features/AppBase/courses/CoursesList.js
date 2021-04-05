@@ -18,8 +18,8 @@ function CoursesList({ setcurrentId }) {
         alignItems="stretch"
         spacing={3}
       >
-        {courses?.map((course) => (
-          <Grid key={course?._id} item xs={12} sm={4} md={3}>
+        {courses.map((course) => (
+          <Grid key={course._id} item xs={12} sm={4} md={3}>
             <Course courses={course} setCurrentId={setcurrentId} />
           </Grid>
         ))}

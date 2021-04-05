@@ -82,6 +82,7 @@ export default function ClippedDrawer() {
           paper: classes.drawerPaper,
         }}
       >
+        {" "}
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
@@ -102,6 +103,12 @@ export default function ClippedDrawer() {
                 <ViewCompactIcon></ViewCompactIcon>
               </ListItemIcon>
               <ListItemText primary="Forum" />
+            </ListItem>
+            <ListItem button onClick={() => history.push("/app/activites")}>
+              <ListItemIcon>
+                <ViewCompactIcon></ViewCompactIcon>
+              </ListItemIcon>
+              <ListItemText primary="Activities" />
             </ListItem>
           </List>
         </div>

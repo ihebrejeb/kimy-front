@@ -58,6 +58,7 @@ function Course({ courses, setCurrentId }) {
             >
               <AddCircleOutlineIcon fontSize="small" /> Join
             </Button>
+
             <Button
               size="small"
               color="primary"
