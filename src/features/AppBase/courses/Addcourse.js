@@ -66,7 +66,7 @@ function Addcourse({ currentId, setcurrentId }) {
   };
 
 
-    }
+    
     
     
 
@@ -113,6 +113,6 @@ function Addcourse({ currentId, setcurrentId }) {
       
     
     )
-}
+    }
 
 export default Addcourse;
