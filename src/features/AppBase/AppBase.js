@@ -82,6 +82,7 @@ export default function ClippedDrawer() {
           paper: classes.drawerPaper,
         }}
       >
+        {" "}
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
