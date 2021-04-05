@@ -1,6 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import coursesReducer from '../features/AppBase/courses/CoursesSlice';
 import userReducer from '../features/AppBase/user/UserSlice'
+import rootReducer from '../features/AppBase/user/rootReducer'
 export default configureStore({
   middleware: getDefaultMiddleware({
     serializableCheck: {
@@ -16,6 +17,6 @@ export default configureStore({
   reducer: {
     courses: coursesReducer,
     user: userReducer,
-
+    users: rootReducer
   },
 });

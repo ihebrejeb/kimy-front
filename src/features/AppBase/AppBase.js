@@ -13,13 +13,15 @@ import logo from "./Logo.png";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
-import Calendar from "../../Pages/Calendar";
+import Calendrier from "../../Pages/Calendrier";
+import Userprofile from "../../Pages/Userprofile";
 import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
-
+import { useSelector } from "react-redux";
 import LiveChat from "../AppBase/chat/LiveChat";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
+import Testuser from "../../Pages/Testuser";
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ClippedDrawer() {
   const classes = useStyles();
   const history = useHistory();
+  const user = useSelector(state => state.user.user);
 
   const signOut = () => {
     auth.signOut();
@@ -62,6 +65,13 @@ export default function ClippedDrawer() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <img src={logo} className={classes.logo} alt="logo"></img>
+
+          <button onClick={() => history.push("/app/users")} className="Profile_screenSignOut">
+            {" "}
+            Profile
+          </button>
+
+          <p>{user.email}</p>
 
           <button onClick={signOut} className="Profile_screenSignOut">
             {" "}
@@ -97,6 +107,18 @@ export default function ClippedDrawer() {
               </ListItemIcon>
               <ListItemText primary="Forum" />
             </ListItem>
+            <ListItem button onClick={() => history.push("/app/calendar")}>
+              <ListItemIcon>
+                <ViewCompactIcon></ViewCompactIcon>
+              </ListItemIcon>
+              <ListItemText primary="Calendar" />
+            </ListItem>
+            {/* <ListItem button onClick={() => history.push("/app/users")}>
+              <ListItemIcon>
+                <ViewCompactIcon></ViewCompactIcon>
+              </ListItemIcon>
+              <ListItemText primary="Profile" />
+            </ListItem> */}
           </List>
         </div>
       </Drawer>
@@ -123,10 +145,16 @@ export default function ClippedDrawer() {
             <LiveChat />
           </Route>
           <Route exact path="/app/calendar">
-            <Calendar></Calendar>
+            <Calendrier></Calendrier>
           </Route>
           <Route exact path="/app/activites">
             <CourseActivitiesMainPage />
+          </Route>
+          <Route exact path="/app/users">
+            <Userprofile />
+          </Route>
+          <Route exact path="/app/userstest">
+            <Testuser />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>

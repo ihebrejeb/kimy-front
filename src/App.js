@@ -68,9 +68,6 @@ function App() {
             <Route exact path="/signup">
               <SignUp />
             </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
 
             <Route exact path="/chat">
               <LiveChat />
@@ -110,6 +107,7 @@ function App() {
             <Route exact path="/">
               <LandingPage />
             </Route>
+            
 
             <Route path="/app">
               <ThemeProvider theme={theme}>
