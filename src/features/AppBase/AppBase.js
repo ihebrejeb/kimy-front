@@ -28,6 +28,7 @@ import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
 import Testuser from "../../Pages/Testuser";
 import { selectuser } from "./user/UserSlice";
+import { selectedcourse } from "./onlinseSession/CourseDemoSlice";
 
 const drawerWidth = 200;
 

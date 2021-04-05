@@ -8,35 +8,31 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { auth } from '../Firebase';
-import './Login.css'
-import LiveQuizz from './LiveQuizz.js'
+import { auth } from "../Firebase";
+import "./Login.css";
+import LiveQuizz from "./LiveQuizz.js";
 import styles from "./userprofile.module.css";
-import FileBase from 'react-file-base64'
-import { useSelector } from 'react-redux';
-import Modal from '@material-ui/core/Modal';
-import DeleteIcon from '@material-ui/icons/Delete';
+import FileBase from "react-file-base64";
+import { useSelector } from "react-redux";
+import Modal from "@material-ui/core/Modal";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import { Button, Checkbox, Divider, FormControlLabel } from "@material-ui/core";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { deleteUser } from '../features/AppBase/actions/actioncrud';
-
+import { deleteUser } from "../features/AppBase/actions/actioncrud";
 
 function Userprofile() {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [confirmpassword, setconfirmpassword] = useState("");
+  const [username, setusername] = useState("");
+  const [birthdate, setbirthdate] = useState(new Date());
+  const [avatar, setavatar] = useState("");
+  const [profession, setprofession] = useState("");
+  const user = useSelector((state) => state.user.user);
 
-
-
-  const [email, setemail] = useState('')
-  const [password, setpassword] = useState('') 
-  const [confirmpassword, setconfirmpassword] = useState('') 
-  const [username, setusername] = useState('')
-  const [birthdate, setbirthdate] = useState(new Date())
-  const [avatar, setavatar] = useState('')
-  const [profession, setprofession] = useState('')
-  const user = useSelector(state => state.user.user);
-  
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -47,28 +43,22 @@ function Userprofile() {
     setOpen(false);
   };
 
-  const dispatch = useDispatch() ;
-    const history = useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const register = (e) => {
-      e.preventDefault(); 
+    e.preventDefault();
 
-      auth.createUserWithEmailAndPassword(
-          email, 
-          password
-      ).then((authUser)  => {
-          console.log(authUser)
-
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        console.log(authUser);
       })
-      .catch(error => {
-          alert(error.message);
-
-      }) ;
-      
-    
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
- 
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -76,7 +66,7 @@ function Userprofile() {
     weightRange: "",
     showPassword: false,
   });
- 
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -91,8 +81,7 @@ function Userprofile() {
 
   return (
     <div className={styles.page}>
-
-<div className={styles.infos}>
+      <div className={styles.infos}>
         <h2 className={styles.title}>User infos</h2>
         <Divider variant="middle" className={styles.divider} />
         <img className={styles.imeg} src="https://picsum.photos/400"></img>
@@ -102,21 +91,24 @@ function Userprofile() {
         <p className={styles.p}>{user.email}</p>
         <h3>Birthdate</h3>
         <p className={styles.p}>22/08/98</p>
-        <Button variant="outlined"
-        color="Secondary"
-        startIcon={<DeleteIcon />} onClick={handleOpen}   >
-            Delete user
+        <Button
+          variant="outlined"
+          color="Secondary"
+          startIcon={<DeleteIcon />}
+          onClick={handleOpen}
+        >
+          Delete user
         </Button>
         <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
         >
-        <LiveQuizz></LiveQuizz>
+          <LiveQuizz></LiveQuizz>
         </Modal>
       </div>
-      
+
       <div className={styles.update}>
         <h2 className={styles.title}>Update infos</h2>
         {/* <div className={styles.icons}>
@@ -158,34 +150,32 @@ function Userprofile() {
         </div> */}
         <Divider variant="middle" className={styles.divider} />
         <form className={styles.form}>
-       
-        <TextField
-          value={username}
-          onChange={e => setusername(e.target.value)} 
-            label="Username" 
-            placeholder={user.email} type="text" 
-           
-          />
-          
           <TextField
-          value={email}
-          onChange={e => setemail(e.target.value)} 
-            label="Email" 
-            placeholder={user.email} type="email" 
-           
+            value={username}
+            onChange={(e) => setusername(e.target.value)}
+            label="Username"
+            placeholder={user.email}
+            type="text"
           />
-          
+
+          <TextField
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
+            label="Email"
+            placeholder={user.email}
+            type="email"
+          />
+
           <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
               Password
             </InputLabel>
 
-            <Input value={password} onChange={e => setpassword(e.target.value)} 
-            
+            <Input
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
               id="standard-adornment-password"
               type={values.showPassword ? "text" : "password"}
-              
-              
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -205,12 +195,11 @@ function Userprofile() {
               Confirm password
             </InputLabel>
 
-            <Input value={confirmpassword} onChange={e => setconfirmpassword(e.target.value)} 
-            
+            <Input
+              value={confirmpassword}
+              onChange={(e) => setconfirmpassword(e.target.value)}
               id="standard-adornment-password"
               type={values.showPassword ? "text" : "password"}
-              
-              
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -225,33 +214,37 @@ function Userprofile() {
             />
           </FormControl>
 
-
           <TextField
-    value={birthdate}
-    onChange={e => setbirthdate(e.target.value)}
-    label="Birthdate"
-    type="date"
-    defaultValue="2017-05-24"
-    InputLabelProps={{
-      shrink: true,
-    }}
-  />
+            value={birthdate}
+            onChange={(e) => setbirthdate(e.target.value)}
+            label="Birthdate"
+            type="date"
+            defaultValue="2017-05-24"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
 
-<p>Upload your avatar</p>
-<div className={styles.fileInput} ><FileBase type="file" multiple={false} onDone={({ base64 }) => setavatar({ ...avatar, selectedFile: base64 })} /></div>
-          
-      
+          <p>Upload your avatar</p>
+          <div className={styles.fileInput}>
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setavatar({ ...avatar, selectedFile: base64 })
+              }
+            />
+          </div>
 
           {/* <FormControlLabel
             control={<Checkbox name="checkedC" />}
             label="I agree to terms and conditions"
           /> */}
 
-          <Button variant="outlined"
-        color="Secondary" onClick={register}   >
+          <Button variant="outlined" color="Primary" onClick={register}>
             Update
           </Button>
-         {/*  <h5>
+          {/*  <h5>
             <span className={styles.signup_grey}>
               {" "}
               Do you already have an account ?
@@ -261,10 +254,7 @@ function Userprofile() {
           </h5> */}
         </form>
       </div>
-
-     
     </div>
-    
   );
 }
 

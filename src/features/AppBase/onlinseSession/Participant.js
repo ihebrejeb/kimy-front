@@ -3,6 +3,7 @@ import {
   CancelPresentation,
   Mic,
   MicOff,
+  QuestionAnswer,
   ScreenShare,
   Videocam,
   VideocamOff,
@@ -16,6 +17,7 @@ export default function Participant({
   me,
   isLocalVideo,
   isLocalAudio,
+  handleOpen,
 }) {
   const [isLocal, setisLocal] = useState(false);
   const [videoTracks, setVideoTracks] = useState([]);
@@ -192,6 +194,11 @@ export default function Participant({
             onClick={toggleAudio}
           >
             {isAudio ? <Mic></Mic> : <MicOff></MicOff>}
+          </Fab>
+        )}
+        {isLocal && (
+          <Fab size="small" onClick={handleOpen}>
+            <QuestionAnswer></QuestionAnswer>
           </Fab>
         )}
       </div>

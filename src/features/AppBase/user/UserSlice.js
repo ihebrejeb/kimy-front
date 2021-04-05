@@ -88,27 +88,27 @@ export const selectuser = (state) => state.user.user;
 
 export default userslice.reducer; */
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const userslice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: {
-    value: null,
+    user: {
+      email: "user@esprit.tn",
+    },
   },
   reducers: {
-    login:(state,action )  => {
-      state.user = action.payload ;
-      
+    login: (state, action) => {
+      state.user = action.payload;
     },
-   
-    logout: (state ) => {
-      state.user = null ;
+
+    logout: (state) => {
+      state.user = null;
     },
   },
 });
 
 export const { login, logout } = userslice.actions;
-
 
 //sleecotors
 export const selectuser = (state) => state.user.user;
