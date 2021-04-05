@@ -12,11 +12,11 @@ import {
   Avatar,
 } from "@material-ui/core/";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { useDispatch } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { deleteCourse } from "./CoursesSlice";
 import { useHistory } from "react-router";
+import EditIcon from "@material-ui/icons/Edit";
 
 function Course({ courses, setCurrentId }) {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function Course({ courses, setCurrentId }) {
         avatar={<Avatar aria-label="course"></Avatar>}
         action={
           <IconButton aria-label="settings">
-            <MoreHorizIcon onClick={() => setCurrentId(courses._id)} />
+            <EditIcon onClick={() => setCurrentId(courses._id)} />
           </IconButton>
         }
         title={courses.title}

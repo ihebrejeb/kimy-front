@@ -1,4 +1,4 @@
-import { createSlice , createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice , createAsyncThunk,  } from '@reduxjs/toolkit';
 import * as api from '../../../Api/postApi.js';
 import * as CommentApi from '../../../Api/CommentApi.js';
 
@@ -14,6 +14,7 @@ export const createComment = createAsyncThunk(
   }
 )
 
+
 export const createPosts = createAsyncThunk(
   'forum',
   async (post, thunkAPI) => {
@@ -28,7 +29,7 @@ export const forumslice = createSlice({
   name: 'forum',
   initialState: {
     values: [],
-    post : {} , 
+    post :  {}, 
 
   },
   reducers: {
@@ -55,7 +56,8 @@ export const forumslice = createSlice({
 
       },
       rate:(state,action) => {
-        state.post.rate.push(action.payload)
+           console.log(action.payload)
+           state.post.rate= action.payload
         
       },
 
@@ -70,6 +72,7 @@ export const forumslice = createSlice({
        state.post.comments= action.payload
        
     },
+    
    
   },
 });
@@ -145,7 +148,8 @@ export const unlike = (id) => async (dispatch) => {
 export const addrate = (postId, formData) => async dispatch => {
   
   try {
-      const {data}  = await api.rating(postId , formData)
+      const rating = {rating: formData}
+      const {data}  = await api.rating(postId , rating)
       dispatch(rate(data))
    
 

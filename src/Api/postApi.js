@@ -12,5 +12,5 @@ export const UpdatePosts = (id , updatedPost) => axios.patch(`${url}/${id}` , up
 export const deletePosts = (id ) => axios.delete(`${url}/${id}` );
 export const fetchOnePost = (id ) => axios.get(`${url}/${id}` );
 export const AddLike= (id) => axios.patch(`${url1}/${id}`) ;
-export const rating =(id) => axios.post(`${url3}/${id}`) ; 
+export const rating =(id, newRate) => axios.post(`${url3}/${id}` , newRate) ; 
 export const removeLike= (id) => axios.patch(`${url4}/${id}`) ;

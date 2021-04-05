@@ -4,45 +4,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import AddComment from './AddComment'
 import CommentItem from './CommentItem'
-import { addLike, addrate, getOnePost, selectForum, selectPost } from './ForumSlice'
-import { red } from '@material-ui/core/colors';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { addrate,  getOnePost,  selectPost } from './ForumSlice'
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
-import StarsIcon from '@material-ui/icons/Stars';
 import { useParams } from "react-router";
 import ReactHtmlParser from 'react-html-parser'
 import './SingePost.css'
 import moment from 'moment'
-import {  Box, Card , CardContent,   IconButton, makeStyles, Typography } from '@material-ui/core'
+import {  Box,   CardContent,   IconButton,  Typography } from '@material-ui/core'
 import { Fragment } from 'react'
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { useState } from 'react'
 import { Rating } from '@material-ui/lab'
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 
-function SinglePost({ Posts}) {
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            maxWidth: 2500,
-        },
-        media: {
-            height: 0,
-            paddingTop: '56.25%', // 16:9
-        },
-        expand: {
-            transform: 'rotate(0deg)',
-            marginLeft: 'auto',
-            transition: theme.transitions.create('transform', {
-                duration: theme.transitions.duration.shortest,
-            }),
-        },
-        expandOpen: {
-            transform: 'rotate(180deg)',
-        },
-        avatar: {
-            backgroundColor: red[500],
-        },
-    }));
+function SinglePost({ Posts,}) {
+    
     const labels = {
         0.5: 'Useless',
         1: 'Useless+',
@@ -55,15 +29,16 @@ function SinglePost({ Posts}) {
         4.5: 'Excellent',
         5: 'Excellent+',
     };
-    const P = useSelector(selectForum)
     const post = useSelector(selectPost)
     const dispatch = useDispatch()
     let { id } = useParams(); 
     const [rating, setValue] = useState('');
-
+    const postId = post._id
     const onsubmit = (e) => {
             e.preventDefault(); 
-            dispatch(addrate(post._id,  rating))
+            console.log(rating)
+
+            dispatch(addrate( postId ,  rating))
 
 
     }
@@ -85,7 +60,7 @@ function SinglePost({ Posts}) {
                
             <CardContent>
                  <Fragment> <h3 style={{marginLeft:'-20px'}} >
-                 <Typography variant="h4" color="textprimary" component="h4">
+                 <Typography style={{fontWeight:'450'}} variant="p" color="textprimary" component="p">
                     {ReactHtmlParser(post.text)}
                 </Typography>
                 </h3>
@@ -123,7 +98,7 @@ function SinglePost({ Posts}) {
                     {rating !== null && <Box ml={0}>{labels[hover !== -1 ? hover : rating]}</Box>}
                 </h3>
                     <IconButton aria-label="view" onClick={e => onsubmit(e)}>
-                    <TrendingUpIcon style={{color:'blue', marginRight:'15px'}}  /> 
+                    <span style={{color:'blue', marginRight:'15px' , fontWeight:'400' , fontSize:'10', marginTop:'10px'}}  >  submit review </span>
                     </IconButton>
                     </div>
                     <div> 

@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
 import styles from "./addcourse.module.css";
 import Button from "@material-ui/core/Button";
+import SearchIcon from '@material-ui/icons/Search';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createCourse, update } from "./CoursesSlice";
 import { useEffect } from "react";
-import { selectuser } from "../user/UserSlice";
 
 function Addcourse({ currentId, setcurrentId }) {
   const course = useSelector((state) =>
@@ -34,15 +34,15 @@ function Addcourse({ currentId, setcurrentId }) {
 
   const handleClose = () => {
     setOpen(false);
+    clear();
   };
-  const user = useSelector(selectuser);
 
   useEffect(() => {
     if (course) setcourseData(course);
   }, [course]);
 
   const clear = () => {
-    setcurrentId = null;
+    setcurrentId(null);
     setcourseData({
       creator: " ",
       title: "",
@@ -51,7 +51,10 @@ function Addcourse({ currentId, setcurrentId }) {
       selectedFile: "",
     });
   };
-
+  useEffect(() => {
+    if (currentId) setOpen(true);
+  }, [currentId]);
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -69,14 +72,12 @@ function Addcourse({ currentId, setcurrentId }) {
     <div>
       <div className={styles.searchfield}>
         <button variant="outlined" color="secondary" onClick={handleClickOpen}>
-          {currentId ? "Edit this course here" : "create your own  course "}
+          create your own  course 
         </button>
-        <TextField
-          id="outlined-secondary"
-          label=" Join Using Invite Code"
-          variant="outlined"
-          color="secondary"
-        />
+        <div className="header__search">
+                    <SearchIcon></SearchIcon>
+                    <input placeholder="Enter your Code here" type="text"/>
+                </div>
       </div>
       <Dialog
         open={open}

@@ -1,4 +1,4 @@
-import { Avatar, Card, CardContent, CardHeader, Divider, IconButton, makeStyles, Typography } from '@material-ui/core'
+import { Avatar, Card, CardContent, CardHeader, IconButton, makeStyles, Typography } from '@material-ui/core'
 
 import InputOption from './Input'
 import './post.css'
@@ -10,10 +10,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import GradeIcon from '@material-ui/icons/Grade';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
-import { useHistory } from 'react-router';
 import ReactHtmlParser from 'react-html-parser'
-import { useDispatch, useSelector } from 'react-redux';
-import { addLike, deletePost, selectPost, unlike, updatelikes } from './ForumSlice';
+import { useDispatch } from 'react-redux';
+import { addLike, deletePost, unlike, } from './ForumSlice';
 import moment from 'moment'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 

@@ -1,5 +1,5 @@
 
-form {
+.form {
  margin-top: 5px;
  display: flex;
 }
@@ -8,24 +8,7 @@ form {
   margin-top: 40px;
   
 }
-button:hover {
-  
-  cursor: pointer;
-  text-decoration: none;
-}
-button {
-  cursor: pointer;
- margin-left: 20px;
-  outline: none;
-  font-weight: 600;
-  border-radius: 0.2vw;
-  padding: 8px 12px;
-  margin-right: 5px;
-  background-color: #fff;
-  color: #0056d2;
-  border: 1px solid #0056d2;
-  border-radius: 5px ;
-}
+
 
 .renderchat {
   margin-left: 40px;
@@ -37,11 +20,11 @@ button {
   box-shadow: 0px 3px 24px -8px rgba(0, 0, 0, 0.75);
 }
 
-h3 {
+.title {
   color: #2f72da;
 }
 
-span {
+.message {
   color: black;
  
   word-wrap: break-word;

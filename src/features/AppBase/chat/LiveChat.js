@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import styles from "./x.module.css";
+import styles from "./chat.module.css";
 import io from "socket.io-client";
 
 import { useState } from "react";
@@ -14,7 +14,7 @@ function LiveChat() {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect("http://localhost:5000");
+    socketRef.current = io.connect("http://localhost:4000");
     socketRef.current.on("message", ({ name, message }) => {
       setChat([...chat, { name, message }]);
     });
@@ -35,8 +35,8 @@ function LiveChat() {
   const renderChat = () => {
     return chat.map(({ name, message }, index) => (
       <div key={index}>
-        <h3>
-          {name}: <span>{message}</span>
+        <h3 className={styles.title}>
+          {name}: <span className={styles.message}>{message}</span>
         </h3>
       </div>
     ));
@@ -53,7 +53,7 @@ function LiveChat() {
           label="Name"
         />
       </div>
-      <form onSubmit={onMessageSubmit}>
+      <form  className={styles.form}onSubmit={onMessageSubmit}>
         <TextField
           name="message"
           onChange={(e) => onTextChange(e)}

@@ -15,8 +15,8 @@ function AddPost() {
     const clear =()=> {
 
         setforumData({ title:'' , text:''})
+      
     }
-    const { title } = forumData;
 
     const dispatch = useDispatch();
 
@@ -90,6 +90,7 @@ function AddPost() {
             <TextField id="filled-basic" label="Title" variant="outlined"  value={forumData.title} onChange={(e) => setforumData({ ...forumData, title: e.target.value })}/> 
             </Typography>
              <Fragment> <h3 className={classes.root}>
+                 
              <CKEditor editor={ClassicEditor} value={forumData.text} onChange={handlechange}  />
             </h3>
 

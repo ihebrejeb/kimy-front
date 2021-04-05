@@ -27,4 +27,15 @@ color: blue;
 }
 .searchfield{
     display: flex;
-justify-content: space-between;}
+justify-content: space-between;
+}
+.header__search {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    height: 22px;
+    background-color: #eef3f8;
+    color: gray;
+   
+}

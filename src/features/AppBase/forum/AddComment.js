@@ -5,7 +5,6 @@ import { createComment } from './ForumSlice';
 import { useState } from 'react';
 import { IconButton, makeStyles } from '@material-ui/core';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import AccountCircle from '@material-ui/icons/AccountCircle';

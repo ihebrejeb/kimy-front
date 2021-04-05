@@ -35,7 +35,7 @@ function Courses() {
     <div>
       <div>
         {" "}
-        <Addcourse currentId={currentId} />{" "}
+        <Addcourse currentId={currentId} setcurrentId={setcurrentId} />{" "}
       </div>
 
       <div className={styles.courses}>

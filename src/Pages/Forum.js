@@ -8,9 +8,8 @@ import ForumList from '../features/AppBase/forum/ForumList';
 import { useState } from 'react';
 import'./forum.css'
 function Forum() {
-  // const history = useHistory() ;
   const dispatch = useDispatch()
-  const [currentId, setcurrentId] = useState(null) ;
+  const [ setcurrentId] = useState(null) ;
 
   useEffect(() => { 
     dispatch(getPosts()) ;
