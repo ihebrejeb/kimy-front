@@ -8,13 +8,13 @@ import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(GetCoursesActivities());
-  }, [dispatch]);
+  }, [currentId, dispatch]);
 
   return (
     <div>
-      <VideoConferenceParticipate></VideoConferenceParticipate>
       <div>
         <AddActivity currentId={currentId} />
       </div>

@@ -10,14 +10,18 @@ import styles from "../CourseActivity/addActivity.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { createCourseActivities, update } from "./CoursesActivitiesSlice";
-
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { useHistory } from "react-router";
 function AddActivity({ currentId, setcurrentId }) {
   const activity = useSelector((state) =>
     currentId ? state.activities?.values.find((c) => c._id === currentId) : null
   );
+  const history = useHistory();
+
   const [activityData, setactivityData] = useState({
     title: "",
     file: "",
+    video: "",
     description: "",
     nbSeances: "",
     ressources: "",
@@ -40,6 +44,7 @@ function AddActivity({ currentId, setcurrentId }) {
     setactivityData({
       title: " ",
       file: "",
+      video: "",
       description: "",
       nbSeances: "",
       ressources: "",
@@ -97,6 +102,13 @@ function AddActivity({ currentId, setcurrentId }) {
                   setactivityData({ ...activityData, file: base64 })
                 }
               />
+            </div>
+            <div className={styles.fileInput}>
+              Select a video from the recordings
+              <button onClick={() => history.push("/app/courses")}>
+                {" "}
+                recordings{" "}
+              </button>
             </div>
             <TextField
               InputLabelProps={{ className: styles.text }}

@@ -24,7 +24,7 @@ export const coursesActivitiesSlice = createSlice({
     updateCourseActivities: (state, action) => {
       const payload = action.payload._id;
       state.values = state.values.map((courseActivity) =>
-        courseActivity._id === payload ? action.payload : courseActivity
+        courseActivity._id === payload ? action.payload.data : courseActivity
       );
       console.log(action.payload);
     },

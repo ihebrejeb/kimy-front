@@ -29,95 +29,133 @@ import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DescriptionIcon from "@material-ui/icons/Description";
 import EditIcon from "@material-ui/icons/Edit";
+import VideocamIcon from "@material-ui/icons/Videocam";
 
 function CourseActivity({ coursesActivities, setCurrentId }) {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const useStylescard = makeStyles({
+    root: {
+      width: 270,
+      backgroundColor: "#1569C7",
+    },
+    bullet: {
+      display: "inline-block",
+      margin: "0 2px",
+      transform: "scale(0.8)",
+    },
+    title: {
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  });
   const useStyles = makeStyles((theme) => ({
     root: {
-      width: "35%",
+      width: "20%",
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
     },
   }));
+
+  const carddesign = useStylescard();
   return (
-    <div className={classes.root}>
-      <Card>
+    <div>
+      <Card className={carddesign.root}>
         <CardHeader
           title={coursesActivities.title}
           action={
             <IconButton>
+              <EditIcon onClick={() => setCurrentId(coursesActivities._id)} />
               <DeleteIcon
                 onClick={() =>
                   dispatch(deleteCourseActivities(coursesActivities._id))
                 }
               />
-              <EditIcon onClick={() => setCurrentId(coursesActivities._id)} />
             </IconButton>
           }
         />
-        <Accordion className={styles.accor}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography className={classes.heading}>
-              Files / video recordings <FolderIcon></FolderIcon>
-            </Typography>
-          </AccordionSummary>
+        <div className={classes.root}>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography className={classes.heading}>
+                Files / video recordings
+              </Typography>
+            </AccordionSummary>
 
-          <AccordionDetails>
-            <Typography>insert files here </Typography>
-          </AccordionDetails>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography className={classes.heading}>
-              videos <FolderIcon></FolderIcon>
-            </Typography>
-          </AccordionSummary>
+            <AccordionDetails>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography className={classes.heading}>
+                    Files <FolderIcon></FolderIcon>
+                  </Typography>
+                </AccordionSummary>
+                <Typography>{coursesActivities.file}</Typography>
+              </Accordion>
+            </AccordionDetails>
+            <AccordionDetails>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography className={classes.heading}>
+                    Videos <VideocamIcon></VideocamIcon>
+                  </Typography>
+                </AccordionSummary>
+                <Typography>videos </Typography>
+              </Accordion>
+            </AccordionDetails>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            ></AccordionSummary>
+          </Accordion>
 
-          <AccordionDetails>
-            <Typography>insert videos here </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography className={classes.heading}>
-              Description of the chapter <DescriptionIcon></DescriptionIcon>
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              {coursesActivities.description}
-              Sessions
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography className={classes.heading}>
+                Description of the chapter <DescriptionIcon></DescriptionIcon>
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{coursesActivities.description}</Typography>
+            </AccordionDetails>
+          </Accordion>
 
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography className={classes.heading}>
-              Resources <LanguageIcon></LanguageIcon>
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>Insert Resources here</Typography>
-          </AccordionDetails>
-        </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography className={classes.heading}>
+                Resources <LanguageIcon></LanguageIcon>
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>Insert Resources here</Typography>
+            </AccordionDetails>
+          </Accordion>
+        </div>
       </Card>
     </div>
   );
