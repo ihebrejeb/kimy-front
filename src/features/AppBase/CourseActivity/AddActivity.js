@@ -10,11 +10,12 @@ import styles from "../CourseActivity/addActivity.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { createCourseActivities, update } from "./CoursesActivitiesSlice";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { useHistory } from "react-router";
 function AddActivity({ currentId, setcurrentId }) {
   const activity = useSelector((state) =>
-    currentId ? state.activities?.values.find((c) => c._id === currentId) : null
+    currentId
+      ? state.coursesActivities?.values.find((c) => c._id === currentId)
+      : null
   );
   const history = useHistory();
 
@@ -31,8 +32,11 @@ function AddActivity({ currentId, setcurrentId }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  useEffect(() => {
+    if (currentId) setOpen(true);
+  }, [currentId]);
   const handleClose = () => {
+    clear();
     setOpen(false);
   };
   useEffect(() => {
@@ -40,7 +44,7 @@ function AddActivity({ currentId, setcurrentId }) {
   }, [activity]);
 
   const clear = () => {
-    setcurrentId = null;
+    setcurrentId(null);
     setactivityData({
       title: " ",
       file: "",
@@ -64,9 +68,7 @@ function AddActivity({ currentId, setcurrentId }) {
   };
   return (
     <div>
-      <button variant="outlined" color="secondary" onClick={handleClickOpen}>
-        {currentId ? "Edit this activity" : "create an  activity  "}
-      </button>
+      <button onClick={handleClickOpen}>create an activity</button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -105,10 +107,10 @@ function AddActivity({ currentId, setcurrentId }) {
             </div>
             <div className={styles.fileInput}>
               Select a video from the recordings
-              <button onClick={() => history.push("/app/courses")}>
+              <Button onClick={() => history.push("/app/course/recordings")}>
                 {" "}
                 recordings{" "}
-              </button>
+              </Button>
             </div>
             <TextField
               InputLabelProps={{ className: styles.text }}

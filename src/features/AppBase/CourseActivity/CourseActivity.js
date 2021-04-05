@@ -1,29 +1,13 @@
 import React from "react";
-import styles from "./courseStyles.module.css";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography,
-  CardHeader,
-  IconButton,
-  Avatar,
-} from "@material-ui/core/";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import { Card, Typography, CardHeader, IconButton } from "@material-ui/core/";
 import { useDispatch } from "react-redux";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { deleteCourseActivities } from "./CoursesActivitiesSlice";
-import { useHistory } from "react-router";
 import classes from "../CourseActivity/CourseActivity.module.css";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FolderIcon from "@material-ui/icons/Folder";
-import VideoCallIcon from "@material-ui/icons/VideoCall";
 import LanguageIcon from "@material-ui/icons/Language";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -31,14 +15,13 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import EditIcon from "@material-ui/icons/Edit";
 import VideocamIcon from "@material-ui/icons/Videocam";
 
-function CourseActivity({ coursesActivities, setCurrentId }) {
+function CourseActivity({ coursesActivities, setcurrentId }) {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const useStylescard = makeStyles({
     root: {
-      width: 270,
-      backgroundColor: "#1569C7",
+      width: "100%",
+      backgroundColor: "transparent",
     },
     bullet: {
       display: "inline-block",
@@ -51,27 +34,25 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
     pos: {
       marginBottom: 12,
     },
+    noMargin: {
+      margin: 0,
+    },
+    header: {
+      backgroundColor: "#1569C7",
+    },
   });
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      width: "20%",
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular,
-    },
-  }));
 
   const carddesign = useStylescard();
   return (
     <div>
       <Card className={carddesign.root}>
         <CardHeader
+          className={carddesign.header}
           title={coursesActivities.title}
           action={
             <div>
               <IconButton>
-                <EditIcon onClick={() => setCurrentId(coursesActivities._id)} />
+                <EditIcon onClick={() => setcurrentId(coursesActivities._id)} />
               </IconButton>
 
               <IconButton>
@@ -84,8 +65,8 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
             </div>
           }
         />
-        <div className={classes.root}>
-          <Accordion>
+        <div>
+          <Accordion className={carddesign.noMargin}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -131,7 +112,7 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
             ></AccordionSummary>
           </Accordion>
 
-          <Accordion>
+          <Accordion className={carddesign.noMargin}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2a-content"
@@ -146,7 +127,7 @@ function CourseActivity({ coursesActivities, setCurrentId }) {
             </AccordionDetails>
           </Accordion>
 
-          <Accordion>
+          <Accordion className={carddesign.noMargin}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2a-content"

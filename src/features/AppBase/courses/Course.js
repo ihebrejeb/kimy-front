@@ -53,9 +53,9 @@ function Course({ courses, setCurrentId }) {
           <Button
             size="small"
             color="primary"
-            onclick={() => history.push("/app/forum")}
+            onClick={() => history.push("/app/activites")}
           >
-            <AddCircleOutlineIcon fontSize="small" /> Join
+            <AddCircleOutlineIcon fontSize="small" /> Open
           </Button>
 
           <Button
@@ -63,7 +63,7 @@ function Course({ courses, setCurrentId }) {
             color="primary"
             onClick={() => dispatch(deleteCourse(courses._id))}
           >
-            <ExitToAppIcon fontSize="small" /> Quit
+            <ExitToAppIcon fontSize="small" /> Leave
           </Button>
         </div>
       </CardActions>

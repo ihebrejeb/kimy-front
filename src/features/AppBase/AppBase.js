@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import logo from "./Logo.png";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendar from "../../Pages/Calendar";
@@ -19,16 +26,23 @@ import { auth } from "../../Firebase";
 import { useSelector } from "react-redux";
 import { selectuser } from "./user/UserSlice";
 import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
+import { selectedcourse } from "./onlinseSession/CourseDemoSlice";
 
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  links: {
     display: "flex",
+    gap: "15px",
   },
+  link: { textDecoration: "none", color: "#36454F" },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: "#fff",
+    color: "black",
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-between",
   },
   logo: {
     height: "40px",
@@ -45,34 +59,59 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   content: {
-    backgroundColor: "#f3f2ef",
-    flexGrow: 1,
+    width: "100%",
     padding: theme.spacing(1),
   },
 }));
 
 export default function ClippedDrawer() {
   const user = useSelector(selectuser);
-
+  const location = useLocation();
   const classes = useStyles();
   const history = useHistory();
+  const course = useSelector(selectedcourse);
 
   const signOut = () => {
     auth.signOut();
     history.push("/");
   };
+  const joinLobby = () => {
+    history.push("/app/video/" + course.id);
+  };
   return (
-    <div className={classes.root}>
+    <>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <img src={logo} className={classes.logo} alt="logo"></img>
-          <p> Welcome</p>
+      <AppBar position="fixed">
+        <Toolbar className={classes.appBar}>
+          <img
+            src={logo}
+            className={classes.logo}
+            alt="logo"
+            onClick={() => history.push("/app/courses")}
+          ></img>
 
-          <button onClick={signOut} className="Profile_screenSignOut">
-            {" "}
-            Sign Out
-          </button>
+          {course && (
+            <div className={classes.links}>
+              <Link to="/app/activites" className={classes.link}>
+                Activities
+              </Link>
+              <Link to="/app/forum" className={classes.link}>
+                Forum
+              </Link>
+              <Link to="/app/course/recordings" className={classes.link}>
+                Recordings
+              </Link>
+            </div>
+          )}
+          <div>
+            {course && location.pathname !== "/app/video/" + course.id && (
+              <button onClick={joinLobby}>Join</button>
+            )}
+            <button onClick={signOut} className="Profile_screenSignOut">
+              {" "}
+              Sign Out
+            </button>
+          </div>
         </Toolbar>
       </AppBar>
       {/* <Drawer
@@ -160,6 +199,6 @@ export default function ClippedDrawer() {
           <Redirect to="/404"></Redirect>
         </Switch>
       </main>
-    </div>
+    </>
   );
 }

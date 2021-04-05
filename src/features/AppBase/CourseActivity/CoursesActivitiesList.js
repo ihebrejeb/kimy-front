@@ -12,12 +12,11 @@ function CoursesActivitiesList({ setcurrentId }) {
   return (
     <div className={styles.activities}>
       {coursesActivities.map((courseActivity) => (
-        <div key={courseActivity._id} item xs={12} sm={4} md={3}>
-          <CourseActivity
-            coursesActivities={courseActivity}
-            setCurrentId={setcurrentId}
-          />
-        </div>
+        <CourseActivity
+          key={courseActivity._id}
+          coursesActivities={courseActivity}
+          setcurrentId={setcurrentId}
+        />
       ))}
     </div>
   );

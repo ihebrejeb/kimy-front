@@ -1,9 +1,8 @@
 .activities {
+  width: 80%;
   margin-top: 50px;
-  display: inline-flex;
-  justify-content: start;
-  align-items: inline-flex;
-  flex-flow: row;
-  flex-wrap: wrap;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
