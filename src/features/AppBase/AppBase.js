@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ViewCompactIcon from "@material-ui/icons/ViewCompact";
 import logo from "./Logo.png";
-import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendrier from "../../Pages/Calendrier";
@@ -18,21 +19,35 @@ import Userprofile from "../../Pages/Userprofile";
 import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
 import { useSelector } from "react-redux";
 import LiveChat from "../AppBase/chat/LiveChat";
+import CourseDemo from "./onlinseSession/CourseDemo";
+import CourseRecordings from "./onlinseSession/CourseRecordings";
+import Lobby from "./onlinseSession/Lobby";
+import Attendance from "./onlinseSession/Attendance";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
 import Testuser from "../../Pages/Testuser";
+import { selectuser } from "./user/UserSlice";
+
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  links: {
     display: "flex",
+    gap: "15px",
   },
+  link: { textDecoration: "none", color: "#36454F" },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: "#fff",
+    color: "black",
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-between",
   },
   logo: {
     height: "40px",
+    cursor: "pointer",
   },
   drawer: {
     width: drawerWidth,
@@ -45,47 +60,70 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    width: "100%",
+    padding: theme.spacing(1),
   },
 }));
 
 export default function ClippedDrawer() {
+  const user = useSelector(selectuser);
+  const location = useLocation();
   const classes = useStyles();
   const history = useHistory();
-  const user = useSelector(state => state.user.user);
+  //const user = useSelector(state => state.user.user);
+  const course = useSelector(selectedcourse);
 
   const signOut = () => {
     auth.signOut();
     history.push("/");
   };
+  const joinLobby = () => {
+    history.push("/app/video/" + course.id);
+  };
   return (
-    <div className={classes.root}>
+    <>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <img src={logo} className={classes.logo} alt="logo"></img>
+      <AppBar position="fixed">
+        <Toolbar className={classes.appBar}>
+          <img
+            src={logo}
+            className={classes.logo}
+            alt="logo"
+            onClick={() => history.push("/app/courses")}
+          ></img>
 
-          <button onClick={() => history.push("/app/users")} className="Profile_screenSignOut">
-            {" "}
-            Profile
-          </button>
-
-          <p>{user.email}</p>
-
-          <button onClick={signOut} className="Profile_screenSignOut">
-            {" "}
-            Sign Out
-          </button>
+          {course && (
+            <div className={classes.links}>
+              <Link to="/app/activites" className={classes.link}>
+                Activities
+              </Link>
+              <Link to="/app/forum" className={classes.link}>
+                Forum
+              </Link>
+              <Link to="/app/course/recordings" className={classes.link}>
+                Recordings
+              </Link>
+            </div>
+          )}
+          <div>
+            {course && location.pathname !== "/app/video/" + course.id && (
+              <button onClick={joinLobby}>Join</button>
+            )}
+            <button onClick={signOut} className="Profile_screenSignOut">
+              {" "}
+              Sign Out
+            </button>
+          </div>
         </Toolbar>
       </AppBar>
-      <Drawer
+      {/* <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
         }}
       >
+        {" "}
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
@@ -118,10 +156,17 @@ export default function ClippedDrawer() {
                 <ViewCompactIcon></ViewCompactIcon>
               </ListItemIcon>
               <ListItemText primary="Profile" />
-            </ListItem> */}
+            </ListItem> 
+            <ListItem button onClick={() => history.push("/app/activites")}>
+              <ListItemIcon>
+                <ViewCompactIcon></ViewCompactIcon>
+              </ListItemIcon>
+              <ListItemText primary="Activities" />
+            </ListItem>
           </List>
         </div>
-      </Drawer>
+      </Drawer>*/}
+
       <main className={classes.content}>
         <Toolbar />
 
@@ -129,13 +174,14 @@ export default function ClippedDrawer() {
           <Route exact path="/app">
             <Redirect to="/app/courses"></Redirect>
           </Route>
+
           <Route exact path="/app/courses">
             <Courses></Courses>
           </Route>
           <Route exact path="/app/forum">
             <Forum></Forum>
           </Route>
-          <Route exact path="/app/singlepost">
+          <Route exact path="/app/singlepost/:id">
             <SinglePost />
           </Route>
           <Route exact path="/app/addPost">
@@ -143,6 +189,20 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/chat">
             <LiveChat />
+          </Route>
+
+          {/*   demo video chat */}
+          <Route exact path="/app/videodemo">
+            <CourseDemo></CourseDemo>
+          </Route>
+          <Route exact path="/app/course/recordings">
+            <CourseRecordings />
+          </Route>
+          <Route exact path="/app/video/:roomName">
+            <Lobby></Lobby>
+          </Route>
+          <Route exact path="/app/attendance/:roomId">
+            <Attendance></Attendance>
           </Route>
           <Route exact path="/app/calendar">
             <Calendrier></Calendrier>
@@ -159,6 +219,6 @@ export default function ClippedDrawer() {
           <Redirect to="/404"></Redirect>
         </Switch>
       </main>
-    </div>
+    </>
   );
 }

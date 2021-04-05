@@ -1,0 +1,8 @@
+.activities {
+  width: 80%;
+  margin-top: 50px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

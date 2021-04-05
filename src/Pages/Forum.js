@@ -1,49 +1,32 @@
 import React from 'react'
-import Post from '../features/AppBase/forum/Post'
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
-import InputOption from '../features/AppBase/forum/Input'
-import './forum.css'
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
-import SearchIcon from '@material-ui/icons/Search';
 
-import LastPageIcon from '@material-ui/icons/LastPage';
-import { useHistory } from 'react-router';
 import AddPost from '../features/AppBase/forum/AddPost';
+import { getPosts } from '../features/AppBase/forum/ForumSlice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import ForumList from '../features/AppBase/forum/ForumList';
+import { useState } from 'react';
+import'./forum.css'
 function Forum() {
-  const history = useHistory() ;
+  // const history = useHistory() ;
+  const dispatch = useDispatch()
+  const [currentId, setcurrentId] = useState(null) ;
+
+  useEffect(() => { 
+    dispatch(getPosts()) ;
+    
+}, [ dispatch  ] ) 
+
   return (
     <div className="forum ">
+      <div> </div>
       <AddPost/> 
-      <div className="bar"> 
-    
-      
-      {/* <div className="rightside">  
-      <div className="header__search">
-                    <SearchIcon></SearchIcon>
-                    <input placeholder="search here" type="text"/>
-          </div>
-          <div className="rightside">  
 
-<InputOption Icon={ThumbUpOutlinedIcon}  title="Like"
-             color="grey"/>
-  <InputOption Icon={SortByAlphaIcon}  title="sort"
-             color="grey"/>    
-   <InputOption Icon={LastPageIcon}  title="previous"
-             color="grey"/>  
-   <InputOption Icon={FirstPageIcon}  title="next"
-             color="grey"/>    
-                 </div>        
-                 
+      <ForumList setcurrentId={setcurrentId} />
+   
+     
 
-        
-       </div> */}
     
-      </div>
-    
-    <Post/>
-    <Post/>
-    <Post/>
           
     </div>
   )
