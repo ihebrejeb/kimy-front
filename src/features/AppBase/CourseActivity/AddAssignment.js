@@ -136,7 +136,7 @@ function AddAssignment({ currentId, setcurrentId }) {
     id="datetime-local"
     label="Deadline"
     type="datetime-local"
-    defaultValue="2021-01-24T10:30"
+    defaultValue={Date.now()}
    
     InputLabelProps={{
       shrink: true,
