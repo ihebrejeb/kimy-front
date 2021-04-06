@@ -6,6 +6,7 @@ import { GetCoursesActivities } from "../features/AppBase/CourseActivity/Courses
 import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
 import AddAssignment from "../features/AppBase/assignments/AddAssignment";
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
+import Container from "./Container";
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
   const [currentIdassign, setcurrentIdassign] = useState(null);

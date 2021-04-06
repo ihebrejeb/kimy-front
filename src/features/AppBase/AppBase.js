@@ -28,6 +28,7 @@ import { selectuser } from "./user/UserSlice";
 import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
 import { selectedcourse } from "./onlinseSession/CourseDemoSlice";
 import AddAssignment from "./assignments/AddAssignment";
+import Container from "../../Pages/Container";
 
 const drawerWidth = 200;
 
@@ -199,6 +200,9 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/assignment">
             <AddAssignment />
+          </Route>
+          <Route exact path="/app/whiteboard">
+            <Container />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>
