@@ -16,7 +16,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
 }
 .or {
   color: #0056d2;
@@ -116,7 +116,7 @@ span {
 }
 
 .fullHeightCard {
-  height: 100%; 
+  height: 100%;
 }
 .card {
   display: flex;
@@ -124,10 +124,9 @@ span {
   justify-content: space-between;
   border-radius: 15px;
   height: 100%;
-  position: absolute,
+  position: absolute;
 }
 .overlay {
-  
   top: 40px;
   left: 20px;
   color: black;
@@ -139,18 +138,18 @@ span {
   color: white;
 }
 .grid {
-  display: 'flex',
+  display: "flex";
 }
 .details {
   display: flex;
   justify-content: space-between;
-  margin: 20px,
+  margin: 20px;
 }
 .cardActions {
   padding: 0 16px 8px 16px;
   display: flex;
   justify-content: space-between;
 }
-.edit{
-  float: right; 
+.edit {
+  float: right;
 }

@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
-import { useHistory } from "react-router-dom";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
@@ -17,24 +16,28 @@ import { useSelector } from "react-redux";
 import Modal from "@material-ui/core/Modal";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import { Button, Checkbox, Divider, FormControlLabel } from "@material-ui/core";
+import { Button, Divider } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { deleteUser } from "../features/AppBase/actions/actioncrud";
+import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
 
 function Userprofile() {
+  const dispatch = useDispatch();
+
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [confirmpassword, setconfirmpassword] = useState("");
   const [username, setusername] = useState("");
   const [birthdate, setbirthdate] = useState(new Date());
   const [avatar, setavatar] = useState("");
-  const [profession, setprofession] = useState("");
   const user = useSelector((state) => state.user.user);
 
   const [open, setOpen] = React.useState(false);
 
+  useEffect(() => {
+    dispatch(selectCourse(null));
+  }, [dispatch]);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -42,9 +45,6 @@ function Userprofile() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const register = (e) => {
     e.preventDefault();
@@ -67,9 +67,9 @@ function Userprofile() {
     showPassword: false,
   });
 
-  const handleChange = (prop) => (event) => {
+  /*  const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-  };
+  }; */
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -84,7 +84,11 @@ function Userprofile() {
       <div className={styles.infos}>
         <h2 className={styles.title}>User infos</h2>
         <Divider variant="middle" className={styles.divider} />
-        <img className={styles.imeg} src="https://picsum.photos/400"></img>
+        <img
+          className={styles.imeg}
+          src="https://picsum.photos/400"
+          alt=""
+        ></img>
         <h3>Username</h3>
         <p className={styles.p}>{user.email}</p>
         <h3>Email</h3>

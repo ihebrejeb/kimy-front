@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./Container.module.css";
-import { useHistory } from "react-router-dom";
-import { Component } from "react";
+
 import { useEffect } from "react";
 
 function Whiteboard() {

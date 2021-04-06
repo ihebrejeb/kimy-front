@@ -27,8 +27,11 @@ function Course({ courses, setCurrentId }) {
       <CardHeader
         avatar={<Avatar aria-label="course"></Avatar>}
         action={
-          <IconButton aria-label="settings">
-            <MoreHorizIcon onClick={() => setCurrentId(courses._id)} />
+          <IconButton
+            aria-label="settings"
+            onClick={() => setCurrentId(courses._id)}
+          >
+            <MoreHorizIcon />
           </IconButton>
         }
         title={courses.title}

@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./Landing.module.css";
 import { useHistory } from "react-router-dom";
-import Footer from "./Footer";
 
 function LandingPage() {
   const history = useHistory();
@@ -47,15 +46,9 @@ function LandingPage() {
             <button className={styles.button}>Start free trial</button>
             <button className={styles.button_learn}>Learn more</button>
           </div>
-          
         </div>
-        
       </div>
-      
-      
-
     </div>
-    
   );
 }
 

@@ -1,47 +1,38 @@
-import axios from 'axios';
-import {
-  FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE,
-  ADD_USER,
-  EDIT_USER,
-  UPDATE_USER,
-  DELETE_USER,
-} from './actionType';
+import axios from "axios";
+import { FETCH_USER_SUCCESS, DELETE_USER } from "./actionType";
 
-const url = 'http://localhost:4000/user/'
+const url = "http://localhost:4000/user/";
 
-export const fetchUser =  () =>   axios.get(url);
+export const fetchUser = () => axios.get(url);
 
 export function fetchUsers() {
   console.log("hellz");
-  return dispatch =>{
-      axios.get('http://localhost:4000/user/')
-      .then( (response)=> {
+  return (dispatch) => {
+    axios
+      .get("http://localhost:4000/user/")
+      .then((response) => {
         console.log(response.data);
         dispatch({
-          type:FETCH_USER_SUCCESS,
-          users:response.data
-        })
-
+          type: FETCH_USER_SUCCESS,
+          users: response.data,
+        });
       })
-      .catch((error)=> {
+      .catch((error) => {
         console.log("hello");
       });
-
-  }
+  };
 }
 
 export function deleteUser(_id) {
   console.log(_id);
-  return dispatch => {
-    axios.delete(`http://localhost:4000/user//${_id}`)
-    .then(response =>{
+  return (dispatch) => {
+    axios.delete(`http://localhost:4000/user//${_id}`).then((response) => {
       dispatch({
         type: DELETE_USER,
-        id:_id,
-      })
-    })
-  }
+        id: _id,
+      });
+    });
+  };
 }
 /* export function addContact(data) {
   return dispatch => {

@@ -8,54 +8,38 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { auth } from '../Firebase';
-import './Login.css'
+import { auth } from "../Firebase";
+import "./Login.css";
 import styles from "./SignUp.module.css";
-import FileBase from 'react-file-base64'
+import FileBase from "react-file-base64";
 
-
-import { Button, Checkbox, Divider, FormControlLabel } from "@material-ui/core";
+import { Button, Divider } from "@material-ui/core";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
 function SignUp() {
-
-  const [email, setemail] = useState('')
-  const [password, setpassword] = useState('') 
-  const [confirmpassword, setconfirmpassword] = useState('') 
-  const [username, setusername] = useState('')
-  const [birthdate, setbirthdate] = useState(new Date())
-  const [avatar, setavatar] = useState('')
-  const [profession, setprofession] = useState('')
-  
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [confirmpassword, setconfirmpassword] = useState("");
+  const [username, setusername] = useState("");
+  const [birthdate, setbirthdate] = useState(new Date());
+  const [avatar, setavatar] = useState("");
 
   const history = useHistory();
 
   const register = (e) => {
-      e.preventDefault(); 
+    e.preventDefault();
 
-      auth.createUserWithEmailAndPassword(
-          email, 
-          password
-      ).then((authUser)  => {
-          console.log(authUser)
-
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        console.log(authUser);
       })
-      .catch(error => {
-          alert(error.message);
-
-      }) ;
-      
-    
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
-  const signIn = (e) => {
-     
-
-  
-          history.push("/login")
-    
-  };
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -63,10 +47,10 @@ function SignUp() {
     weightRange: "",
     showPassword: false,
   });
- 
-  const handleChange = (prop) => (event) => {
+
+  /* const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-  };
+  }; */
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -88,34 +72,32 @@ function SignUp() {
         <h2 className={styles.title}>Sign up</h2>
         <Divider variant="middle" className={styles.divider} />
         <form className={styles.form}>
-       
-        <TextField
-          value={username}
-          onChange={e => setusername(e.target.value)} 
-            label="Username" 
-            placeholder="username" type="text" 
-           
-          />
-          
           <TextField
-          value={email}
-          onChange={e => setemail(e.target.value)} 
-            label="Email" 
-            placeholder="email" type="email" 
-           
+            value={username}
+            onChange={(e) => setusername(e.target.value)}
+            label="Username"
+            placeholder="username"
+            type="text"
           />
-          
+
+          <TextField
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
+            label="Email"
+            placeholder="email"
+            type="email"
+          />
+
           <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
               Password
             </InputLabel>
 
-            <Input value={password} onChange={e => setpassword(e.target.value)} 
-            
+            <Input
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
               id="standard-adornment-password"
               type={values.showPassword ? "text" : "password"}
-              
-              
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -135,12 +117,11 @@ function SignUp() {
               Confirm password
             </InputLabel>
 
-            <Input value={confirmpassword} onChange={e => setconfirmpassword(e.target.value)} 
-            
+            <Input
+              value={confirmpassword}
+              onChange={(e) => setconfirmpassword(e.target.value)}
               id="standard-adornment-password"
               type={values.showPassword ? "text" : "password"}
-              
-              
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -155,28 +136,36 @@ function SignUp() {
             />
           </FormControl>
 
-
           <TextField
-    value={birthdate}
-    onChange={e => setbirthdate(e.target.value)}
-    label="Birthdate"
-    type="date"
-    defaultValue="2017-05-24"
-    InputLabelProps={{
-      shrink: true,
-    }}
-  />
+            value={birthdate}
+            onChange={(e) => setbirthdate(e.target.value)}
+            label="Birthdate"
+            type="date"
+            defaultValue="2017-05-24"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
 
-<p>Upload your avatar</p>
-<div className={styles.fileInput} ><FileBase type="file" multiple={false} onDone={({ base64 }) => setavatar({ ...avatar, selectedFile: base64 })} /></div>
-          
-      
+          <p>Upload your avatar</p>
+          <div className={styles.fileInput}>
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setavatar({ ...avatar, selectedFile: base64 })
+              }
+            />
+          </div>
 
-        
-          <Button variant="outlined" size="small" color="primary" onClick={register}   >
+          <Button
+            variant="outlined"
+            size="small"
+            color="primary"
+            onClick={register}
+          >
             Sign Up
           </Button>
-      
         </form>
       </div>
     </div>

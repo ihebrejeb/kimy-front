@@ -3,6 +3,7 @@ import "./test.css";
 import Participant from "./Participant";
 import { Modal } from "@material-ui/core";
 import LiveQuizz from "../../../Pages/LiveQuizz";
+import LiveChat from "../chat/LiveChat";
 const Room = ({ room, me, isVideo, isAudio }) => {
   const [participants, setParticipants] = useState([]);
 
@@ -61,7 +62,9 @@ const Room = ({ room, me, isVideo, isAudio }) => {
           handleOpen={handleOpen}
         />
       </div>
-      <div className="chat">CHAT</div>
+      <div className="chat">
+        <LiveChat></LiveChat>
+      </div>
     </div>
   );
 };
