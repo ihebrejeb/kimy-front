@@ -27,6 +27,7 @@ import { useSelector } from "react-redux";
 import { selectuser } from "./user/UserSlice";
 import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
 import { selectedcourse } from "./onlinseSession/CourseDemoSlice";
+import AddAssignment from "./assignments/AddAssignment";
 
 const drawerWidth = 200;
 
@@ -195,6 +196,9 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/activites">
             <CourseActivitiesMainPage />
+          </Route>
+          <Route exact path="/app/assignment">
+            <AddAssignment />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>

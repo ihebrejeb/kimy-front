@@ -6,14 +6,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import styles from "../CourseActivity/addAssignment.module.css";
+import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import {
-  createAssignment,
-  updateAssign,
-  GetAssignments,
-} from "./AssignmentsSlice";
+import { createAssignment, updateAssign } from "./AssignmentsSlice";
 
 import { useHistory } from "react-router";
 function AddAssignment({ currentIdassign, setcurrentIdassign }) {
@@ -134,7 +130,6 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
               id="datetime-local"
               label="Deadline"
               type="datetime-local"
-              defaultValue={Date.now()}
               name="dateLimite"
               value={assignmentData.dateLimite}
               onChange={(e) =>

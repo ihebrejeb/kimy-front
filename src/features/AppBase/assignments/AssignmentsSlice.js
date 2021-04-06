@@ -3,11 +3,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as api from "../../../Api/AssignmentsApi";
 
 export const createAssignment = createAsyncThunk(
-  "assignments/addAssignment",
-  async (assignment, thunkAPI) => {
-    const response = await api.CreateAssignment(assignment);
-    return response.data;
+  "activites/addAssignment",
+  async (assignments, thunkAPI) => {
+    const response = await api.CreateAssignment(assignments);
     console.log(response.data);
+    return response.data;
   }
 );
 
@@ -77,15 +77,6 @@ export const deleteAssignments = (id) => async (dispatch) => {
     dispatch(deleteAssignmentsRedcuer(id));
   } catch {}
 };
-
-// export const createCourse = (courses) => async (dispatch) => {
-//   try {
-//     const { data } = await api.CreateCourses(courses);
-//     dispatch(AddCourse(data));
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
 
 export const selectassignments = (state) => state.assignments.values;
 

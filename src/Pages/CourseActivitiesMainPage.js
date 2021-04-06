@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import CoursesActivitiesList from "../features/AppBase/CourseActivity/CoursesActivitiesList";
 import { GetCoursesActivities } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
-import AddAssignment from "../features/AppBase/CourseActivity/AddAssignment";
+import AddAssignment from "../features/AppBase/assignments/AddAssignment";
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
