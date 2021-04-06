@@ -20,7 +20,7 @@ function Courses() {
 
   return (
     <div className={styles.fluid}>
-      <Addcourse currentId={currentId} />
+      <Addcourse currentId={currentId} setcurrentId={setcurrentId} />
 
       <div className={styles.courses}>
         {" "}

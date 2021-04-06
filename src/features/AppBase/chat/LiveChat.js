@@ -13,12 +13,13 @@ export function LiveChat() {
   const [state, setState] = useState({ message: "", name: "user" });
   const [chat, setChat] = useState([]);
   const socketRef = useRef();
-
+  const charRef = useRef();
   useEffect(() => {
     socketRef.current = io.connect("http://localhost:4000");
     socketRef.current.on("message", ({ name, message }) => {
       setChat([...chat, { name, message }]);
     });
+    charRef.current.scrollTop = charRef.current.scrollHeight;
     return () => socketRef.current.disconnect();
   }, [chat]);
 
@@ -44,9 +45,12 @@ export function LiveChat() {
   };
   return (
     <div className={styles.renderchat}>
-      <div>{renderChat()}</div>
+      <div ref={charRef} className={styles.chat}>
+        {renderChat()}
+      </div>
       <form onSubmit={onMessageSubmit} className={styles.form}>
         <TextField
+          autoComplete="off"
           name="message"
           onChange={(e) => onTextChange(e)}
           value={state.message}
@@ -56,7 +60,7 @@ export function LiveChat() {
           className={styles.field}
         />
 
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={onMessageSubmit}>
           <Send></Send>
         </IconButton>
       </form>
