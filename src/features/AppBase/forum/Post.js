@@ -103,7 +103,7 @@ function Post ({showActions , Posts, currentId })  {
                    <InputOption Icon={VisibilityIcon}  title={Posts.views}
                  color="blue"/></IconButton>
                  <IconButton aria-label="view" >
-                   <InputOption Icon={GradeIcon}  title={Posts.avg}
+                   <InputOption Icon={GradeIcon}  title={Posts.avg.toFixed(1)}
                  color="blue"/></IconButton>
                  <IconButton aria-label="view" >
                    <Link to={`/app/singlePost/${Posts._id}`}> 

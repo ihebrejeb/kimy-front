@@ -41,6 +41,7 @@ function Courses() {
       <div className={styles.courses}>
         {" "}
         <CoursesList setcurrentId={setcurrentId} />{" "}
+        
       </div>
     </div>
   );
