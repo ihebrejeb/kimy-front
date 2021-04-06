@@ -38,7 +38,7 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
       margin: 0,
     },
     header: {
-      backgroundColor: "#1569C7",
+      backgroundColor: "#448ee4 ",
     },
   });
 

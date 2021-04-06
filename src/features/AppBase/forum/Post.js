@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import { addLike, deletePost, unlike } from "./ForumSlice";
 import moment from "moment";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import { Fragment } from "react";
 
@@ -71,7 +72,7 @@ function Post({ showActions, Posts, currentId }) {
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon onClick={() => dispatch(deletePost(Posts._id))} />
+            <DeleteIcon onClick={() => dispatch(deletePost(Posts._id))} />
           </IconButton>
         }
         title=" Med habib"
