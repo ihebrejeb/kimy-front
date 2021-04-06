@@ -3,10 +3,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as api from "../../../Api/AssignmentsApi";
 
 export const createAssignment = createAsyncThunk(
-  "activites/addAssignment",
+  "assignments/addAssignment",
   async (assignment, thunkAPI) => {
     const response = await api.CreateAssignment(assignment);
     return response.data;
+    console.log(response.data);
   }
 );
 
@@ -61,7 +62,7 @@ export const GetAssignments = () => async (dispatch) => {
   }
 };
 
-export const update = (id, assignment) => async (dispatch) => {
+export const updateAssign = (id, assignment) => async (dispatch) => {
   try {
     const { data } = await api.UpdateAssignments(id, assignment);
     dispatch(updateAssignments(data.data));

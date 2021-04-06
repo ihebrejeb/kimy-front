@@ -6,25 +6,21 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import styles from "../CourseActivity/addActivity.module.css";
+import styles from "../CourseActivity/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import { createAssignment, update } from "./AssignmentsSlice";
-// import DateFnsUtils from '@date-io/date-fns';
-// import 'date-fns';
-
-// import {
-//   MuiPickersUtilsProvider,
-//   KeyboardTimePicker,
-//   KeyboardDatePicker,
-// } from '@material-ui/pickers';
+import {
+  createAssignment,
+  updateAssign,
+  GetAssignments,
+} from "./AssignmentsSlice";
 
 import { useHistory } from "react-router";
-function AddAssignment({ currentId, setcurrentId }) {
+function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   const assignment = useSelector((state) =>
-    currentId
-      ? state.assignments?.values.find((c) => c._id === currentId)
-      : null
+    currentIdassign
+      ? state.assignments?.values.find((c) => c._id === currentIdassign)
+      : currentIdassign
   );
   const history = useHistory();
 
@@ -33,7 +29,7 @@ function AddAssignment({ currentId, setcurrentId }) {
     activity: "",
     Assignmentfile: "",
     description: "",
-    dateCreation: "",
+    //dateCreation: "",
     dateLimite: "",
   });
   const dispatch = useDispatch();
@@ -42,8 +38,8 @@ function AddAssignment({ currentId, setcurrentId }) {
     setOpen(true);
   };
   useEffect(() => {
-    if (currentId) setOpen(true);
-  }, [currentId]);
+    if (currentIdassign) setOpen(true);
+  }, [currentIdassign]);
   const handleClose = () => {
     clear();
     setOpen(false);
@@ -53,23 +49,25 @@ function AddAssignment({ currentId, setcurrentId }) {
   }, [assignment]);
 
   const clear = () => {
-    setcurrentId(null);
+    setcurrentIdassign(null);
     setassignmentData({
       title: "",
-    activity: "",
-    Assignmentfile: "",
-    description: "",
-    dateCreation: "",
-    dateLimite: "",
+      activity: "",
+      Assignmentfile: "",
+      description: "",
+      // dateCreation: "",
+      dateLimite: "", //controle de saisie superieure l data lyouma
     });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (currentId) {
-      dispatch(update(currentId, assignmentData));
+    if (currentIdassign) {
+      dispatch(updateAssign(currentIdassign, assignmentData));
     } else {
       dispatch(createAssignment(assignmentData));
+      console.log(assignmentData);
+      //dispatch(GetAssignments());
     }
 
     setOpen(false);
@@ -114,7 +112,7 @@ function AddAssignment({ currentId, setcurrentId }) {
                 }
               />
             </div>
-            
+
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
@@ -132,16 +130,23 @@ function AddAssignment({ currentId, setcurrentId }) {
                 })
               }
             />
-             <TextField
-    id="datetime-local"
-    label="Deadline"
-    type="datetime-local"
-    defaultValue={Date.now()}
-   
-    InputLabelProps={{
-      shrink: true,
-    }}
-  />
+            <TextField
+              id="datetime-local"
+              label="Deadline"
+              type="datetime-local"
+              defaultValue={Date.now()}
+              name="dateLimite"
+              value={assignmentData.dateLimite}
+              onChange={(e) =>
+                setassignmentData({
+                  ...assignmentData,
+                  dateLimite: e.target.value,
+                })
+              }
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
           </form>
         </DialogContent>
         <DialogActions>
@@ -152,7 +157,7 @@ function AddAssignment({ currentId, setcurrentId }) {
             Submit
           </button>
         </DialogActions>
-      </Dialog> 
+      </Dialog>
     </div>
   );
 }

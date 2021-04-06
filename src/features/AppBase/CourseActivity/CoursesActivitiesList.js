@@ -13,7 +13,7 @@ function CoursesActivitiesList({ setcurrentId }) {
     <div className={styles.activities}>
       {coursesActivities.map((courseActivity) => (
         <CourseActivity
-          key={courseActivity._id}
+          key={courseActivity?._id}
           coursesActivities={courseActivity}
           setcurrentId={setcurrentId}
         />

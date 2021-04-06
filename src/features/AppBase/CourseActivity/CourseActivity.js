@@ -48,8 +48,10 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
       <Card className={carddesign.root}>
         <CardHeader
           className={carddesign.header}
-          title={coursesActivities.title}
-          subheader= {"Description of the Activity : " + coursesActivities.description}
+          title={coursesActivities?.title}
+          subheader={
+            "Description of the Activity : " + coursesActivities?.description
+          }
           action={
             <div>
               <IconButton>
@@ -66,7 +68,7 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
             </div>
           }
         />
-        
+
         <div>
           <Accordion className={carddesign.noMargin}>
             <AccordionSummary
@@ -150,7 +152,7 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
               id="panel2a-header"
             >
               <Typography className={classes.heading}>
-              Assignments <DescriptionIcon></DescriptionIcon>
+                Assignments <DescriptionIcon></DescriptionIcon>
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

@@ -8,6 +8,8 @@ import AddAssignment from "../features/AppBase/CourseActivity/AddAssignment";
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
+  const [currentIdassign, setcurrentIdassign] = useState(null);
+
   const dispatch = useDispatch();
 
   const [course] = useState({
@@ -26,8 +28,10 @@ function CourseActivitiesMainPage() {
     <div className={styles.content}>
       <div className={styles.addActivity}>
         <AddActivity currentId={currentId} setcurrentId={setcurrentId} />
-                <AddAssignment currentId={currentId} setcurrentId={setcurrentId} />
-
+        <AddAssignment
+          currentIdassign={currentIdassign}
+          setcurrentIdassign={setcurrentIdassign}
+        />
       </div>
       <div className={styles.activityList}>
         <CoursesActivitiesList
