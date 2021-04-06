@@ -1,4 +1,4 @@
-/* import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import * as api from '../actions/api.js';
 
@@ -12,20 +12,12 @@ import * as api from '../actions/api.js';
   }
 ) 
 
-export const userslice = createSlice({
-  name: 'user',
+export const usersSlice = createSlice({
+  name: 'users',
   initialState: {
     value: null,
   },
   reducers: {
-    login:(state,action )  => {
-      state.user = action.payload ;
-      
-    },
-   
-    logout: (state ) => {
-      state.user = null ;
-    },
     getUsers: ( state , action  )  => {
       state.values = action.payload; 
     },
@@ -47,12 +39,12 @@ export const userslice = createSlice({
   },
 });
 
-export const { login, logout, getUsers, updateUser, deleteuserReducer } = userslice.actions;
+export const { getUsers, updateUser, deleteuserReducer } = usersSlice.actions;
 
 export const GetUsers = () => async (dispatch)  => {
   try {
-    const { data } = await api.fetchUsers();
-    console.log('2')
+    const { data } = await api.fetchUser();
+    console.log("2")
 
     dispatch( getUsers(data.data)  );
   } catch (error) {
@@ -82,35 +74,6 @@ catch{
 }
 }
 
-export const selectusers = state => state.users.values;
+export const selectusers = state => state.users.userslist.users;
 
-export const selectuser = (state) => state.user.user;
-
-export default userslice.reducer; */
-
-import { createSlice } from "@reduxjs/toolkit";
-
-export const userslice = createSlice({
-  name: "user",
-  initialState: {
-    user: {
-      email: "user@esprit.tn",
-    },
-  },
-  reducers: {
-    login: (state, action) => {
-      state.user = action.payload;
-    },
-
-    logout: (state) => {
-      state.user = null;
-    },
-  },
-});
-
-export const { login, logout } = userslice.actions;
-
-//sleecotors
-export const selectuser = (state) => state.user.user;
-
-export default userslice.reducer;
+export default usersSlice.reducer; 

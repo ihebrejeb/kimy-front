@@ -41,14 +41,6 @@ function SinglePost({ Posts,}) {
             dispatch(addrate( postId ,  rating))
 
 
-    }
-    const [hover, setHover] = useState(-1);
-
-    useEffect(() => { 
-       
-        dispatch(getOnePost(id)) 
-       
-    }, [ dispatch , id  ] ) 
 
     return (
 <div> 
@@ -91,9 +83,9 @@ function SinglePost({ Posts,}) {
                         }}
                         onChangeActive={(event, newHover) => {
                             setHover(newHover);
-                        }}
+                        }}></Rating>
 
-                    />
+
 
                     {rating !== null && <Box ml={0}>{labels[hover !== -1 ? hover : rating]}</Box>}
                 </h3>
@@ -104,27 +96,23 @@ function SinglePost({ Posts,}) {
                     <div> 
                     <Link  className='decoarion' to='/app/forum' >
 
-                    <IconButton  aria-label="view" >
-                    <DynamicFeedIcon  style={{color:'blue'}}  />  all Posts
-                    </IconButton> 
-                    </Link>
-                    </div>
-                    </div>
-                </Fragment>
+                <IconButton aria-label="view">
+                  <DynamicFeedIcon style={{ color: "blue" }} /> all Posts
+                </IconButton>
+              </Link>
+            </div>
+          </div>
+        </Fragment>
 
-                 <div className="commentsection"></div>
-              
-           
-        </div>
-        <AddComment  postId={post._id}/>
+        <div className="commentsection"></div>
+      </div>
+      <AddComment postId={post._id} />
 
-
-        {post?.comments?.map(comment => (
-                <CommentItem key={comment._id} comment={comment} postId={post._id} />
-            ))}
-
-        </div>
-    )
+      {post?.comments?.map((comment) => (
+        <CommentItem key={comment._id} comment={comment} postId={post._id} />
+      ))}
+    </div>
+  );
 }
 
-export default SinglePost
+export default SinglePost;

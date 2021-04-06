@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,12 +9,15 @@ import {
   Switch,
   Redirect,
   useHistory,
-  Link,
   useLocation,
+  NavLink,
 } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
-import Calendar from "../../Pages/Calendar";
+import Calendrier from "../../Pages/Calendrier";
+import Userprofile from "../../Pages/Userprofile";
+import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
+import { useSelector } from "react-redux";
 import LiveChat from "../AppBase/chat/LiveChat";
 import CourseDemo from "./onlinseSession/CourseDemo";
 import CourseRecordings from "./onlinseSession/CourseRecordings";
@@ -23,10 +26,28 @@ import Attendance from "./onlinseSession/Attendance";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
-import { useSelector } from "react-redux";
-import { selectuser } from "./user/UserSlice";
-import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
+import Testuser from "../../Pages/Testuser";
 import { selectedcourse } from "./onlinseSession/CourseDemoSlice";
+import {
+  Avatar,
+  ClickAwayListener,
+  Grow,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popper,
+  Tooltip,
+} from "@material-ui/core";
+import { blue } from "@material-ui/core/colors";
+import {
+  CalendarToday,
+  ExitToApp,
+  Person,
+  SlowMotionVideo,
+} from "@material-ui/icons";
 
 const drawerWidth = 200;
 
@@ -60,17 +81,36 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     width: "100%",
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
+  },
+  flex: {
+    display: "flex",
+    alignItems: "center",
+    gap: "15px",
+    marginRight: "20px",
+  },
+  avatar: {
+    backgroundColor: blue[700],
+    cursor: "pointer",
   },
 }));
 
 export default function ClippedDrawer() {
-  const user = useSelector(selectuser);
+  /*   const user = useSelector(selectuser);
+   */
   const location = useLocation();
   const classes = useStyles();
   const history = useHistory();
+  //const user = useSelector(state => state.user.user);
   const course = useSelector(selectedcourse);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const signOut = () => {
     auth.signOut();
     history.push("/");
@@ -92,67 +132,117 @@ export default function ClippedDrawer() {
 
           {course && (
             <div className={classes.links}>
-              <Link to="/app/activites" className={classes.link}>
+              <NavLink
+                to="/app/activites"
+                className={classes.link}
+                activeStyle={{
+                  fontWeight: "bold",
+                  textDecoration: "underline",
+                  color: "blue",
+                }}
+              >
                 Activities
-              </Link>
-              <Link to="/app/forum" className={classes.link}>
+              </NavLink>
+              <NavLink
+                to="/app/forum"
+                className={classes.link}
+                activeStyle={{
+                  fontWeight: "bold",
+                  textDecoration: "underline",
+                  color: "blue",
+                }}
+              >
                 Forum
-              </Link>
-              <Link to="/app/course/recordings" className={classes.link}>
+              </NavLink>
+              <NavLink
+                to="/app/course/recordings"
+                className={classes.link}
+                activeStyle={{
+                  fontWeight: "bold",
+                  textDecoration: "underline",
+                  color: "blue",
+                }}
+              >
                 Recordings
-              </Link>
+              </NavLink>
             </div>
           )}
-          <div>
+          <div className={classes.flex}>
             {course && location.pathname !== "/app/video/" + course.id && (
-              <button onClick={joinLobby}>Join</button>
+              <Tooltip title="Start video conference">
+                <IconButton color="primary" onClick={joinLobby}>
+                  <SlowMotionVideo></SlowMotionVideo>
+                </IconButton>
+              </Tooltip>
             )}
-            <button onClick={signOut} className="Profile_screenSignOut">
-              {" "}
-              Sign Out
-            </button>
+            <Tooltip title="Calendar">
+              <IconButton
+                color="primary"
+                onClick={() => {
+                  history.push("/app/calendar");
+                }}
+              >
+                <CalendarToday></CalendarToday>
+              </IconButton>
+            </Tooltip>
+            <Avatar
+              className={classes.avatar}
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              IR
+            </Avatar>
+            <Popper
+              open={Boolean(anchorEl)}
+              anchorEl={anchorEl}
+              transition
+              disablePortal
+            >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  id="menu-list-grow"
+                  style={{
+                    transformOrigin:
+                      placement === "bottom" ? "center top" : "center bottom",
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList>
+                        <MenuItem
+                          onClick={() => {
+                            handleClose();
+                            history.push("/app/users");
+                          }}
+                        >
+                          <ListItemIcon>
+                            <Person fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText primary="Profile" />
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            handleClose();
+                            signOut();
+                          }}
+                        >
+                          <ListItemIcon>
+                            <ExitToApp fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText primary="Logout" />
+                        </MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
           </div>
         </Toolbar>
       </AppBar>
-      {/* <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        {" "}
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List>
-            <ListItem button onClick={() => history.push("/app/courses")}>
-              <ListItemIcon>
-                <ViewCompactIcon></ViewCompactIcon>
-              </ListItemIcon>
-              <ListItemText primary="Courses" />
-            </ListItem>
-            <ListItem button onClick={() => history.push("/app/chat")}>
-              <ListItemIcon>
-                <ViewCompactIcon></ViewCompactIcon>
-              </ListItemIcon>
-              <ListItemText primary="livechat" />
-            </ListItem>
-            <ListItem button onClick={() => history.push("/app/forum")}>
-              <ListItemIcon>
-                <ViewCompactIcon></ViewCompactIcon>
-              </ListItemIcon>
-              <ListItemText primary="Forum" />
-            </ListItem>
-            <ListItem button onClick={() => history.push("/app/activites")}>
-              <ListItemIcon>
-                <ViewCompactIcon></ViewCompactIcon>
-              </ListItemIcon>
-              <ListItemText primary="Activities" />
-            </ListItem>
-          </List>
-        </div>
-      </Drawer>
-       */}
+
       <main className={classes.content}>
         <Toolbar />
 
@@ -191,10 +281,16 @@ export default function ClippedDrawer() {
             <Attendance></Attendance>
           </Route>
           <Route exact path="/app/calendar">
-            <Calendar></Calendar>
+            <Calendrier></Calendrier>
           </Route>
           <Route exact path="/app/activites">
             <CourseActivitiesMainPage />
+          </Route>
+          <Route exact path="/app/users">
+            <Userprofile />
+          </Route>
+          <Route exact path="/app/userstest">
+            <Testuser />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>

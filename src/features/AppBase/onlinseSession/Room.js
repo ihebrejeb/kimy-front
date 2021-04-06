@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./test.css";
 import Participant from "./Participant";
+import { Modal } from "@material-ui/core";
+import LiveQuizz from "../../../Pages/LiveQuizz";
+import LiveChat from "../chat/LiveChat";
 const Room = ({ room, me, isVideo, isAudio }) => {
   const [participants, setParticipants] = useState([]);
 
@@ -25,9 +28,25 @@ const Room = ({ room, me, isVideo, isAudio }) => {
       room.off("participantDisconnected", participantDisconnected);
     };
   }, [room]);
+  const [open, setOpen] = React.useState(false);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div className="flex">
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <LiveQuizz></LiveQuizz>
+      </Modal>
       <div className="room">
         <div ref={scene} id="Scenary">
           <Test scene={scene} participants={participants}></Test>
@@ -40,9 +59,12 @@ const Room = ({ room, me, isVideo, isAudio }) => {
           participant={room.localParticipant}
           isLocalVideo={isVideo}
           isLocalAudio={isAudio}
+          handleOpen={handleOpen}
         />
       </div>
-      <div className="chat">CHAT</div>
+      <div className="chat">
+        <LiveChat></LiveChat>
+      </div>
     </div>
   );
 };

@@ -1,1 +1,6 @@
-.courses{margin-top: 20px;}
+.courses {
+  margin-top: 20px;
+}
+.fluid {
+  width: 100%;
+}

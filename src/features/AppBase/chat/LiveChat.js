@@ -6,10 +6,11 @@ import io from "socket.io-client";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
-import { TextField } from "@material-ui/core";
+import { IconButton, TextField } from "@material-ui/core";
+import { Send } from "@material-ui/icons";
 
-function LiveChat() {
-  const [state, setState] = useState({ message: "", name: "" });
+export function LiveChat() {
+  const [state, setState] = useState({ message: "", name: "user" });
   const [chat, setChat] = useState([]);
   const socketRef = useRef();
 
@@ -43,17 +44,8 @@ function LiveChat() {
   };
   return (
     <div className={styles.renderchat}>
-      {renderChat()}
-
-      <div className={styles.namefield}>
-        <TextField
-          name="name"
-          onChange={(e) => onTextChange(e)}
-          value={state.name}
-          label="Name"
-        />
-      </div>
-      <form  className={styles.form}onSubmit={onMessageSubmit}>
+      <div>{renderChat()}</div>
+      <form onSubmit={onMessageSubmit} className={styles.form}>
         <TextField
           name="message"
           onChange={(e) => onTextChange(e)}
@@ -61,9 +53,12 @@ function LiveChat() {
           id="outlined-multiline-static"
           variant="outlined"
           label="Message"
+          className={styles.field}
         />
 
-        <button>Send Message</button>
+        <IconButton color="primary">
+          <Send></Send>
+        </IconButton>
       </form>
     </div>
   );

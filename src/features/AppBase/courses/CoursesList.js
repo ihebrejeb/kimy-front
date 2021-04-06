@@ -9,7 +9,6 @@ import useStyles from "./ListStyles";
 function CoursesList({ setcurrentId }) {
   const classes = useStyles;
   const courses = useSelector(selectcourses);
-  console.log(courses);
   return (
     <div>
       <Grid

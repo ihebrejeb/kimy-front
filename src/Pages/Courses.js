@@ -7,24 +7,11 @@ import { useEffect } from "react";
 import { GetCourses } from "../features/AppBase/courses/CoursesSlice";
 import { useState } from "react";
 
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
 
 function Courses() {
   const [currentId, setcurrentId] = useState(null);
   const dispatch = useDispatch();
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-      flexWrap: "wrap",
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: "25ch",
-    },
-  }));
 
   useEffect(() => {
     dispatch(GetCourses());
@@ -32,16 +19,12 @@ function Courses() {
   }, [dispatch]);
 
   return (
-    <div>
-      <div>
-        {" "}
-        <Addcourse currentId={currentId} setcurrentId={setcurrentId} />{" "}
-      </div>
+    <div className={styles.fluid}>
+      <Addcourse currentId={currentId} />
 
       <div className={styles.courses}>
         {" "}
         <CoursesList setcurrentId={setcurrentId} />{" "}
-        
       </div>
     </div>
   );

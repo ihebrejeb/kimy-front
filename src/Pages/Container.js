@@ -1,11 +1,8 @@
 import React from "react";
 import styles from "./Container.module.css";
-import { useHistory } from "react-router-dom";
 import Whiteboard from "./Whiteboard";
 
 function Container() {
-  const history = useHistory();
-
   return (
     <div>
       <div className={styles.container}>
