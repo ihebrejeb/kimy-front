@@ -74,6 +74,7 @@ export const deleteCourseActivities = (id) => async (dispatch) => {
   try {
     await api.deleteCoursesActivities(id);
     dispatch(deletecourseActivitiesRedcuer(id));
+    
   } catch {}
 };
 

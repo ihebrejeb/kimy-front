@@ -49,6 +49,7 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
         <CardHeader
           className={carddesign.header}
           title={coursesActivities.title}
+          subheader= {"Description of the Activity : " + coursesActivities.description}
           action={
             <div>
               <IconButton>
@@ -65,6 +66,7 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
             </div>
           }
         />
+        
         <div>
           <Accordion className={carddesign.noMargin}>
             <AccordionSummary
@@ -112,7 +114,7 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
             ></AccordionSummary>
           </Accordion>
 
-          <Accordion className={carddesign.noMargin}>
+          {/* <Accordion className={carddesign.noMargin}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2a-content"
@@ -125,7 +127,7 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
             <AccordionDetails>
               <Typography>{coursesActivities.description}</Typography>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
 
           <Accordion className={carddesign.noMargin}>
             <AccordionSummary
@@ -139,6 +141,20 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>Insert Resources here</Typography>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion className={carddesign.noMargin}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography className={classes.heading}>
+              Assignments <DescriptionIcon></DescriptionIcon>
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>assignments here </Typography>
             </AccordionDetails>
           </Accordion>
         </div>

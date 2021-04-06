@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import CoursesActivitiesList from "../features/AppBase/CourseActivity/CoursesActivitiesList";
 import { GetCoursesActivities } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
+import AddAssignment from "../features/AppBase/CourseActivity/AddAssignment";
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
@@ -25,6 +26,8 @@ function CourseActivitiesMainPage() {
     <div className={styles.content}>
       <div className={styles.addActivity}>
         <AddActivity currentId={currentId} setcurrentId={setcurrentId} />
+                <AddAssignment currentId={currentId} setcurrentId={setcurrentId} />
+
       </div>
       <div className={styles.activityList}>
         <CoursesActivitiesList
