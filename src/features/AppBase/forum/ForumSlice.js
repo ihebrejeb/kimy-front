@@ -1,25 +1,16 @@
-import { createSlice , createAsyncThunk,  } from '@reduxjs/toolkit';
-import * as api from '../../../Api/postApi.js';
-import * as CommentApi from '../../../Api/CommentApi.js';
-
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import * as api from "../../../Api/postApi.js";
+import * as CommentApi from "../../../Api/CommentApi.js";
 
 export const createComment = createAsyncThunk(
-  '',
-  async ( Data_comment , thunkAPI) => {
-    
-        const response = await CommentApi.postComment(Data_comment.postId , Data_comment.CommentData)
-    
-    return response.data 
-    
-  }
-)
+  "",
+  async (Data_comment, thunkAPI) => {
+    const response = await CommentApi.postComment(
+      Data_comment.postId,
+      Data_comment.CommentData
+    );
 
-
-export const createPosts = createAsyncThunk(
-  'forum',
-  async (post, thunkAPI) => {
-    const response = await api.CreatePost(post)
-    return response.data
+    return response.data;
   }
 );
 
@@ -32,40 +23,18 @@ export const forumslice = createSlice({
   name: "forum",
   initialState: {
     values: [],
-    post :  {}, 
-
+    post: {},
   },
   reducers: {
-      getPost :(state,action) => {
-        state.values= action.payload
-
-      },
-      UnlistPost: (state,action) => {
-        const payload = action.payload; 
-        
-        state.values = state.values.filter((forum)=>forum._id !== payload )
-      },
-      getOne:(state,action) => {
-        state.post= action.payload
-      },
-      DeleteCommento : ( state, action) => {
-        const payload = action.payload; 
-        state.post.comments = state.post.comments.filter((comment)=>comment._id !== payload )
-      },
-      Like:(state,action)=>{
-        const payload = action.payload._id; 
-        state.values = state.values.map((forum) => forum._id === payload ? action.payload : forum )
-        console.log(action.payload)
-
-      },
-      rate:(state,action) => {
-           console.log(action.payload)
-           state.post.rate= action.payload
-        
-      },
+    getPost: (state, action) => {
+      state.values = action.payload;
+    },
+    UnlistPost: (state, action) => {
+      const payload = action.payload;
 
       state.values = state.values.filter((forum) => forum._id !== payload);
     },
+
     getOne: (state, action) => {
       state.post = action.payload;
     },
@@ -94,8 +63,6 @@ export const forumslice = createSlice({
       console.log(action.payload);
       state.post.comments = action.payload;
     },
-    
-   
   },
 });
 
@@ -161,12 +128,9 @@ export const unlike = (id) => async (dispatch) => {
 //Rate
 export const addrate = (postId, formData) => async (dispatch) => {
   try {
-      const rating = {rating: formData}
-      const {data}  = await api.rating(postId , rating)
-      dispatch(rate(data))
-   
-
-     
+    const rating = { rating: formData };
+    const { data } = await api.rating(postId, rating);
+    dispatch(rate(data));
   } catch (error) {
     console.log(error.message);
   }
