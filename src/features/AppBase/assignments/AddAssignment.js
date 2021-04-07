@@ -12,7 +12,10 @@ import FileBase from "react-file-base64";
 import { createAssignment, updateAssign } from "./AssignmentsSlice";
 
 import { useHistory } from "react-router";
+
 function AddAssignment({ currentIdassign, setcurrentIdassign }) {
+  // init("user_r5RFyW2FxoC8HlShJkEV4");
+
   const assignment = useSelector((state) =>
     currentIdassign
       ? state.assignments?.values.find((c) => c._id === currentIdassign)
@@ -84,6 +87,7 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
             noValidate
             className={styles.paper}
             onSubmit={handleSubmit}
+            // onSubmit={sendEmail}
           >
             <TextField
               InputLabelProps={{ className: styles.text }}

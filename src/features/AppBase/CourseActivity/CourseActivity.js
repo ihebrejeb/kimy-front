@@ -14,9 +14,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DescriptionIcon from "@material-ui/icons/Description";
 import EditIcon from "@material-ui/icons/Edit";
 import VideocamIcon from "@material-ui/icons/Videocam";
+import { Link } from "react-router-dom";
 
 function CourseActivity({ coursesActivities, setcurrentId }) {
   const dispatch = useDispatch();
+  const url = coursesActivities.ressources;
 
   const useStylescard = makeStyles({
     root: {
@@ -116,21 +118,6 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
             ></AccordionSummary>
           </Accordion>
 
-          {/* <Accordion className={carddesign.noMargin}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography className={classes.heading}>
-                Description of the chapter <DescriptionIcon></DescriptionIcon>
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{coursesActivities.description}</Typography>
-            </AccordionDetails>
-          </Accordion> */}
-
           <Accordion className={carddesign.noMargin}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -142,7 +129,16 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>Insert Resources here</Typography>
+              <Typography>
+                These ressources might be helpful
+                <a
+                  href="{coursesActivities.ressources}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {coursesActivities.ressources}
+                </a>
+              </Typography>
             </AccordionDetails>
           </Accordion>
           <Accordion className={carddesign.noMargin}>

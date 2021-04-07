@@ -11,7 +11,30 @@ import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { createCourseActivities, update } from "./CoursesActivitiesSlice";
 import { useHistory } from "react-router";
+import emailjs from "emailjs-com";
+import { init } from "emailjs-com";
+
 function AddActivity({ currentId, setcurrentId }) {
+  function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_p9zk5po",
+        "template_ujublkd",
+        e.target,
+        "user_r5RFyW2FxoC8HlShJkEV4"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  }
+
   const activity = useSelector((state) =>
     currentId
       ? state.coursesActivities?.values.find((c) => c._id === currentId)
@@ -61,6 +84,9 @@ function AddActivity({ currentId, setcurrentId }) {
       dispatch(update(currentId, activityData));
     } else {
       dispatch(createCourseActivities(activityData));
+      /// emailjs.send("service_p9zk5po", "template_ujublkd");
+
+      //sendEmail(e);
     }
 
     setOpen(false);
