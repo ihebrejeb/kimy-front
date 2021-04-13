@@ -1,4 +1,4 @@
-import { FormControl, TextField } from "@material-ui/core";
+import { FormControl, Snackbar, TextField } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Alert } from "@material-ui/lab";
 
 const schema = yup.object().shape({
   creator : yup.string().required("you have to add a creator") , 
@@ -47,14 +48,22 @@ function Addcourse({ currentId, setcurrentId }) {
 
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const [openN, setOpenN] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  const handleError =() => {
+    errors.creator = '' ; 
+    errors.title = '' ; 
+    errors.message = '' ; 
+  }
   const handleClose = () => {
     setOpen(false);
     clear();
+     handleError()
+
+
   };
 
   useEffect(() => {
@@ -84,8 +93,19 @@ function Addcourse({ currentId, setcurrentId }) {
 
     setOpen(false);
     clear();
+    handleClick()
   };
- 
+
+  const handleClick = () => {
+    setOpenN(true);
+  };
+
+  const handleCloseNotif = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenN(false);
+  };
   return (
     <div>
       <div className={styles.searchfield}>
@@ -100,11 +120,12 @@ function Addcourse({ currentId, setcurrentId }) {
      <FormControl> 
 
       <Dialog
+       fullWidth={true}
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title"> </DialogTitle>
+        <DialogTitle id="form-dialog-title"> Create Your course </DialogTitle>
         <DialogContent>
                    
            
@@ -150,7 +171,7 @@ function Addcourse({ currentId, setcurrentId }) {
                 setcourseData({ ...courseData, message: e.target.value })
               }
             />
-              <p className={styles.warning}>{errors.message?.message && errors.touched} </p> 
+              <p className={styles.warning}>{errors.message?.message } </p> 
 
          
             <div className={styles.fileInput}>
@@ -176,6 +197,11 @@ function Addcourse({ currentId, setcurrentId }) {
         </DialogActions>
       </Dialog>
       </FormControl>
+      <Snackbar open={openN} autoHideDuration={3000} onClose={handleCloseNotif}>
+            <Alert onClose={handleCloseNotif} severity="success">
+              A new Course has been created
+            </Alert>
+          </Snackbar>
     </div>
   );
 }

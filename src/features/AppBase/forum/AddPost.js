@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 
 import "./post.css";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 import {
   Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  FormControl,
-  IconButton,
   makeStyles,
   Snackbar,
   TextField,
@@ -53,6 +46,8 @@ function AddPost() {
   const handleCloseDialog = () => {
     setOpenDialog(false);
     clear()
+    handleError()
+
   };
   const dispatch = useDispatch();
 
@@ -60,12 +55,7 @@ function AddPost() {
   //   const text = editor.getData();
   //   forumData.text = text;
   // };
-  const submit = (e) => {
-    dispatch(createPosts(forumData));
-    clear();
-    handleClick();
-    setOpenDialog(false);
-  };
+  
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -100,6 +90,10 @@ function AddPost() {
       backgroundColor: red[500],
     },
   }));
+  const handleError = () => {
+    errors.text = '';
+    errors.title = '' 
+  }
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -113,6 +107,12 @@ function AddPost() {
     }
 
     setOpen(false);
+  };
+  const submit = (e) => {
+    dispatch(createPosts(forumData));
+    clear();
+    handleClick();
+    setOpenDialog(false);
   };
   return (
     <div> 
@@ -128,14 +128,14 @@ function AddPost() {
         open={openDialog}
         onClose={handleCloseDialog}
         aria-labelledby="form-dialog-title"
-      className={classes.root}   >
+         >
      <DialogTitle id="form-dialog-title"> Ask A Question Below </DialogTitle>
         <DialogContent >
 
-       <FormControl>
 
-        <Typography variant="p" color="textprimary" component="p">
+        
           <TextField
+            fullWidth
             label="Title"
             {...register("title")}
             variant="outlined"
@@ -144,12 +144,13 @@ function AddPost() {
               setforumData({ ...forumData, title: e.target.value })
             }
           />
-        </Typography>
+     
         <p  className={classes.root} > {errors.title?.message } </p>
         <Fragment>
           {" "}
           <Typography variant="p" color="textprimary" component="p">
             <TextField
+            fullWidth
             id="filled-basic"
             variant="outlined"
             label="Message"
@@ -166,7 +167,6 @@ function AddPost() {
               {errors.text?.message } 
              </p>
              </Fragment>
-             </FormControl>
         </DialogContent>
         
          
@@ -175,7 +175,7 @@ function AddPost() {
             Cancel
           </Button>
         <button
-            style={{ marginLeft: "0", marginTop: "10px" }}
+           
             onClick={handleSubmit(submit)}
           >
             {" "}
