@@ -39,3 +39,10 @@ justify-content: space-between;
     color: gray;
    
 }
+.warning{
+    color: red;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: -0;
+}

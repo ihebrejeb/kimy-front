@@ -4,9 +4,12 @@ import "./post.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {
+  Button,
   Card,
   CardContent,
   CardHeader,
+  Divider,
+  FormControl,
   IconButton,
   makeStyles,
   Snackbar,
@@ -18,35 +21,70 @@ import { createPosts } from "./ForumSlice";
 import { red } from "@material-ui/core/colors";
 import { Fragment } from "react";
 import { Alert } from "@material-ui/lab";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+const schema = yup.object().shape({
+  text: yup.string().required("did you forget to write something ?"),
+  title: yup.string().required("Please Submit A Thread Title"),
 
+ 
+});
 function AddPost() {
+  const { register, handleSubmit,  formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+
+  });
   const [forumData, setforumData] = useState({ title: "", text: "" });
+  const [openDialog, setOpenDialog] = React.useState(false);
+
   const clear = () => {
     setforumData({ title: "", text: "" });
   };
 
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    clear()
+  };
   const dispatch = useDispatch();
 
-  const handlechange = (e, editor) => {
-    const text = editor.getData();
-    forumData.text = text;
-  };
-  const handleSbumit = (e) => {
-    e.preventDefault();
+  // const handlechange = (e, editor) => {
+  //   const text = editor.getData();
+  //   forumData.text = text;
+  // };
+  const submit = (e) => {
     dispatch(createPosts(forumData));
     clear();
     handleClick();
+    setOpenDialog(false);
   };
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 800,
       marginBottom: "10px",
       margin: "auto",
+      color:'red',
     },
     media: {
       height: 0,
       paddingTop: "56.25%", // 16:9
+    },
+    formControl: {
+      marginTop: theme.spacing(2),
+      minWidth: 3000,
+    },
+    thebutton : {
+      display: 'flex',
+      justifyContent:'center',
+      marginBottom:'20px'
     },
     expand: {
       transform: "rotate(0deg)",
@@ -77,18 +115,29 @@ function AddPost() {
     setOpen(false);
   };
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        action={<IconButton aria-label="settings"></IconButton>}
-        title=" Ask A Question Below"
-        subheader="Thread"
-      />
+    <div> 
+      
+    <div className={classes.thebutton}>
+       <button variant="outlined" color="secondary" onClick={handleClickOpenDialog}>
+            Post a Thread
+       </button> 
+   </div>  
+    
+    <Dialog
+      fullWidth= {true}
+        open={openDialog}
+        onClose={handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+      className={classes.root}   >
+     <DialogTitle id="form-dialog-title"> Ask A Question Below </DialogTitle>
+        <DialogContent >
 
-      <CardContent>
+       <FormControl>
+
         <Typography variant="p" color="textprimary" component="p">
           <TextField
-            id="filled-basic"
             label="Title"
+            {...register("title")}
             variant="outlined"
             value={forumData.title}
             onChange={(e) =>
@@ -96,30 +145,59 @@ function AddPost() {
             }
           />
         </Typography>
+        <p  className={classes.root} > {errors.title?.message } </p>
         <Fragment>
           {" "}
-          <h3 className={classes.root}>
-            <CKEditor
-              editor={ClassicEditor}
+          <Typography variant="p" color="textprimary" component="p">
+            <TextField
+            id="filled-basic"
+            variant="outlined"
+            label="Message"
+
+            {...register("text")}
               value={forumData.text}
-              onChange={handlechange}
+              onChange={(e) =>
+                setforumData({ ...forumData, text: e.target.value })
+              }
+              
             />
-          </h3>
-          <button
+            </Typography>
+            <p className={classes.root} >
+              {errors.text?.message } 
+             </p>
+             </Fragment>
+             </FormControl>
+        </DialogContent>
+        
+         
+        <DialogActions>
+        <Button onClick={handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+        <button
             style={{ marginLeft: "0", marginTop: "10px" }}
-            onClick={handleSbumit}
+            onClick={handleSubmit(submit)}
           >
             {" "}
             Submit Thread
           </button>
-          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          </DialogActions>
+        </Dialog> 
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success">
               Your Thread Has been Posted
             </Alert>
           </Snackbar>
-        </Fragment>
-      </CardContent>
-    </Card>
+        </div>      
+
+          
+          
+         
+
+
+          
+       
+    
     // <div className="post">
     //     <h1 style={{marginBottom :' 30px'}}> Ask A Question Below </h1>
 
