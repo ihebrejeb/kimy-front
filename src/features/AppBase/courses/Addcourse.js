@@ -155,7 +155,7 @@ function Addcourse({ currentId, setcurrentId }) {
                 setcourseData({ ...courseData, title: e.target.value })
               }
             />
-                      <p className={styles.warning}>{errors.title?.message} </p> 
+                      <p className={styles.warning}>{errors.title?.message  } </p> 
 
             <TextField
               InputLabelProps={{ className: styles.text }}
@@ -183,10 +183,7 @@ function Addcourse({ currentId, setcurrentId }) {
                   setcourseData({ ...courseData, selectedFile: base64 })
                 }
               />
-            
-
             </div>
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

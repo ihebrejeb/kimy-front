@@ -34,7 +34,7 @@ function Post({ showActions, Posts, currentId }) {
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 665,
+      maxWidth: 1000,
       marginBottom: "10px",
       margin: "auto",
     },

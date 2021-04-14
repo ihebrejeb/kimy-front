@@ -8,6 +8,7 @@ import { GetCourses } from "../features/AppBase/courses/CoursesSlice";
 import { useState } from "react";
 
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
+import Sidebar from "../features/AppBase/forum/Sidebar";
 
 function Courses() {
   const [currentId, setcurrentId] = useState(null);
@@ -26,7 +27,9 @@ function Courses() {
         {" "}
         <CoursesList setcurrentId={setcurrentId} />{" "}
       </div>
+      
     </div>
+    
   );
 }
 

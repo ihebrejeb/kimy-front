@@ -29,11 +29,20 @@
 }
 .forum{
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+ 
 }
 
 .fields {
     display: flex; 
-    justify-content: space-around;
+    flex: 0.2;
+    flex-direction: column;
+    
+}
+
+.forumList{
+    flex: 0.6;
+    padding: 10px;
+}
+.leftside{
+    flex: 0.2;
 }
