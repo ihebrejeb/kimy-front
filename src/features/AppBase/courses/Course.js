@@ -17,12 +17,17 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { deleteCourse } from "./CoursesSlice";
 import { useHistory } from "react-router";
 import EditIcon from "@material-ui/icons/Edit";
+import ConfirmDialog from '../Confirmation/ConfirmDialog'
+import { useState } from "react";
+
 
 function Course({ courses, setCurrentId }) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
 
   return (
+     
     <Card className={styles.card}>
       <CardHeader
         avatar={<Avatar aria-label="course"></Avatar>}
@@ -61,13 +66,27 @@ function Course({ courses, setCurrentId }) {
           <Button
             size="small"
             color="primary"
-            onClick={() => dispatch(deleteCourse(courses._id))}
+            
+            onClick={() => {
+              setConfirmDialog({
+                  isOpen: true,
+                  title: 'Are you sure to delete this course?',
+                  subTitle: "You can't undo this operation",
+                   onConfirm: () => { dispatch(deleteCourse(courses._id)) }
+              })
+          }}
           >
             <ExitToAppIcon fontSize="small" /> Leave
           </Button>
         </div>
       </CardActions>
+      <ConfirmDialog
+     confirmDialog={confirmDialog}
+     setConfirmDialog={setConfirmDialog}
+ />
     </Card>
+    
+ 
   );
 }
 

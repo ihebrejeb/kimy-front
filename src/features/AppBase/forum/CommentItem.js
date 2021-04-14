@@ -5,8 +5,12 @@ import { Removecomment } from "./ForumSlice";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import "./comments.css";
 import moment from "moment";
+import ConfirmDialog from '../Confirmation/ConfirmDialog'
+import { useState } from "react";
+
 function CommentItem({ comment, postId }) {
   const dispatch = useDispatch();
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
 
   return (
     <div className="section">
@@ -24,11 +28,23 @@ function CommentItem({ comment, postId }) {
           <IconButton aria-label="view">
             <DeleteOutlineOutlinedIcon
               style={{ color: "blue" }}
-              onClick={() => dispatch(Removecomment(postId, comment._id))}
+              onClick={() => {
+                setConfirmDialog({
+                    isOpen: true,
+                    title: 'Are you sure to delete this Comment?',
+                    subTitle: "You can't undo this operation",
+                     onConfirm: () => {dispatch(Removecomment(postId, comment._id))}
+                })
+              }}
+         
             />
           </IconButton>
         </div>
       </div>
+      <ConfirmDialog
+     confirmDialog={confirmDialog}
+     setConfirmDialog={setConfirmDialog}
+ />
     </div>
   );
 }

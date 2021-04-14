@@ -44,6 +44,9 @@ export const forumslice = createSlice({
         (comment) => comment._id !== payload
       );
     },
+    searchAction: (state,action) => {
+      state.values = action.payload
+    },
     Like: (state, action) => {
       const payload = action.payload._id;
       state.values = state.values.map((forum) =>
@@ -73,6 +76,7 @@ export const {
   getOne,
   DeleteCommento,
   Like,
+  searchAction
 } = forumslice.actions;
 
 //thunk
@@ -90,6 +94,16 @@ export const getOnePost = (id) => async (dispatch) => {
     const { data } = await api.fetchOnePost(id);
 
     dispatch(getOne(data.data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const searchThread = (search) => async (dispatch) => {
+  try {
+    const { data } = await api.search(search);
+
+    dispatch(searchAction(data));
   } catch (error) {
     console.log(error.message);
   }

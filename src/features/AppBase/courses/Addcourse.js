@@ -112,7 +112,7 @@ function Addcourse({ currentId, setcurrentId }) {
         <button variant="outlined" color="secondary" onClick={handleClickOpen}>
           create your own  course 
         </button>
-        <div className="header__search">
+        <div className={styles.header__search}>
                     <SearchIcon></SearchIcon>
                     <input placeholder="Enter your Code here" type="text"/>
                 </div>
