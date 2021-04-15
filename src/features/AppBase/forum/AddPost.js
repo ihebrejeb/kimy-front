@@ -73,7 +73,7 @@ function AddPost() {
     },
     thebutton : {
       display: 'flex',
-     
+      marginLeft:'40px',
       marginBottom:'20px'
     },
     expand: {

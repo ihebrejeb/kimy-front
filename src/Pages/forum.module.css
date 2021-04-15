@@ -8,24 +8,21 @@
     justify-content: space-around;
 }
 
-.header__search > input {
-    outline : none ; 
-    border: none;
-    background: none;
-}
+
 .icons{
     display: flex;
     flex-direction: column;
 }
 .header__search {
-    padding: 10px;
+    padding: 30px;
     display: flex;
     align-items: center;
     border-radius: 5px;
     height: 30px;
-    background-color: #eef3f8;
-    color: gray;
-    margin-bottom: 30px;
+    background-color: white;
+    color: blue;
+    padding-left: 10px;   
+    
 }
 .forum{
     display: flex;
@@ -45,4 +42,6 @@
 }
 .leftside{
     flex: 0.2;
+    
+    
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import SearchIcon from '@material-ui/icons/Search';
 import AddPost from "../features/AppBase/forum/AddPost";
 import { getPosts, getSortedWithLikes, searchThread } from "../features/AppBase/forum/ForumSlice";
 import { useDispatch } from "react-redux";
@@ -12,7 +11,7 @@ import Sidebar from "../features/AppBase/forum/Sidebar";
 function Forum() {
   const dispatch = useDispatch();
   const [setcurrentId] = useState(null);
-  const [title, setTitle] = useState('');
+  var [title, setTitle] = useState('');
    var [sort, setsort] = useState(false)
 
 
@@ -40,16 +39,9 @@ useEffect(() => {
      <div className={styles.leftside}>
     
 
-         <div className={styles.header__search}>
-                    <SearchIcon></SearchIcon>
-                    <input placeholder="Search  here" type="text"   value={title}
-                                        onChange={e => setTitle(e.target.value )}
-                                        className="px-16"
-                                        disableUnderline
-                                        fullWidth/>
-                </div>
+       
                
-                <Sidebar setsort={setsort}/>
+                <Sidebar setsort={setsort} title={title} setTitle={setTitle}/>
 
         </div>
    

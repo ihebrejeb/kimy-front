@@ -92,7 +92,7 @@ function Post({ showActions, Posts, currentId }) {
       />
 
       <CardContent>
-        <Typography variant="p" color="textprimary" component="p">
+        <Typography variant="h5" color="textprimary" component="p">
           {ReactHtmlParser(Posts.title)}
         </Typography>
         <Fragment>
