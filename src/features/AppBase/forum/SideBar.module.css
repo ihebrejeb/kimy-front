@@ -44,7 +44,9 @@
     
 }
 .withicon:hover{
-    background-color: rgb(247, 236, 236);        
+    background-color: rgb(247, 236, 236);     
+    border-radius: 10px;
+   
 }
 .Avatar{
     display: flex;

@@ -30,15 +30,15 @@
 }
 
 .fields {
-    display: flex; 
     flex: 0.2;
-    flex-direction: column;
+    margin-top: 40px;
     
 }
 
 .forumList{
     flex: 0.6;
     padding: 10px;
+    margin-top: 40px;
 }
 .leftside{
     flex: 0.2;

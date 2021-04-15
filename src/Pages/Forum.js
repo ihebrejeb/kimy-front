@@ -7,6 +7,8 @@ import ForumList from "../features/AppBase/forum/ForumList";
 import { useState } from "react";
 import styles from './forum.module.css'
 import Sidebar from "../features/AppBase/forum/Sidebar";
+import Tags from "../features/AppBase/forum/Tags";
+import OnlineUsers from "../features/AppBase/forum/OnlineUsers";
 
 function Forum() {
   const dispatch = useDispatch();
@@ -28,8 +30,12 @@ function Forum() {
 useEffect(() => {
   if (sort === true) {
       dispatch(getSortedWithLikes());
+      
   
   }
+  else {
+    dispatch(getPosts());
+}
 }, [ sort,  dispatch]);
 
 
@@ -40,20 +46,21 @@ useEffect(() => {
     
 
        
-               
-                <Sidebar setsort={setsort} title={title} setTitle={setTitle}/>
+         <AddPost />
 
+                <Sidebar setsort={setsort} title={title} setTitle={setTitle}/>
+                <Tags/>
         </div>
    
     <div className={styles.forumList}>  
-      <AddPost />
       <ForumList setcurrentId={setcurrentId} />
       </div>
       
       <div className={styles.fields}> 
      
+      <OnlineUsers/>
      
-            
+
 
      
     </div>
