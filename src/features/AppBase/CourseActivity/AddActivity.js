@@ -15,25 +15,25 @@ import emailjs from "emailjs-com";
 import { init } from "emailjs-com";
 
 function AddActivity({ currentId, setcurrentId }) {
-  function sendEmail(e) {
-    e.preventDefault();
+  // function sendEmail(e) {
+  //   e.preventDefault();
 
-    emailjs
-      .sendForm(
-        "service_p9zk5po",
-        "template_ujublkd",
-        e.target,
-        "user_r5RFyW2FxoC8HlShJkEV4"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-  }
+  //   emailjs
+  //     .sendForm(
+  //       "service_p9zk5po",
+  //       "template_ujublkd",
+  //       e.target,
+  //       "user_r5RFyW2FxoC8HlShJkEV4"
+  //     )
+  //     .then(
+  //       (result) => {
+  //         console.log(result.text);
+  //       },
+  //       (error) => {
+  //         console.log(error.text);
+  //       }
+  //     );
+  // }
 
   const activity = useSelector((state) =>
     currentId

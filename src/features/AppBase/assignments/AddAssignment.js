@@ -9,17 +9,19 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import { createAssignment, updateAssign } from "./AssignmentsSlice";
+import {
+  createnewAssignment,
+  GetAssignments,
+  updateAssign,
+} from "./AssignmentsSlice";
 
 import { useHistory } from "react-router";
 
 function AddAssignment({ currentIdassign, setcurrentIdassign }) {
-  // init("user_r5RFyW2FxoC8HlShJkEV4");
-
   const assignment = useSelector((state) =>
     currentIdassign
-      ? state.assignments?.values.find((c) => c._id === currentIdassign)
-      : currentIdassign
+      ? state.assignmentss?.values.find((c) => c._id === currentIdassign)
+      : null
   );
   const history = useHistory();
 
@@ -64,9 +66,11 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
     if (currentIdassign) {
       dispatch(updateAssign(currentIdassign, assignmentData));
     } else {
-      dispatch(createAssignment(assignmentData));
-      console.log(assignmentData);
-      //dispatch(GetAssignments());
+      dispatch(createnewAssignment(assignmentData));
+
+      console.log(assignmentData); //objetc
+      //console.log("hello");
+      dispatch(GetAssignments());
     }
 
     setOpen(false);

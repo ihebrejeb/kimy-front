@@ -2,12 +2,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import * as api from "../../../Api/AssignmentsApi";
 
-export const createAssignment = createAsyncThunk(
-  "activites/addAssignment",
-  async (assignments, thunkAPI) => {
-    const response = await api.CreateAssignment(assignments);
-    console.log(response.data);
-    return response.data;
+export const createnewAssignment = createAsyncThunk(
+  "assignment/addAssignment",
+
+  async (assignmentss, thunkAPI) => {
+    // console.log("helo slice1");
+    //console.log(response.data);
+    const response = await api.CreateAssignment(assignmentss);
+    console.log("hello slice");
+    return response.data.data;
   }
 );
 
@@ -15,7 +18,7 @@ let initialState = {
   values: [],
 };
 export const AssignmentsSlice = createSlice({
-  name: "assignments",
+  name: "assignmentss",
   initialState,
   reducers: {
     getAssignments: (state, action) => {
@@ -39,7 +42,7 @@ export const AssignmentsSlice = createSlice({
   },
 
   extraReducers: {
-    [createAssignment.fulfilled]: (state, action) => {
+    [createnewAssignment.fulfilled]: (state, action) => {
       state.values.push(action.payload.data);
     },
   },
@@ -78,6 +81,6 @@ export const deleteAssignments = (id) => async (dispatch) => {
   } catch {}
 };
 
-export const selectassignments = (state) => state.assignments.values;
+export const selectassignments = (state) => state.assignmentss.values;
 
 export default AssignmentsSlice.reducer;
