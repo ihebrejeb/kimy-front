@@ -20,14 +20,13 @@ import { useHistory } from "react-router";
 function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   const assignment = useSelector((state) =>
     currentIdassign
-      ? state.assignmentss?.values.find((c) => c._id === currentIdassign)
+      ? state.assignments?.values.find((c) => c._id === currentIdassign)
       : null
   );
   const history = useHistory();
 
   const [assignmentData, setassignmentData] = useState({
     title: "",
-    activity: "",
     Assignmentfile: "",
     description: "",
     //dateCreation: "",
@@ -50,28 +49,25 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   }, [assignment]);
 
   const clear = () => {
-    setcurrentIdassign(null);
-    setassignmentData({
-      title: "",
-      activity: "",
-      Assignmentfile: "",
-      description: "",
-      // dateCreation: "",
-      dateLimite: "", //controle de saisie superieure l data lyouma
-    });
+    // setcurrentIdassign(null);
+    // setassignmentData({
+    //   title: "",
+    //   activity: "",
+    //   Assignmentfile: "",
+    //   description: "",
+    //   // dateCreation: "",
+    //   dateLimite: "", //controle de saisie superieure l data lyouma
+    // });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (currentIdassign) {
-      dispatch(updateAssign(currentIdassign, assignmentData));
-    } else {
+   
       dispatch(createnewAssignment(assignmentData));
 
-      console.log(assignmentData); //objetc
-      //console.log("hello");
-      dispatch(GetAssignments());
-    }
+      console.log(assignmentData); 
+    
+    
 
     setOpen(false);
     clear();

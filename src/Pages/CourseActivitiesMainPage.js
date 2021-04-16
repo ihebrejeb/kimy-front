@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./CourseActivitiesMainPage.module.css";
 import { useDispatch } from "react-redux";
 import CoursesActivitiesList from "../features/AppBase/CourseActivity/CoursesActivitiesList";
-import { GetCoursesActivities } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
+import { GetCoursesActivities, searchThread } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
 import AddAssignment from "../features/AppBase/assignments/AddAssignment";
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
@@ -23,9 +23,16 @@ function CourseActivitiesMainPage() {
   useEffect(() => {
     dispatch(selectCourse(course));
   }, [course, dispatch]);
+  
   useEffect(() => {
-    dispatch(GetCoursesActivities());
-  }, [currentId, dispatch]);
+    
+    if (title !== '') {
+        dispatch(searchThread(title));
+    } else {
+        dispatch(GetCoursesActivities());
+    }
+}, [title , dispatch]);
+
 
   return (
     <div className={styles.content}>
@@ -34,7 +41,6 @@ function CourseActivitiesMainPage() {
         <AddActivity currentId={currentId} setcurrentId={setcurrentId} />
         <AddAssignment
           currentIdassign={currentIdassign}
-          setcurrentIdassign={setcurrentIdassign}
         />
       </div>
       <div className={styles.activityList}>

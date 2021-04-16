@@ -23,6 +23,6 @@ export default configureStore({
     user: userReducer,
     forum: forumReducer,
     coursesActivities: coursesActivitiesReducer,
-    assignmentss: assignmentsReducer,
+    assignments: assignmentsReducer,
   },
 });

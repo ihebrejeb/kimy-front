@@ -11,7 +11,7 @@ function CoursesActivitiesList({ setcurrentId }) {
   const coursesActivities = useSelector(selectactivities);
   return (
     <div className={styles.activities}>
-      {coursesActivities.map((courseActivity) => (
+      {coursesActivities?.map((courseActivity) => (
         <CourseActivity
           key={courseActivity?._id}
           coursesActivities={courseActivity}
