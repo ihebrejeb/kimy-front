@@ -48,6 +48,7 @@ import {
   Person,
   SlowMotionVideo,
 } from "@material-ui/icons";
+import Container from "../../Pages/Container";
 
 const drawerWidth = 200;
 
@@ -285,6 +286,9 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/activites">
             <CourseActivitiesMainPage />
+          </Route>
+          <Route exact path="/app/whiteboard">
+            <Container />
           </Route>
           <Route exact path="/app/users">
             <Userprofile />
