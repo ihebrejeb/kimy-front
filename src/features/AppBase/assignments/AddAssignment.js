@@ -9,6 +9,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 import {
   createnewAssignment,
   GetAssignments,
@@ -86,6 +90,25 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
             onSubmit={handleSubmit}
             // onSubmit={sendEmail}
           >
+            {/* <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={assignmentData.activity}
+              name="act"
+              onChange={(e) =>
+                setassignmentData({
+                  ...assignmentData,
+                  activity: e.target.value,
+                })
+              }
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select> */}
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}

@@ -11,6 +11,7 @@ import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { createCourseActivities, update } from "./CoursesActivitiesSlice";
 import { useHistory } from "react-router";
+
 function AddActivity({ currentId, setcurrentId }) {
   const activity = useSelector((state) =>
     currentId
