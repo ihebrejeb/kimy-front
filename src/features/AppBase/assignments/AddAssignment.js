@@ -13,6 +13,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import axios from "axios";
+
 import {
   createnewAssignment,
   GetAssignments,
@@ -28,12 +30,16 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
       : null
   );
   const history = useHistory();
+  const [items, setItems] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [value, setValue] = React.useState([]);
 
   const [assignmentData, setassignmentData] = useState({
     title: "",
+    activity: "",
     Assignmentfile: "",
     description: "",
-    //dateCreation: "",
+    dateCreation: "",
     dateLimite: "",
   });
   const dispatch = useDispatch();
@@ -41,6 +47,25 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  React.useEffect(() => {
+    let unmounted = false;
+
+    async function getCharacters() {
+      const response = await fetch("http://localhost:4000/activity");
+      const body = await response.json();
+      console.log(body);
+      if (!unmounted) {
+        setItems(body.data.map(({ title }) => ({ title: title })));
+        setLoading(false);
+      }
+    }
+    getCharacters();
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+
   useEffect(() => {
     if (currentIdassign) setOpen(true);
   }, [currentIdassign]);
@@ -53,16 +78,17 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   }, [assignment]);
 
   const clear = () => {
-    // setcurrentIdassign(null);
-    // setassignmentData({
-    //   title: "",
-    //   activity: "",
-    //   Assignmentfile: "",
-    //   description: "",
-    //   // dateCreation: "",
-    //   dateLimite: "", //controle de saisie superieure l data lyouma
-    // });
+    //    setcurrentIdassign(null);
+    setassignmentData({
+      title: "",
+      activity: "",
+      Assignmentfile: "",
+      description: "",
+      // dateCreation: "",
+      dateLimite: "", //controle de saisie superieure l data lyouma
+    });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -90,25 +116,20 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
             onSubmit={handleSubmit}
             // onSubmit={sendEmail}
           >
-            {/* <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={assignmentData.activity}
-              name="act"
-              onChange={(e) =>
-                setassignmentData({
-                  ...assignmentData,
-                  activity: e.target.value,
-                })
-              }
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select> */}
+            {/* <select>
+              {this.assignmentData.activity.map((activity) => (
+                <option key={activity.value} value={activity.value}>
+                  {activity.title}
+                </option>
+              ))}
+            </select> */}
+            <select>
+              {items.map((item) => (
+                <option key={item.title} value={item.title}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
@@ -132,7 +153,6 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
                 }
               />
             </div>
-
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
