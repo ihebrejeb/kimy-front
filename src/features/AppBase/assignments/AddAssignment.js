@@ -9,12 +9,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import axios from "axios";
-
 import {
   createnewAssignment,
   GetAssignments,
@@ -36,7 +30,7 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
 
   const [assignmentData, setassignmentData] = useState({
     title: "",
-    activity: "",
+    related_activity: "",
     Assignmentfile: "",
     description: "",
     dateCreation: "",
@@ -47,8 +41,7 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  React.useEffect(() => {
+  useEffect(() => {
     let unmounted = false;
 
     async function getCharacters() {
@@ -65,7 +58,6 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
       unmounted = true;
     };
   }, []);
-
   useEffect(() => {
     if (currentIdassign) setOpen(true);
   }, [currentIdassign]);
@@ -78,17 +70,16 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   }, [assignment]);
 
   const clear = () => {
-    //    setcurrentIdassign(null);
+    //setcurrentIdassign(null);
     setassignmentData({
       title: "",
-      activity: "",
+      related_activity: "",
       Assignmentfile: "",
       description: "",
-      // dateCreation: "",
+      dateCreation: "",
       dateLimite: "", //controle de saisie superieure l data lyouma
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -116,20 +107,23 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
             onSubmit={handleSubmit}
             // onSubmit={sendEmail}
           >
-            {/* <select>
-              {this.assignmentData.activity.map((activity) => (
-                <option key={activity.value} value={activity.value}>
-                  {activity.title}
-                </option>
-              ))}
-            </select> */}
             <select>
               {items.map((item) => (
-                <option key={item.title} value={item.title}>
+                <option
+                  value={assignmentData.related_activity}
+                  onChange={(e) =>
+                    setassignmentData({
+                      ...assignmentData,
+                      related_activity: e.target.value,
+                    })
+                  }
+                  key={item.title}
+                >
                   {item.title}
                 </option>
               ))}
             </select>
+
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
@@ -153,6 +147,7 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
                 }
               />
             </div>
+
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
