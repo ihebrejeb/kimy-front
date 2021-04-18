@@ -49,6 +49,9 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
         <CardHeader
           className={carddesign.header}
           title={coursesActivities.title}
+          subheader={
+            "Description of the Activity : " + coursesActivities?.description
+          }
           action={
             <div>
               <IconButton>
@@ -119,11 +122,11 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
               id="panel2a-header"
             >
               <Typography className={classes.heading}>
-                Description of the chapter <DescriptionIcon></DescriptionIcon>
+                Assignments <DescriptionIcon></DescriptionIcon>
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{coursesActivities.description}</Typography>
+              <Typography>assignments here </Typography>
             </AccordionDetails>
           </Accordion>
 

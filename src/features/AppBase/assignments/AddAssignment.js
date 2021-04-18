@@ -107,20 +107,17 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
             onSubmit={handleSubmit}
             // onSubmit={sendEmail}
           >
-            <select>
+            <select
+              value={assignmentData.related_activity}
+              onChange={(e) =>
+                setassignmentData({
+                  ...assignmentData,
+                  related_activity: e.target.value,
+                })
+              }
+            >
               {items.map((item) => (
-                <option
-                  value={assignmentData.related_activity}
-                  onChange={(e) =>
-                    setassignmentData({
-                      ...assignmentData,
-                      related_activity: e.target.value,
-                    })
-                  }
-                  key={item.title}
-                >
-                  {item.title}
-                </option>
+                <option key={item.title}>{item.title}</option>
               ))}
             </select>
 
