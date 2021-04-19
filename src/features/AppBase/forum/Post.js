@@ -22,16 +22,19 @@ import ReactHtmlParser from "react-html-parser";
 import { useDispatch } from "react-redux";
 import { addLike, deletePost, unlike } from "./ForumSlice";
 import moment from "moment";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeleteIcon from "@material-ui/icons/Delete";
+import ConfirmDialog from '../Confirmation/ConfirmDialog'
 
 import { Fragment } from "react";
+import { useState } from "react";
 
 function Post({ showActions, Posts, currentId }) {
   const dispatch = useDispatch();
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
   const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 665,
+      maxWidth: 1000,
       marginBottom: "10px",
       margin: "auto",
     },
@@ -72,7 +75,16 @@ function Post({ showActions, Posts, currentId }) {
         }
         action={
           <IconButton aria-label="settings">
-            <DeleteIcon onClick={() => dispatch(deletePost(Posts._id))} />
+            <DeleteIcon 
+                                      onClick={() => {
+                                        setConfirmDialog({
+                                            isOpen: true,
+                                            title: 'Are you sure to delete this Thread?',
+                                            subTitle: "You can't undo this operation",
+                                             onConfirm: () => { dispatch(deletePost(Posts._id))}
+                                        })
+                                    }}
+            />
           </IconButton>
         }
         title=" Med habib"
@@ -80,7 +92,7 @@ function Post({ showActions, Posts, currentId }) {
       />
 
       <CardContent>
-        <Typography variant="p" color="textprimary" component="p">
+        <Typography variant="h5" color="textprimary" component="p">
           {ReactHtmlParser(Posts.title)}
         </Typography>
         <Fragment>
@@ -126,6 +138,10 @@ function Post({ showActions, Posts, currentId }) {
           )}
         </Fragment>
       </CardContent>
+      <ConfirmDialog
+     confirmDialog={confirmDialog}
+     setConfirmDialog={setConfirmDialog}
+ />
     </Card>
   );
 }

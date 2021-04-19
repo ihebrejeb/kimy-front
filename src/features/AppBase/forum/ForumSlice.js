@@ -29,6 +29,9 @@ export const forumslice = createSlice({
     getPost: (state, action) => {
       state.values = action.payload;
     },
+    getSortedByLikes : (state , action )=> {
+      state.values= action.payload ;
+    },
     UnlistPost: (state, action) => {
       const payload = action.payload;
 
@@ -43,6 +46,9 @@ export const forumslice = createSlice({
       state.post.comments = state.post.comments.filter(
         (comment) => comment._id !== payload
       );
+    },
+    searchAction: (state,action) => {
+      state.values = action.payload
     },
     Like: (state, action) => {
       const payload = action.payload._id;
@@ -73,6 +79,8 @@ export const {
   getOne,
   DeleteCommento,
   Like,
+  searchAction,
+  getSortedByLikes
 } = forumslice.actions;
 
 //thunk
@@ -85,11 +93,31 @@ export const getPosts = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+export const getSortedWithLikes = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchSorted();
+
+    dispatch(getSortedByLikes(data));
+    console.log(data)
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const getOnePost = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchOnePost(id);
 
     dispatch(getOne(data.data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const searchThread = (search) => async (dispatch) => {
+  try {
+    const { data } = await api.search(search);
+
+    dispatch(searchAction(data));
   } catch (error) {
     console.log(error.message);
   }

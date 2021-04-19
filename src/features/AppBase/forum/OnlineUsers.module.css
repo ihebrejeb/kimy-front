@@ -1,0 +1,40 @@
+.List{
+    font-size: 20px;
+    font-weight: 500;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.title{
+    text-align: center;
+    color: rgb(85, 85, 236);
+    font-weight: 600;
+    font-size: 28px;
+}
+.userList{
+    display: flex;
+    flex-direction: column;
+}
+.Avatar{
+    display: flex;
+    padding: 10px; 
+   color: rgb(85, 85, 236);
+}
+.user{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.online{
+    color: rgb(37, 153, 37);
+    margin-top: 20px;
+    margin-right: 15px;
+}
+.connectedList{
+    display: flex;
+    justify-content: space-between;
+}

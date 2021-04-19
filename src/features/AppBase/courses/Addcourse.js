@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { FormControl, Snackbar, TextField } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,11 +12,29 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createCourse, update } from "./CoursesSlice";
 import { useEffect } from "react";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Alert } from "@material-ui/lab";
 
+const schema = yup.object().shape({
+  creator : yup.string().required("you have to add a creator") , 
+  title : yup.string().required(" your course should have a name ") , 
+  message : yup.string().required(" please provide more details about your course") , 
+
+})
 function Addcourse({ currentId, setcurrentId }) {
   const course = useSelector((state) =>
     currentId ? state.courses.values.find((c) => c._id === currentId) : null
   );
+  
+  const { register, handleSubmit,  formState: { errors } } = useForm(
+    {
+      resolver: yupResolver(schema),
+
+
+    }
+  )
 
   const [courseData, setcourseData] = useState({
     creator: "",
@@ -25,16 +43,27 @@ function Addcourse({ currentId, setcurrentId }) {
     tags: "",
     selectedFile: "",
   });
+ 
+
+
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const [openN, setOpenN] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  const handleError =() => {
+    errors.creator = '' ; 
+    errors.title = '' ; 
+    errors.message = '' ; 
+  }
   const handleClose = () => {
     setOpen(false);
     clear();
+     handleError()
+
+
   };
 
   useEffect(() => {
@@ -47,7 +76,7 @@ function Addcourse({ currentId, setcurrentId }) {
       creator: " ",
       title: "",
       message: "",
-      tags: "",
+    
       selectedFile: "",
     });
   };
@@ -55,9 +84,7 @@ function Addcourse({ currentId, setcurrentId }) {
     if (currentId) setOpen(true);
   }, [currentId]);
  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const submit = (e) => {
     if (currentId) {
       dispatch(update(currentId, courseData));
     } else {
@@ -66,61 +93,75 @@ function Addcourse({ currentId, setcurrentId }) {
 
     setOpen(false);
     clear();
+    handleClick()
   };
 
+  const handleClick = () => {
+    setOpenN(true);
+  };
+
+  const handleCloseNotif = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenN(false);
+  };
   return (
     <div>
       <div className={styles.searchfield}>
         <button variant="outlined" color="secondary" onClick={handleClickOpen}>
           create your own  course 
         </button>
-        <div className="header__search">
+        <div className={styles.header__search}>
                     <SearchIcon></SearchIcon>
                     <input placeholder="Enter your Code here" type="text"/>
                 </div>
       </div>
+     <FormControl> 
+
       <Dialog
+       fullWidth={true}
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title"> </DialogTitle>
+        <DialogTitle id="form-dialog-title"> Create Your course </DialogTitle>
         <DialogContent>
-          <form
-            autoComplete="off"
-            noValidate
-            className={styles.paper}
-            onSubmit={handleSubmit}
-          >
+                   
+           
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
-              name="creator"
               variant="outlined"
               label="Creator"
               fullWidth
-              value={courseData.creator}
+              {...register('creator' ) }  
+               
+             value={courseData.creator}
               onChange={(e) =>
                 setcourseData({ ...courseData, creator: e.target.value })
               }
             />
+            <p className={styles.warning}>{errors.creator?.message} </p> 
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
-              name="title"
               variant="outlined"
               label="Title"
               fullWidth
+              {...register('title'  ) }  
               value={courseData.title}
               onChange={(e) =>
                 setcourseData({ ...courseData, title: e.target.value })
               }
             />
+                      <p className={styles.warning}>{errors.title?.message  } </p> 
+
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
-              name="message"
               variant="outlined"
+              {...register('message'  ) }  
               label="Message"
               fullWidth
               multiline
@@ -130,22 +171,12 @@ function Addcourse({ currentId, setcurrentId }) {
                 setcourseData({ ...courseData, message: e.target.value })
               }
             />
-            <TextField
-              InputLabelProps={{ className: styles.text }}
-              InputProps={{ className: styles.field }}
-              name="tags"
-              variant="outlined"
-              label="Tags "
-              value={courseData.tags}
-              onChange={(e) =>
-                setcourseData({
-                  ...courseData,
-                  tags: e.target.value.split(","),
-                })
-              }
-            />
+              <p className={styles.warning}>{errors.message?.message } </p> 
+
+         
             <div className={styles.fileInput}>
               <FileBase
+
                 type="file"
                 multiple={false}
                 onDone={({ base64 }) =>
@@ -153,17 +184,21 @@ function Addcourse({ currentId, setcurrentId }) {
                 }
               />
             </div>
-          </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <button onClick={handleSubmit} type="submit">
-            Submit
-          </button>
+          <button type="submit" onClick={handleSubmit(submit)} > submit </button>
+           
         </DialogActions>
       </Dialog>
+      </FormControl>
+      <Snackbar open={openN} autoHideDuration={3000} onClose={handleCloseNotif}>
+            <Alert onClose={handleCloseNotif} severity="success">
+              A new Course has been created
+            </Alert>
+          </Snackbar>
     </div>
   );
 }
