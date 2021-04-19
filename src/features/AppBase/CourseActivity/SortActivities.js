@@ -1,18 +1,20 @@
 import React from "react";
 import styles from "./SearchBar.module.css";
-import SortIcon from "@material-ui/icons/Sort";
-import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
-import SearchIcon from "@material-ui/icons/Search";
-import GradeIcon from "@material-ui/icons/Grade";
-import SettingsIcon from "@material-ui/icons/Settings";
-import RefreshIcon from "@material-ui/icons/Refresh";
+import SortByAlphaIcon from "@material-ui/icons/SortByAlpha";
+import ReplayIcon from "@material-ui/icons/Replay";
 
 function SortActivities({ setsort }) {
   return (
     <div>
       <div className={styles.withicon}>
-        <SortIcon />
-        <div onClick={() => setsort(true)}> Sort </div>
+        <div onClick={() => setsort(true)}>
+          {" "}
+          <SortByAlphaIcon />{" "}
+        </div>
+        <div className={styles.button} onClick={() => setsort(false)}>
+          {" "}
+          <ReplayIcon></ReplayIcon>
+        </div>
       </div>
     </div>
   );
