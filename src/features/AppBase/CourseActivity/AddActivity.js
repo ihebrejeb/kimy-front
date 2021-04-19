@@ -7,11 +7,18 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../CourseActivity/addActivity.module.css";
-import { TextField } from "@material-ui/core";
+import { FormControl, TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { createCourseActivities, update } from "./CoursesActivitiesSlice";
 import { useHistory } from "react-router";
-
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import WarningIcon from "@material-ui/icons/Warning";
+const schema = yup.object().shape({
+  title: yup.string().required(" PLEASE ADD A TITLE   "),
+  description: yup.string().required(" PLEASE ADD A DESCRIPTION"),
+});
 function AddActivity({ currentId, setcurrentId }) {
   const activity = useSelector((state) =>
     currentId
@@ -19,7 +26,17 @@ function AddActivity({ currentId, setcurrentId }) {
       : null
   );
   const history = useHistory();
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const handleError = () => {
+    errors.title = "";
+    errors.description = "";
+  };
   const [activityData, setactivityData] = useState({
     title: "",
     file: "",
@@ -39,6 +56,7 @@ function AddActivity({ currentId, setcurrentId }) {
   const handleClose = () => {
     clear();
     setOpen(false);
+    handleError();
   };
   useEffect(() => {
     if (activity) setactivityData(activity);
@@ -55,8 +73,8 @@ function AddActivity({ currentId, setcurrentId }) {
       ressources: "",
     });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const add = (e) => {
+    //e.preventDefault();
 
     if (currentId) {
       dispatch(update(currentId, activityData));
@@ -70,105 +88,119 @@ function AddActivity({ currentId, setcurrentId }) {
   return (
     <div>
       <button onClick={handleClickOpen}>create an activity</button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title"> </DialogTitle>
-        <DialogContent>
-          <form
-            autoComplete="off"
-            noValidate
-            className={styles.paper}
-            onSubmit={handleSubmit}
-          >
-            <TextField
-              InputLabelProps={{ className: styles.text }}
-              InputProps={{ className: styles.field }}
-              name="title"
-              variant="outlined"
-              label="Title"
-              fullWidth
-              multiline
-              rows={4}
-              value={activityData.title}
-              onChange={(e) =>
-                setactivityData({ ...activityData, title: e.target.value })
-              }
-            />
-            <div className={styles.fileInput}>
-              <FileBase
-                type="file"
-                multiple={false}
-                onDone={({ base64 }) =>
-                  setactivityData({ ...activityData, file: base64 })
+      <FormControl>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title"> </DialogTitle>
+          <DialogContent>
+            <form
+              autoComplete="off"
+              noValidate
+              className={styles.paper}
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                InputLabelProps={{ className: styles.text }}
+                InputProps={{ className: styles.field }}
+                name="title"
+                variant="outlined"
+                label="Title"
+                {...register("title")}
+                fullWidth
+                multiline
+                rows={4}
+                value={activityData.title}
+                onChange={(e) =>
+                  setactivityData({ ...activityData, title: e.target.value })
                 }
               />
-            </div>
-            <div className={styles.fileInput}>
-              Select a video from the recordings
-              <Button onClick={() => history.push("/app/course/recordings")}>
-                {" "}
-                recordings{" "}
-              </Button>
-            </div>
-            <TextField
-              InputLabelProps={{ className: styles.text }}
-              InputProps={{ className: styles.field }}
-              name="description"
-              variant="outlined"
-              label="Description"
-              fullWidth
-              multiline
-              rows={4}
-              value={activityData.description}
-              onChange={(e) =>
-                setactivityData({
-                  ...activityData,
-                  description: e.target.value,
-                })
-              }
-            />
-            <TextField
-              InputLabelProps={{ className: styles.text }}
-              InputProps={{ className: styles.field }}
-              name="nbSeances"
-              variant="outlined"
-              label="Number of sessions"
-              value={activityData.nbSeances}
-              onChange={(e) =>
-                setactivityData({ ...activityData, nbSeances: e.target.value })
-              }
-            />
-            <TextField
-              InputLabelProps={{ className: styles.text }}
-              InputProps={{ className: styles.field }}
-              name="ressources"
-              variant="outlined"
-              label="Ressources "
-              fullWidth
-              multiline
-              rows={4}
-              value={activityData.ressources}
-              onChange={(e) =>
-                setactivityData({
-                  ...activityData,
-                  ressources: e.target.value,
-                })
-              }
-            />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <button onClick={handleSubmit} type="submit">
-            Submit
-          </button>
-        </DialogActions>
-      </Dialog>
+              {/* <div className={styles.message_required}>
+                <p className={styles.required}>
+                  <WarningIcon></WarningIcon>This field is required{" "}
+                </p>
+              </div> */}
+              <p className={styles.warninnng}>{errors.title?.message}</p>
+              <div className={styles.fileInput}>
+                <FileBase
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) =>
+                    setactivityData({ ...activityData, file: base64 })
+                  }
+                />
+              </div>
+              <div className={styles.fileInput}>
+                Select a video from the recordings
+                <Button onClick={() => history.push("/app/course/recordings")}>
+                  {" "}
+                  recordings{" "}
+                </Button>
+              </div>
+              <TextField
+                InputLabelProps={{ className: styles.text }}
+                InputProps={{ className: styles.field }}
+                name="description"
+                variant="outlined"
+                label="Description"
+                {...register("description")}
+                fullWidth
+                multiline
+                rows={4}
+                value={activityData.description}
+                onChange={(e) =>
+                  setactivityData({
+                    ...activityData,
+                    description: e.target.value,
+                  })
+                }
+              />{" "}
+              <p className={styles.warninnng}>{errors.description?.message} </p>
+              <TextField
+                InputLabelProps={{ className: styles.text }}
+                InputProps={{ className: styles.field }}
+                name="nbSeances"
+                variant="outlined"
+                label="Number of sessions"
+                value={activityData.nbSeances}
+                onChange={(e) =>
+                  setactivityData({
+                    ...activityData,
+                    nbSeances: e.target.value,
+                  })
+                }
+              />
+              <TextField
+                InputLabelProps={{ className: styles.text }}
+                InputProps={{ className: styles.field }}
+                name="ressources"
+                variant="outlined"
+                label="Ressources "
+                fullWidth
+                multiline
+                rows={4}
+                value={activityData.ressources}
+                onChange={(e) =>
+                  setactivityData({
+                    ...activityData,
+                    ressources: e.target.value,
+                  })
+                }
+              />
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <button onClick={handleSubmit(add)} type="submit">
+              Add activity to the course
+            </button>
+          </DialogActions>
+        </Dialog>
+      </FormControl>
     </div>
   );
 }

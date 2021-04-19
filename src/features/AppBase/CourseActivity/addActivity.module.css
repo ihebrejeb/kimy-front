@@ -23,3 +23,18 @@
 .text {
   color: rgba(57, 57, 235, 0.87) !important;
 }
+
+.warninnng {
+  color: red;
+  text-overflow: clip;
+}
+
+.required {
+  color: blue;
+}
+
+message_required {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
