@@ -17,6 +17,9 @@ export const coursesActivitiesSlice = createSlice({
   name: "coursesActivities",
   initialState,
   reducers: {
+    getSortedByActivity: (state, action) => {
+      state.values = action.payload;
+    },
     searchAction: (state, action) => {
       state.values = action.payload;
     },
@@ -52,9 +55,20 @@ export const {
   updateCourseActivities,
   deletecourseActivitiesRedcuer,
   searchAction,
+  getSortedByActivity,
 } = coursesActivitiesSlice.actions;
 
 //thunk
+export const getSorted = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchSorted();
+
+    dispatch(getSortedByActivity(data));
+    console.log(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const searchThread = (search) => async (dispatch) => {
   try {
     const { data } = await api.search(search);

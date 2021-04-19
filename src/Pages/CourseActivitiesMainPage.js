@@ -16,6 +16,7 @@ function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
   const [currentIdassign, setcurrentIdassign] = useState(null);
   var [title, setTitle] = useState("");
+  var [sort, setsort] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -36,10 +37,18 @@ function CourseActivitiesMainPage() {
     }
   }, [title, dispatch]);
 
+  useEffect(() => {
+    if (sort === true) {
+      dispatch(getSortedWithLikes());
+    } else {
+      dispatch(getPosts());
+    }
+  }, [sort, dispatch]);
+
   return (
     <div className={styles.content}>
       <div className={styles.addActivity}>
-        <SortActivities></SortActivities>
+        <SortActivities setsort={setsort} ></SortActivities>
 
         <SearchPage setTitle={setTitle} title={title} />
 
