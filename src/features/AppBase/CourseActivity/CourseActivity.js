@@ -126,7 +126,7 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>assignments here </Typography>
+              <Typography> {coursesActivities.assignments} </Typography>
             </AccordionDetails>
           </Accordion>
 
