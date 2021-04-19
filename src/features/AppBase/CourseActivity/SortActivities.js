@@ -7,7 +7,7 @@ import GradeIcon from "@material-ui/icons/Grade";
 import SettingsIcon from "@material-ui/icons/Settings";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
-function SortActivities({ setsort, setTitle, title }) {
+function SortActivities({ setsort }) {
   return (
     <div>
       <div className={styles.withicon}>
