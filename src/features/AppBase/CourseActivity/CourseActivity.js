@@ -14,8 +14,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DescriptionIcon from "@material-ui/icons/Description";
 import EditIcon from "@material-ui/icons/Edit";
 import VideocamIcon from "@material-ui/icons/Videocam";
+import SortIcon from "@material-ui/icons/Sort";
+import SortActivities from "./SortActivities";
 
-function CourseActivity({ coursesActivities, setcurrentId }) {
+function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   const dispatch = useDispatch();
 
   const useStylescard = makeStyles({

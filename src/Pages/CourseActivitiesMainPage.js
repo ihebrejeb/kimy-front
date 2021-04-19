@@ -11,6 +11,7 @@ import AddAssignment from "../features/AppBase/assignments/AddAssignment";
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
 import Container from "./Container";
 import SearchPage from "../features/AppBase/CourseActivity/SearchPage";
+import SortActivities from "../features/AppBase/CourseActivity/SortActivities";
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
   const [currentIdassign, setcurrentIdassign] = useState(null);
@@ -38,7 +39,10 @@ function CourseActivitiesMainPage() {
   return (
     <div className={styles.content}>
       <div className={styles.addActivity}>
+        <SortActivities></SortActivities>
+
         <SearchPage setTitle={setTitle} title={title} />
+
         <AddActivity currentId={currentId} setcurrentId={setcurrentId} />
         <AddAssignment currentIdassign={currentIdassign} />
       </div>
