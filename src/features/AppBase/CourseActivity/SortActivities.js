@@ -9,20 +9,10 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 
 function SortActivities({ setsort, setTitle, title }) {
   return (
-    <div className={styles.side}>
-      <div className={styles.withicon}>
-        <RefreshIcon />
-        <div className={styles.button} onClick={() => setsort(false)}>
-          {" "}
-          Home
-        </div>
-      </div>
+    <div>
       <div className={styles.withicon}>
         <SortIcon />
-        <div className={styles.button} onClick={() => setsort(true)}>
-          {" "}
-          Most Liked Threads{" "}
-        </div>
+        <div onClick={() => setsort(true)}> Sort </div>
       </div>
     </div>
   );

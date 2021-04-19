@@ -5,6 +5,7 @@ import CoursesActivitiesList from "../features/AppBase/CourseActivity/CoursesAct
 import {
   GetCoursesActivities,
   searchThread,
+  getSorted,
 } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
 import AddAssignment from "../features/AppBase/assignments/AddAssignment";
@@ -39,16 +40,16 @@ function CourseActivitiesMainPage() {
 
   useEffect(() => {
     if (sort === true) {
-      dispatch(getSortedWithLikes());
+      dispatch(getSorted());
     } else {
-      dispatch(getPosts());
+      dispatch(GetCoursesActivities());
     }
   }, [sort, dispatch]);
 
   return (
     <div className={styles.content}>
       <div className={styles.addActivity}>
-        <SortActivities setsort={setsort} ></SortActivities>
+        <SortActivities setsort={setsort}></SortActivities>
 
         <SearchPage setTitle={setTitle} title={title} />
 
