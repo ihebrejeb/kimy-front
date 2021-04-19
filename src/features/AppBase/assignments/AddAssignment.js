@@ -6,27 +6,35 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import styles from "../CourseActivity/addActivity.module.css";
+import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import { createCourseActivities, update } from "./CoursesActivitiesSlice";
+import {
+  createnewAssignment,
+  GetAssignments,
+  updateAssign,
+} from "./AssignmentsSlice";
+
 import { useHistory } from "react-router";
 
-function AddActivity({ currentId, setcurrentId }) {
-  const activity = useSelector((state) =>
-    currentId
-      ? state.coursesActivities?.values.find((c) => c._id === currentId)
+function AddAssignment({ currentIdassign, setcurrentIdassign }) {
+  const assignment = useSelector((state) =>
+    currentIdassign
+      ? state.assignments?.values.find((c) => c._id === currentIdassign)
       : null
   );
   const history = useHistory();
+  const [items, setItems] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [value, setValue] = React.useState([]);
 
-  const [activityData, setactivityData] = useState({
+  const [assignmentData, setassignmentData] = useState({
     title: "",
-    file: "",
-    video: "",
+    related_activity: "",
+    Assignmentfile: "",
     description: "",
-    nbSeances: "",
-    ressources: "",
+    dateCreation: "",
+    dateLimite: "",
   });
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -34,42 +42,57 @@ function AddActivity({ currentId, setcurrentId }) {
     setOpen(true);
   };
   useEffect(() => {
-    if (currentId) setOpen(true);
-  }, [currentId]);
+    let unmounted = false;
+
+    async function getCharacters() {
+      const response = await fetch("http://localhost:4000/activity");
+      const body = await response.json();
+      console.log(body);
+      if (!unmounted) {
+        setItems(body.data.map(({ title }) => ({ title: title })));
+        setLoading(false);
+      }
+    }
+    getCharacters();
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+  useEffect(() => {
+    if (currentIdassign) setOpen(true);
+  }, [currentIdassign]);
   const handleClose = () => {
     clear();
     setOpen(false);
   };
   useEffect(() => {
-    if (activity) setactivityData(activity);
-  }, [activity]);
+    if (assignment) setassignmentData(assignment);
+  }, [assignment]);
 
   const clear = () => {
-    setcurrentId(null);
-    setactivityData({
-      title: " ",
-      file: "",
-      video: "",
+    //setcurrentIdassign(null);
+    setassignmentData({
+      title: "",
+      related_activity: "",
+      Assignmentfile: "",
       description: "",
-      nbSeances: "",
-      ressources: "",
+      dateCreation: "",
+      dateLimite: "", //controle de saisie superieure l data lyouma
     });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (currentId) {
-      dispatch(update(currentId, activityData));
-    } else {
-      dispatch(createCourseActivities(activityData));
-    }
+    dispatch(createnewAssignment(assignmentData));
+
+    console.log(assignmentData);
 
     setOpen(false);
     clear();
   };
   return (
     <div>
-      <button onClick={handleClickOpen}>create an activity</button>
+      <button onClick={handleClickOpen}>create an assignment</button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -82,7 +105,22 @@ function AddActivity({ currentId, setcurrentId }) {
             noValidate
             className={styles.paper}
             onSubmit={handleSubmit}
+            // onSubmit={sendEmail}
           >
+            <select
+              value={assignmentData.related_activity}
+              onChange={(e) =>
+                setassignmentData({
+                  ...assignmentData,
+                  related_activity: e.target.value,
+                })
+              }
+            >
+              {items.map((item) => (
+                <option key={item.title}>{item.title}</option>
+              ))}
+            </select>
+
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
@@ -92,9 +130,9 @@ function AddActivity({ currentId, setcurrentId }) {
               fullWidth
               multiline
               rows={4}
-              value={activityData.title}
+              value={assignmentData.title}
               onChange={(e) =>
-                setactivityData({ ...activityData, title: e.target.value })
+                setassignmentData({ ...assignmentData, title: e.target.value })
               }
             />
             <div className={styles.fileInput}>
@@ -102,17 +140,11 @@ function AddActivity({ currentId, setcurrentId }) {
                 type="file"
                 multiple={false}
                 onDone={({ base64 }) =>
-                  setactivityData({ ...activityData, file: base64 })
+                  setassignmentData({ ...assignmentData, file: base64 })
                 }
               />
             </div>
-            <div className={styles.fileInput}>
-              Select a video from the recordings
-              <Button onClick={() => history.push("/app/course/recordings")}>
-                {" "}
-                recordings{" "}
-              </Button>
-            </div>
+
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
@@ -122,41 +154,29 @@ function AddActivity({ currentId, setcurrentId }) {
               fullWidth
               multiline
               rows={4}
-              value={activityData.description}
+              value={assignmentData.description}
               onChange={(e) =>
-                setactivityData({
-                  ...activityData,
+                setassignmentData({
+                  ...assignmentData,
                   description: e.target.value,
                 })
               }
             />
             <TextField
-              InputLabelProps={{ className: styles.text }}
-              InputProps={{ className: styles.field }}
-              name="nbSeances"
-              variant="outlined"
-              label="Number of sessions"
-              value={activityData.nbSeances}
+              id="datetime-local"
+              label="Deadline"
+              type="datetime-local"
+              name="dateLimite"
+              value={assignmentData.dateLimite}
               onChange={(e) =>
-                setactivityData({ ...activityData, nbSeances: e.target.value })
-              }
-            />
-            <TextField
-              InputLabelProps={{ className: styles.text }}
-              InputProps={{ className: styles.field }}
-              name="ressources"
-              variant="outlined"
-              label="Ressources "
-              fullWidth
-              multiline
-              rows={4}
-              value={activityData.ressources}
-              onChange={(e) =>
-                setactivityData({
-                  ...activityData,
-                  ressources: e.target.value,
+                setassignmentData({
+                  ...assignmentData,
+                  dateLimite: e.target.value,
                 })
               }
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
           </form>
         </DialogContent>
@@ -173,4 +193,4 @@ function AddActivity({ currentId, setcurrentId }) {
   );
 }
 
-export default AddActivity;
+export default AddAssignment;

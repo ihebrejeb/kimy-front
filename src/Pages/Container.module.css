@@ -1,28 +1,22 @@
 .nav_img {
-    width: 100px;
-    object-fit: contain;
-    margin-left: 20px;
-    cursor: pointer;
-  }
+  width: 100px;
+  object-fit: contain;
+  margin-left: 20px;
+  cursor: pointer;
+}
 
-  .container 
-  {
-      position : fixed ; 
-      height :100% ; 
-      width : 100% ; 
-
-  }
-  .colorPickerContainer
-  {
-      text-align :center ; 
-
-  }
-  .boardContainer
-  {
-     width : 90% ; 
-     height :90%;
-     margin : auto ; 
-     margin-top : 1%;
-     background: white;
-
-  }
+.container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+.colorPickerContainer {
+  text-align: center;
+}
+.boardContainer {
+  width: 90%;
+  height: 90%;
+  margin: auto;
+  margin-top: 1%;
+  background: white;
+}

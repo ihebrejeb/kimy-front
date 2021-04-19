@@ -14,8 +14,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DescriptionIcon from "@material-ui/icons/Description";
 import EditIcon from "@material-ui/icons/Edit";
 import VideocamIcon from "@material-ui/icons/Videocam";
+import SortIcon from "@material-ui/icons/Sort";
+import SortActivities from "./SortActivities";
 
-function CourseActivity({ coursesActivities, setcurrentId }) {
+function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   const dispatch = useDispatch();
 
   const useStylescard = makeStyles({
@@ -49,6 +51,9 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
         <CardHeader
           className={carddesign.header}
           title={coursesActivities.title}
+          subheader={
+            "Description of the Activity : " + coursesActivities?.description
+          }
           action={
             <div>
               <IconButton>
@@ -119,11 +124,11 @@ function CourseActivity({ coursesActivities, setcurrentId }) {
               id="panel2a-header"
             >
               <Typography className={classes.heading}>
-                Description of the chapter <DescriptionIcon></DescriptionIcon>
+                Assignments <DescriptionIcon></DescriptionIcon>
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{coursesActivities.description}</Typography>
+              <Typography> {coursesActivities.assignments} </Typography>
             </AccordionDetails>
           </Accordion>
 
