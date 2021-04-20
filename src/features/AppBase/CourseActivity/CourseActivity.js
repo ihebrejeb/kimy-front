@@ -42,6 +42,9 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
     pos: {
       marginBottom: 12,
     },
+    heading: {
+      width: "200px",
+    },
     noMargin: {
       margin: 0,
     },
@@ -107,7 +110,8 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                   id="panel1a-header"
                 >
                   <Typography className={classes.heading}>
-                    Files <FolderIcon></FolderIcon>
+                    Files
+                    <FolderIcon></FolderIcon>
                   </Typography>
                 </AccordionSummary>
                 <Typography>{coursesActivities.file}</Typography>
@@ -124,7 +128,6 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                     Videos <VideocamIcon></VideocamIcon>
                   </Typography>
                 </AccordionSummary>
-                <Typography>videos </Typography>
               </Accordion>
             </AccordionDetails>
             <AccordionSummary
