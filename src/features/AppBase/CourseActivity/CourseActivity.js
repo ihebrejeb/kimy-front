@@ -14,12 +14,27 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DescriptionIcon from "@material-ui/icons/Description";
 import EditIcon from "@material-ui/icons/Edit";
 import VideocamIcon from "@material-ui/icons/Videocam";
-
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import { store } from "react-notifications-component";
 import SingleAssignment from "../assignments/SingleAssignment";
 import DeleteAlert from "./DeleteAlert";
 import Alert from "@material-ui/lab/Alert";
 
 function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
+  // store.addNotification({
+  //   title: "Wonderful!",
+  //   message: "teodosii@react-notifications-component",
+  //   type: "success",
+  //   insert: "top",
+  //   container: "top-right",
+  //   animationIn: ["animate__animated", "animate__fadeIn"],
+  //   animationOut: ["animate__animated", "animate__fadeOut"],
+  //   dismiss: {
+  //     duration: 5000,
+  //     onScreen: true,
+  //   },
+  // });
   const dispatch = useDispatch();
   const [deleteAlert, confirmDelete] = useState({
     isOpen: false,
@@ -78,9 +93,10 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                         "Are you certain you want to delete this activity?",
                       onConfirm: () => {
                         dispatch(deleteCourseActivities(coursesActivities._id));
-                        <Alert variant="filled" severity="error">
-                          This is an info alert — check it out!
-                        </Alert>;
+                        // <Alert variant="filled" severity="error">
+                        //   This is an info alert — check it out!
+                        // </Alert>;
+                        <ReactNotification />;
                       },
                     });
                   }}
