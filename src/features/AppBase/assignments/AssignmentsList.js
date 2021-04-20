@@ -1,23 +1,51 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import SignleAssignment from "./SingleAssignment";
+import { useDispatch, useSelector } from "react-redux";
+import SingleAssignment from "./SingleAssignment";
+import { GetAssignments } from "./AssignmentsSlice";
 
 import { selectassignments } from "./AssignmentsSlice";
-import styles from "../CourseActivity/CourseActivityList.module.css";
-//import useStyles from "./ListStyles";
-
+import { useEffect } from "react";
+import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
+import { Dialog } from "@material-ui/core";
 function AssignmentList({ setcurrentId }) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GetAssignments());
+  }, [dispatch]);
   //const classes = useStyles;
-  const assignmentsLists = useSelector(selectassignments);
+  const assignmentact = useSelector(selectassignments);
+  console.log(selectassignments);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    //clear();
+    setOpen(false);
+  };
   return (
-    <div className={styles.activities}>
-      {assignmentsLists.map((assignment) => (
-        <SignleAssignment
-          key={assignment._id}
-          assignmentsLists={assignment}
-          setcurrentId={setcurrentId}
-        />
-      ))}
+    <div>
+      {" "}
+      <div onClick={handleClickOpen}>
+        {" "}
+        <AssignmentOutlinedIcon></AssignmentOutlinedIcon>
+      </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        {" "}
+        Assignments
+        {assignmentact?.map((assignmentactivity) => (
+          <SingleAssignment
+            key={assignmentactivity._id}
+            assignmentact={assignmentactivity}
+            setcurrentId={setcurrentId}
+          />
+        ))}
+      </Dialog>
     </div>
   );
 }

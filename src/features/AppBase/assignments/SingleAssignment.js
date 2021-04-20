@@ -10,6 +10,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+
 import {
   createnewAssignment,
   GetAssignments,
@@ -17,7 +25,9 @@ import {
 } from "./AssignmentsSlice";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { useHistory } from "react-router";
-function SingleAssignment({ currentIdassign, assignmentActivity }) {
+import CourseActivity from "../CourseActivity/CourseActivity";
+import AssignmentList from "./AssignmentsList";
+function SingleAssignment({ currentIdassign, assignmentact }) {
   const assignment = useSelector((state) =>
     currentIdassign
       ? state.assignments?.values.find((c) => c._id === currentIdassign)
@@ -35,21 +45,25 @@ function SingleAssignment({ currentIdassign, assignmentActivity }) {
     // clear();
     setOpen(false);
   };
+  const [items, setItems] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      width: "105%",
+      maxWidth: 900,
+    },
+  }));
+  const classes = useStyles();
   return (
     <div>
-      <div onClick={handleClickOpen}>
-        <AssignmentIcon />
-      </div>
-
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title"> </DialogTitle>
-        <DialogContent></DialogContent>
-        <DialogActions></DialogActions>
-      </Dialog>
+      {" "}
+    
+      <List>
+        <ListItem className={classes.root}>
+          <ListItemText primary={assignmentact.title} />
+        </ListItem>{" "}
+        <span> {assignmentact.dateLimite}</span>
+      </List>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import rootReducer from "../features/AppBase/user/rootReducer";
 import courseSliceReducer from "../features/AppBase/onlinseSession/CourseDemoSlice";
 import coursesActivitiesReducer from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 import forumReducer from "../features/AppBase/forum/ForumSlice";
+import assignmentsReducer from "../features/AppBase/assignments/AssignmentsSlice";
 
 export default configureStore({
   middleware: getDefaultMiddleware({
@@ -25,5 +26,6 @@ export default configureStore({
     users: rootReducer,
     forum: forumReducer,
     coursesActivities: coursesActivitiesReducer,
+    assignments: assignmentsReducer,
   },
 });

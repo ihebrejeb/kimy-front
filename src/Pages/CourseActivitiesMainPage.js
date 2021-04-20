@@ -13,6 +13,9 @@ import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice
 import Container from "./Container";
 import SearchPage from "../features/AppBase/CourseActivity/SearchPage";
 import SortActivities from "../features/AppBase/CourseActivity/SortActivities";
+import AssignmentsList from "../features/AppBase/assignments/AssignmentsList";
+import SingleAssignment from "../features/AppBase/assignments/SingleAssignment";
+import { GetAssignments } from "../features/AppBase/assignments/AssignmentsSlice";
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
   const [currentIdassign, setcurrentIdassign] = useState(null);
@@ -38,6 +41,10 @@ function CourseActivitiesMainPage() {
     }
   }, [title, dispatch]);
 
+  // useEffect(() => {
+  //   dispatch(GetAssignments());
+  // }, [  dispatch]);
+
   useEffect(() => {
     if (sort === true) {
       dispatch(getSorted());
@@ -49,6 +56,7 @@ function CourseActivitiesMainPage() {
   return (
     <div className={styles.content}>
       <div className={styles.addActivity}>
+        <AssignmentsList></AssignmentsList>
         <SortActivities setsort={setsort}></SortActivities>
 
         <SearchPage setTitle={setTitle} title={title} />
