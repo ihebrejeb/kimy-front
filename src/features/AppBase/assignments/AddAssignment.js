@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
+
 import {
   createnewAssignment,
   GetAssignments,
@@ -92,7 +93,9 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   };
   return (
     <div>
-      <button onClick={handleClickOpen}>create an assignment</button>
+      <button onClick={handleClickOpen} className={styles.addButton}>
+        create an assignment
+      </button>
       <Dialog
         open={open}
         onClose={handleClose}

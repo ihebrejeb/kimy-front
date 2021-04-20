@@ -14,12 +14,31 @@ import { useHistory } from "react-router";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles } from "@material-ui/core/styles";
+
 import WarningIcon from "@material-ui/icons/Warning";
 const schema = yup.object().shape({
   title: yup.string().required(" PLEASE ADD A TITLE   "),
   description: yup.string().required(" PLEASE ADD A DESCRIPTION"),
 });
 function AddActivity({ currentId, setcurrentId }) {
+  const useStyles = makeStyles((theme) => ({
+    fab: {
+      margin: theme.spacing(2),
+    },
+    absolute: {
+      position: "absolute",
+      bottom: theme.spacing(1),
+      right: theme.spacing(3),
+    },
+  }));
+  const classes = useStyles();
+
   const activity = useSelector((state) =>
     currentId
       ? state.coursesActivities?.values.find((c) => c._id === currentId)
@@ -85,9 +104,21 @@ function AddActivity({ currentId, setcurrentId }) {
     setOpen(false);
     clear();
   };
+
   return (
     <div>
-      <button onClick={handleClickOpen}>create an activity</button>
+      {/* <button onClick={handleClickOpen}>create an activity</button> */}
+      <div className={styles.tooltip}>
+        <Tooltip
+          title="Add activity"
+          aria-label="add activity"
+          onClick={handleClickOpen}
+        >
+          <Fab color="primary">
+            <AddIcon />
+          </Fab>
+        </Tooltip>
+      </div>
       <FormControl>
         <Dialog
           open={open}

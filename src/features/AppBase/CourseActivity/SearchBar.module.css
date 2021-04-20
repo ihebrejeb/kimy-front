@@ -19,13 +19,13 @@
   margin-left: 10px;
 }
 .header__search {
-  padding: 30px;
+  padding: 20px;
   display: flex;
   align-items: center;
   border-radius: 5px;
   height: 30px;
-  background-color: white;
-  color: blue;
+  background-color: none;
+  color: #448ee4;
   padding-left: 10px;
 }
 .button {

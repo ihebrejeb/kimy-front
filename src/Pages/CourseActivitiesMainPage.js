@@ -52,9 +52,9 @@ function CourseActivitiesMainPage() {
         <SortActivities setsort={setsort}></SortActivities>
 
         <SearchPage setTitle={setTitle} title={title} />
+        <AddAssignment currentIdassign={currentIdassign} />
 
         <AddActivity currentId={currentId} setcurrentId={setcurrentId} />
-        <AddAssignment currentIdassign={currentIdassign} />
       </div>
       <div className={styles.activityList}>
         <CoursesActivitiesList
