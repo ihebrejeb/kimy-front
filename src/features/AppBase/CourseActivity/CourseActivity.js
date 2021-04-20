@@ -17,7 +17,7 @@ import VideocamIcon from "@material-ui/icons/Videocam";
 
 import SingleAssignment from "../assignments/SingleAssignment";
 import DeleteAlert from "./DeleteAlert";
-import { Alert } from "@material-ui/lab";
+import Alert from "@material-ui/lab/Alert";
 
 function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   const dispatch = useDispatch();
