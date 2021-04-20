@@ -7,6 +7,7 @@ import { selectassignments } from "./AssignmentsSlice";
 import { useEffect } from "react";
 import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
 import { Dialog } from "@material-ui/core";
+import styles from "./assignmentList.module.css";
 function AssignmentList({ setcurrentId }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,7 +30,9 @@ function AssignmentList({ setcurrentId }) {
       {" "}
       <div onClick={handleClickOpen}>
         {" "}
-        <AssignmentOutlinedIcon></AssignmentOutlinedIcon>
+        <AssignmentOutlinedIcon
+          className={styles.button_assignment}
+        ></AssignmentOutlinedIcon>
       </div>
       <Dialog
         open={open}

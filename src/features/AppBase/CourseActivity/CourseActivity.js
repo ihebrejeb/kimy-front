@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Typography, CardHeader, IconButton } from "@material-ui/core/";
 import { useDispatch } from "react-redux";
 import { deleteCourseActivities } from "./CoursesActivitiesSlice";
@@ -16,9 +16,15 @@ import EditIcon from "@material-ui/icons/Edit";
 import VideocamIcon from "@material-ui/icons/Videocam";
 
 import SingleAssignment from "../assignments/SingleAssignment";
+import DeleteAlert from "./DeleteAlert";
+import { Alert } from "@material-ui/lab";
 
 function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   const dispatch = useDispatch();
+  const [deleteAlert, confirmDelete] = useState({
+    isOpen: false,
+    title: "",
+  });
 
   const useStylescard = makeStyles({
     root: {
@@ -62,14 +68,25 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
 
               <IconButton>
                 <DeleteIcon
-                  onClick={() =>
-                    dispatch(deleteCourseActivities(coursesActivities._id))
-                  }
+                  onClick={() => {
+                    confirmDelete({
+                      isOpen: true,
+                      title:
+                        "Are you certain you want to delete this activity?",
+                      onConfirm: () => {
+                        dispatch(deleteCourseActivities(coursesActivities._id));
+                        <Alert variant="filled" severity="error">
+                          This is an info alert — check it out!
+                        </Alert>;
+                      },
+                    });
+                  }}
                 />
               </IconButton>
             </div>
           }
         />
+        <DeleteAlert deleteAlert={deleteAlert} confirmDelete={confirmDelete} />
         <div>
           <Accordion className={carddesign.noMargin}>
             <AccordionSummary

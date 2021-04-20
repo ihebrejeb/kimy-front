@@ -27,6 +27,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import { useHistory } from "react-router";
 import CourseActivity from "../CourseActivity/CourseActivity";
 import AssignmentList from "./AssignmentsList";
+import styless from "./assignmentList.module.css";
 function SingleAssignment({ currentIdassign, assignmentact }) {
   const assignment = useSelector((state) =>
     currentIdassign
@@ -57,12 +58,15 @@ function SingleAssignment({ currentIdassign, assignmentact }) {
   return (
     <div>
       {" "}
-    
-      <List>
+      <List style={{ width: 400 }} Scrollable={false}>
         <ListItem className={classes.root}>
-          <ListItemText primary={assignmentact.title} />
+          <div className={styless.listItem}>
+            <ListItemText primary={assignmentact.title} />
+            <span className={styless.text_assignment}>
+              {assignmentact.dateLimite}
+            </span>
+          </div>
         </ListItem>{" "}
-        <span> {assignmentact.dateLimite}</span>
       </List>
     </div>
   );

@@ -166,9 +166,10 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
               }
             />
             <TextField
-              id="datetime-local"
+              min="Date.now()"
+              id="date"
               label="Deadline"
-              type="datetime-local"
+              type="date"
               name="dateLimite"
               value={assignmentData.dateLimite}
               onChange={(e) =>
