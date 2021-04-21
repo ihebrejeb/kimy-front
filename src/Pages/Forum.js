@@ -10,6 +10,8 @@ import Sidebar from "../features/AppBase/forum/Sidebar";
 import Tags from "../features/AppBase/forum/Tags";
 import OnlineUsers from "../features/AppBase/forum/OnlineUsers";
 import HotThread from "../features/AppBase/forum/HotThread";
+import NewsList from "../features/AppBase/NewsApi/NewsList";
+import NewsLeftSide from "../features/AppBase/NewsApi/NewsLeftSide";
 
 function Forum() {
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ function Forum() {
 
                 <Sidebar title={title} setTitle={setTitle} />
                 <Tags/>
+                <NewsLeftSide/>
         </div>
    
     <div className={styles.forumList}>  
@@ -48,7 +51,7 @@ function Forum() {
      
       <OnlineUsers/>
       <HotThread/>
-
+      <NewsList/>
 
      
     </div>
