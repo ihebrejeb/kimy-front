@@ -1,6 +1,6 @@
 import React from "react";
 import AddPost from "../features/AppBase/forum/AddPost";
-import { getPosts, getSortedWithLikes, searchThread } from "../features/AppBase/forum/ForumSlice";
+import { getPosts,  searchThread } from "../features/AppBase/forum/ForumSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import ForumList from "../features/AppBase/forum/ForumList";
@@ -9,13 +9,13 @@ import styles from './forum.module.css'
 import Sidebar from "../features/AppBase/forum/Sidebar";
 import Tags from "../features/AppBase/forum/Tags";
 import OnlineUsers from "../features/AppBase/forum/OnlineUsers";
+import HotThread from "../features/AppBase/forum/HotThread";
 
 function Forum() {
   const dispatch = useDispatch();
   const [setcurrentId] = useState(null);
   var [title, setTitle] = useState('');
-   var [sort, setsort] = useState(false)
-
+ 
 
 
   useEffect(() => {
@@ -27,18 +27,6 @@ function Forum() {
 }, [title , dispatch]);
 
 
-useEffect(() => {
-  if (sort === true) {
-      dispatch(getSortedWithLikes());
-      
-  
-  }
-  else {
-    dispatch(getPosts());
-}
-}, [ sort,  dispatch]);
-
-
 
   return (
     <div className={styles.forum}>
@@ -48,7 +36,7 @@ useEffect(() => {
        
          <AddPost />
 
-                <Sidebar setsort={setsort} title={title} setTitle={setTitle}/>
+                <Sidebar title={title} setTitle={setTitle} />
                 <Tags/>
         </div>
    
@@ -59,7 +47,7 @@ useEffect(() => {
       <div className={styles.fields}> 
      
       <OnlineUsers/>
-     
+      <HotThread/>
 
 
      

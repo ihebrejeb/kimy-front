@@ -7,12 +7,15 @@ import { Avatar } from '@material-ui/core';
 import GradeIcon from '@material-ui/icons/Grade';
 import SettingsIcon from '@material-ui/icons/Settings';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import { useDispatch } from 'react-redux';
+import { getPosts, getSortedWithLikes, getSortedWithRating, getSortedWithViews } from './ForumSlice';
 
 
-function Sidebar({setsort,setTitle  ,title}) {
+function Sidebar({setsort,setTitle  ,title ,setsortViews}) {
 
+ 
 
-
+const dispatch = useDispatch()
     return (
         <div className={styles.side}>
 
@@ -33,19 +36,19 @@ function Sidebar({setsort,setTitle  ,title}) {
 
                 <div className={styles.withicon}> 
                 <RefreshIcon/>
-           <div  className={styles.button} onClick={()=> setsort(false)}> Home</div>
+           <div  className={styles.button} onClick={()=>dispatch(getPosts()) }> Home</div>
            </div>
             <div className={styles.withicon}> 
             <SortIcon/>
-           <div  className={styles.button} onClick={()=> setsort(true)}> Most Liked Threads </div>
+           <div  className={styles.button} onClick={()=> dispatch(getSortedWithLikes())}> Most Liked Threads </div>
            </div>
            <div className={styles.withicon}> 
             <RemoveRedEyeOutlinedIcon/>
-           <div  className={styles.button} > Most viewed  Threads </div>
+           <div  className={styles.button} onClick={()=>  dispatch(getSortedWithViews())} > Most viewed  Threads </div>
            </div>
            <div className={styles.withicon}> 
             <GradeIcon/>
-           <div  className={styles.button} > Top rated Threads </div>
+           <div  className={styles.button}  onClick={()=>  dispatch(getSortedWithRating())} > Top rated Threads </div>
            </div>
            <div className={styles.withicon}> 
             <SettingsIcon/>
