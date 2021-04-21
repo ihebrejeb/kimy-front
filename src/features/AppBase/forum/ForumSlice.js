@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../../Api/postApi.js";
 import * as CommentApi from "../../../Api/CommentApi.js";
 
+// Post functionalities using CreateSyncThunk  check extraReducers also 
 export const createComment = createAsyncThunk(
   "",
   async (Data_comment, thunkAPI) => {
@@ -18,6 +19,7 @@ export const createPosts = createAsyncThunk("forum", async (post, thunkAPI) => {
   const response = await api.CreatePost(post);
   return response.data;
 });
+///////
 
 export const forumslice = createSlice({
   name: "forum",
@@ -32,6 +34,7 @@ export const forumslice = createSlice({
     getSortedByLikes : (state , action )=> {
       state.values= action.payload ;
     },
+
     UnlistPost: (state, action) => {
       const payload = action.payload;
 
@@ -84,6 +87,8 @@ export const {
 } = forumslice.actions;
 
 //thunk
+
+// get posts 
 export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await api.fetchPosts();
@@ -93,6 +98,7 @@ export const getPosts = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+// sorted list of posts  by likes
 export const getSortedWithLikes = () => async (dispatch) => {
   try {
     const { data } = await api.fetchSorted();
@@ -103,6 +109,27 @@ export const getSortedWithLikes = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+export const getSortedWithViews = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchSortedByViews();
+
+    dispatch(getPost(data));
+    console.log(data)
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getSortedWithRating = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchSortedByRate();
+
+    dispatch(getPost(data));
+    console.log(data)
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+// get a post by id 
 export const getOnePost = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchOnePost(id);
@@ -112,7 +139,7 @@ export const getOnePost = (id) => async (dispatch) => {
     console.log(error.message);
   }
 };
-
+// search feature
 export const searchThread = (search) => async (dispatch) => {
   try {
     const { data } = await api.search(search);
@@ -122,19 +149,21 @@ export const searchThread = (search) => async (dispatch) => {
     console.log(error.message);
   }
 };
-
+//   delete async function 
 export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePosts(id);
     dispatch(UnlistPost(id));
   } catch {}
 };
+// remove comment 
 export const Removecomment = (id, C_id) => async (dispatch) => {
   try {
     await CommentApi.DeleteComment(id, C_id);
     dispatch(DeleteCommento(C_id));
   } catch {}
 };
+// like feature
 export const addLike = (id) => async (dispatch) => {
   try {
     const { data } = await api.AddLike(id);
@@ -144,6 +173,7 @@ export const addLike = (id) => async (dispatch) => {
     console.log(error.message);
   }
 };
+// unlike feature
 export const unlike = (id) => async (dispatch) => {
   try {
     const { data } = await api.removeLike(id);
@@ -164,7 +194,7 @@ export const addrate = (postId, formData) => async (dispatch) => {
   }
 };
 
-//sleecotors
+//selectors
 export const selectForum = (state) => state.forum.values;
 export const selectPost = (state) => state.forum.post;
 
