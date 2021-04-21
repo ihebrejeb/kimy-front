@@ -22,6 +22,7 @@ function CourseActivitiesMainPage() {
   var [title, setTitle] = useState("");
   var [sort, setsort] = useState(false);
 
+
   const dispatch = useDispatch();
 
   const [course] = useState({

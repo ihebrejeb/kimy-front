@@ -20,6 +20,9 @@ export const AssignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
+    searchAssignment: (state, action) => {
+      state.values = action.payload;
+    },
     getAssignments: (state, action) => {
       console.log(action.payload);
       state.values = action.payload;
@@ -52,9 +55,19 @@ export const {
   getAssignments,
   updateAssignments,
   deleteAssignmentsRedcuer,
+  searchAssignment,
 } = AssignmentsSlice.actions;
 
 //thunk
+export const searchThread = (search) => async (dispatch) => {
+  try {
+    const { data } = await api.search(search);
+
+    dispatch(searchAssignment(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const GetAssignments = () => async (dispatch) => {
   try {
     const { data } = await api.fetchAssignments();

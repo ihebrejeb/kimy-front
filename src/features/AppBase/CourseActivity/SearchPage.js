@@ -12,7 +12,7 @@ function SearchPage({ setTitle, title }) {
     <div className={styles.header__search}>
       <FindInPageIcon></FindInPageIcon>
       <input
-        placeholder="Look for an  activity"
+        placeholder="Type your keyword here "
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
