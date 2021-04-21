@@ -17,6 +17,13 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 import {
   createnewAssignment,
@@ -58,7 +65,7 @@ function SingleAssignment({ currentIdassign, assignmentact }) {
   return (
     <div>
       {" "}
-      <List style={{ width: 400 }} Scrollable={false}>
+      {/* <List style={{ width: 400 }} Scrollable={false}>
         <ListItem className={classes.root}>
           <div className={styless.listItem}>
             <ListItemText primary={assignmentact.title} />
@@ -67,7 +74,39 @@ function SingleAssignment({ currentIdassign, assignmentact }) {
             </span>
           </div>
         </ListItem>{" "}
-      </List>
+      </List> */}
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell maxWidth="100px" align="left">
+                {assignmentact.title}
+              </TableCell>
+              <TableCell maxWidth="100px" align="left">
+                <p lassName={styless.text_assignment}>
+                  {assignmentact.dateLimite}
+                </p>
+              </TableCell>
+              <TableCell maxWidth="100px" align="right">
+                <button> Details </button>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          {/* <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.calories}</TableCell>
+                <TableCell align="right">{row.fat}</TableCell>
+                <TableCell align="right">{row.carbs}</TableCell>
+                <TableCell align="right">{row.protein}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody> */}
+        </Table>
+      </TableContainer>
     </div>
   );
 }
