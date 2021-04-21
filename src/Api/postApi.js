@@ -7,8 +7,9 @@ const url5 = 'http://localhost:4000/forum/search' ;
 const url6 = 'http://localhost:4000/forum/sort' ;
 const url7= 'http://localhost:4000/forum/sortByRate' ;
 const url8= 'http://localhost:4000/forum/sortByViews' ;
+const url9 ='http://localhost:4000/forum/topPost'; 
 
-
+export const fetchViral =() => axios.get(url9)
 export const fetchSorted =  () =>   axios.get(url6);
 export const fetchSortedByRate =  () =>   axios.get(url7);
 export const fetchSortedByViews =  () =>   axios.get(url8);

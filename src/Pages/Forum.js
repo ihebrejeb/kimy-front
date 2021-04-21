@@ -12,6 +12,7 @@ import OnlineUsers from "../features/AppBase/forum/OnlineUsers";
 import HotThread from "../features/AppBase/forum/HotThread";
 import NewsList from "../features/AppBase/NewsApi/NewsList";
 import NewsLeftSide from "../features/AppBase/NewsApi/NewsLeftSide";
+import HotThreadList from "../features/AppBase/forum/HotThreadList";
 
 function Forum() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function Forum() {
       <div className={styles.fields}> 
      
       <OnlineUsers/>
-      <HotThread/>
+      <HotThreadList/>
       <NewsList/>
 
      

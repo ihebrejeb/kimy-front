@@ -6,7 +6,7 @@ import {
   GetCoursesActivities,
   getSorted,
   searchThread,
-  getSorted,
+  
 } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
 import AddAssignment from "../features/AppBase/assignments/AddAssignment";
