@@ -20,6 +20,15 @@ export const AssignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
+    getSortedDesc: (state, action) => {
+      state.values = action.payload;
+    },
+    getSortedASC: (state, action) => {
+      state.values = action.payload;
+    },
+    searchAssignment: (state, action) => {
+      state.values = action.payload;
+    },
     getAssignments: (state, action) => {
       console.log(action.payload);
       state.values = action.payload;
@@ -52,9 +61,41 @@ export const {
   getAssignments,
   updateAssignments,
   deleteAssignmentsRedcuer,
+  searchAssignment,
+  getSortedASC,
+  getSortedDesc,
 } = AssignmentsSlice.actions;
 
 //thunk
+export const getSortedDescendant = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchSortedDesc();
+
+    dispatch(getSortedDesc(data));
+    console.log(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getSortedAscendant = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchSortedAsc();
+
+    dispatch(getSortedASC(data));
+    console.log(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const searchThread = (search) => async (dispatch) => {
+  try {
+    const { data } = await api.search(search);
+
+    dispatch(searchAssignment(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const GetAssignments = () => async (dispatch) => {
   try {
     const { data } = await api.fetchAssignments();

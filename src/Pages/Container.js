@@ -36,6 +36,7 @@ class Container extends React.Component {
               value={this.state.color}
               onChange={this.changeColor.bind(this)}
             />
+            <input type="button" value="erase" onclick="use_tool('erase');" />
           </div>
 
           <div className="brushsize-container">

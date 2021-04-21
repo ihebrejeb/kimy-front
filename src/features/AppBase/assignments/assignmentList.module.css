@@ -1,0 +1,16 @@
+.button_assignment {
+  margin-top: 15px;
+
+  background-color: none;
+  color: #448ee4;
+}
+
+.text_assignment {
+  color: red;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
