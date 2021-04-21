@@ -4,8 +4,10 @@ import SingleAssignment from "./SingleAssignment";
 import {
   GetAssignments,
   getSortedAscendant,
+  getSortedDescendant,
   searchThread,
 } from "./AssignmentsSlice";
+import ReplayIcon from "@material-ui/icons/Replay";
 
 import { selectassignments } from "./AssignmentsSlice";
 import { useEffect } from "react";
@@ -14,11 +16,14 @@ import { Dialog } from "@material-ui/core";
 import styles from "./assignmentList.module.css";
 import SearchPage from "../CourseActivity/SearchPage";
 import SortAssignmentAsc from "./SortAssignmentAsc";
+import SortassigmentsDesc from "./SortassigmentsDesc";
+
 function AssignmentList({ setcurrentId }) {
   const dispatch = useDispatch();
   var [title, setTitle] = useState("");
   const [open, setOpen] = React.useState(false);
   var [sort, setsort] = useState(false);
+  var [sortdesc, setsortdesc] = useState(false);
 
   useEffect(() => {
     if (title !== "") {
@@ -45,6 +50,13 @@ function AssignmentList({ setcurrentId }) {
       dispatch(GetAssignments());
     }
   }, [sort, dispatch]);
+  useEffect(() => {
+    if (sortdesc === true) {
+      dispatch(getSortedDescendant());
+    } else {
+      dispatch(GetAssignments());
+    }
+  }, [sortdesc, dispatch]);
 
   return (
     <div>
@@ -60,9 +72,10 @@ function AssignmentList({ setcurrentId }) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <SortAssignmentAsc setsort={setsort}></SortAssignmentAsc>
-        <SearchPage setTitle={setTitle} title={title} />
-
+        <div className={styles.listItem}>
+          <SortAssignmentAsc setsort={setsort}></SortAssignmentAsc>
+          <SearchPage setTitle={setTitle} title={title} />
+        </div>
         {assignmentact?.map((assignmentactivity) => (
           <SingleAssignment
             key={assignmentactivity._id}
