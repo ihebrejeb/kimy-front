@@ -22,11 +22,27 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 
 import WarningIcon from "@material-ui/icons/Warning";
+
 const schema = yup.object().shape({
   title: yup.string().required(" PLEASE ADD A TITLE   "),
   description: yup.string().required(" PLEASE ADD A DESCRIPTION"),
 });
 function AddActivity({ currentId, setcurrentId }) {
+  const emailSend = (templateId, variables) => {
+    window.emailjs
+      .send("service_p9zk5po", templateId, variables)
+      .then((res) => {
+        console.log("Email successfully sent!");
+      })
+      // Handle errors here however you like, or use a React error boundary
+      .catch((err) =>
+        console.error(
+          "Oh well, you failed. Here some thoughts on the error that occured:",
+          err
+        )
+      );
+  };
+
   const useStyles = makeStyles((theme) => ({
     fab: {
       margin: theme.spacing(2),
@@ -94,11 +110,19 @@ function AddActivity({ currentId, setcurrentId }) {
   };
   const add = (e) => {
     //e.preventDefault();
+    const templateId = "template_ujublkd";
 
     if (currentId) {
       dispatch(update(currentId, activityData));
     } else {
       dispatch(createCourseActivities(activityData));
+      emailSend("template_ujublkd", {
+        message_html:
+          "A new activity has been added to the course you are subscribed to ! check it out ",
+        from_name: "Gmail",
+        reply_to: "khaoulakhmiri2022@gmail.com",
+      });
+      //emailjs.send(serviceID, templateID, templateParams, userID);
     }
 
     setOpen(false);
