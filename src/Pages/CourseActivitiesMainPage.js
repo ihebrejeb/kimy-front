@@ -6,7 +6,6 @@ import {
   GetCoursesActivities,
   getSorted,
   searchThread,
-  getSorted,
 } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
 import AddAssignment from "../features/AppBase/assignments/AddAssignment";
@@ -22,7 +21,6 @@ function CourseActivitiesMainPage() {
   const [currentIdassign, setcurrentIdassign] = useState(null);
   var [title, setTitle] = useState("");
   var [sort, setsort] = useState(false);
-
 
   const dispatch = useDispatch();
 
