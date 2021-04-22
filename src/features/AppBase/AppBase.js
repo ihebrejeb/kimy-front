@@ -17,8 +17,9 @@ import Forum from "../../Pages/Forum";
 import Calendrier from "../../Pages/Calendrier";
 import Userprofile from "../../Pages/Userprofile";
 import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LiveChat from "../AppBase/chat/LiveChat";
+import { logout } from "./user/actions/auth.js";
 import CourseDemo from "./onlinseSession/CourseDemo";
 import CourseRecordings from "./onlinseSession/CourseRecordings";
 import Lobby from "./onlinseSession/Lobby";
@@ -51,6 +52,7 @@ import {
 import Container from "../../Pages/Container";
 
 const drawerWidth = 200;
+
 
 const useStyles = makeStyles((theme) => ({
   links: {
@@ -102,6 +104,7 @@ export default function ClippedDrawer() {
   const location = useLocation();
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   //const user = useSelector(state => state.user.user);
   const course = useSelector(selectedcourse);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -112,10 +115,14 @@ export default function ClippedDrawer() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const signOut = () => {
-    auth.signOut();
-    history.push("/");
+
+  const doLogout = (e) => {
+  
+    console.log('const dologout')
+    dispatch(logout());
+    history.push('/')
   };
+
   const joinLobby = () => {
     history.push("/app/video/" + course.id);
   };
@@ -215,6 +222,7 @@ export default function ClippedDrawer() {
                         <MenuItem
                           onClick={() => {
                             handleClose();
+                            console.log('aa')
                             history.push("/app/users");
                           }}
                         >
@@ -226,7 +234,7 @@ export default function ClippedDrawer() {
                         <MenuItem
                           onClick={() => {
                             handleClose();
-                            signOut();
+                            doLogout();
                           }}
                         >
                           <ListItemIcon>

@@ -1,15 +1,16 @@
 import axios from "axios";
 import { FETCH_USER_SUCCESS, DELETE_USER } from "./actionType";
+import { Axios } from "../user/axiosfile.js";
 
 const url = "http://localhost:4000/user/";
 
 export const fetchUser = () => axios.get(url);
 
 export function fetchUsers() {
-  console.log("hellz");
+  console.log("into fetch users");
   return (dispatch) => {
-    axios
-      .get("http://localhost:4000/user/")
+    Axios
+      .get("/user/")
       .then((response) => {
         console.log(response.data);
         dispatch({
