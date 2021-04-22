@@ -75,12 +75,19 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+      <p > Details about the assignment</p>
       <List>{assignmentact.title}</List>
       <Divider />
       <List> {assignmentact.description}</List>
       <Divider />
       <TimerIcon className={styless.button_assignment}></TimerIcon>
-      <List> please submit your work before :{assignmentact.dateLimite}</List>
+      <List>
+        {" "}
+        <span className={styless.text_assignment}>
+          please submit your work before :
+        </span>{" "}
+        {assignmentact.dateLimite}
+      </List>
     </div>
   );
 
