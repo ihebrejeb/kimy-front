@@ -12,3 +12,4 @@ export const deleteAssignment = (id) => axios.delete(`${url}/${id}`);
 export const search = (search) => axios.get(`${urlsearch}/${search}`);
 export const fetchSortedAsc = () => axios.get(urlSortAsc);
 export const fetchSortedDesc = () => axios.get(urlSortDesc);
+export const fetchOneAssignment = (id) => axios.get(`${url}/${id}`);

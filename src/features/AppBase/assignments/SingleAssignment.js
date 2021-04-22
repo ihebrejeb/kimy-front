@@ -8,7 +8,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../assignments/addAssignment.module.css";
-import { TextField } from "@material-ui/core";
+import { IconButton, TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -24,6 +24,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import SortassigmentsDesc from "./SortassigmentsDesc";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 import {
   createnewAssignment,
@@ -35,7 +37,7 @@ import { useHistory } from "react-router";
 import CourseActivity from "../CourseActivity/CourseActivity";
 import AssignmentList from "./AssignmentsList";
 import styless from "./assignmentList.module.css";
-function SingleAssignment({ currentIdassign, assignmentact }) {
+function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
   const assignment = useSelector((state) =>
     currentIdassign
       ? state.assignments?.values.find((c) => c._id === currentIdassign)
@@ -65,16 +67,7 @@ function SingleAssignment({ currentIdassign, assignmentact }) {
   return (
     <div>
       {" "}
-      {/* <List style={{ width: 400 }} Scrollable={false}>
-        <ListItem className={classes.root}>
-          <div className={styless.listItem}>
-            <ListItemText primary={assignmentact.title} />
-            <span className={styless.text_assignment}>
-              {assignmentact.dateLimite}
-            </span>
-          </div>
-        </ListItem>{" "}
-      </List> */}
+     
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -88,7 +81,11 @@ function SingleAssignment({ currentIdassign, assignmentact }) {
                 </p>
               </TableCell>
               <TableCell maxWidth="100px" align="right">
-                <button> Details </button>
+                <IconButton>
+                  <VisibilityIcon
+                    onClick={() => setcurrentId(assignmentact._id)}
+                  />
+                </IconButton>
               </TableCell>
             </TableRow>
           </TableHead>
