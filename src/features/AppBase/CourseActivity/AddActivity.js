@@ -28,6 +28,7 @@ const schema = yup.object().shape({
   description: yup.string().required(" PLEASE ADD A DESCRIPTION"),
 });
 function AddActivity({ currentId, setcurrentId }) {
+  /*****************************email */
   const emailSend = (templateId, variables) => {
     window.emailjs
       .send("service_p9zk5po", templateId, variables)

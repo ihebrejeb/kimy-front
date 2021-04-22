@@ -26,6 +26,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import SortassigmentsDesc from "./SortassigmentsDesc";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import clsx from "clsx";
+import styless from "./assignmentList.module.css";
 
 import {
   createnewAssignment,
@@ -36,8 +38,53 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import { useHistory } from "react-router";
 import CourseActivity from "../CourseActivity/CourseActivity";
 import AssignmentList from "./AssignmentsList";
-import styless from "./assignmentList.module.css";
+import Drawer from "@material-ui/core/Drawer";
+import Divider from "@material-ui/core/Divider";
+
+import TimerIcon from "@material-ui/icons/Timer";
 function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
+  const useStylesAnchor = makeStyles({
+    list: {
+      width: 250,
+    },
+    fullList: {
+      width: "auto",
+    },
+  });
+
+  const classesAnchor = useStylesAnchor();
+  const [state, setState] = React.useState({
+    top: false,
+  });
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+  const list = (anchor) => (
+    <div
+      className={clsx(classesAnchor.list, {
+        [classesAnchor.fullList]: anchor === "top" || anchor === "bottom",
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>{assignmentact.title}</List>
+      <Divider />
+      <List> {assignmentact.description}</List>
+      <Divider />
+      <TimerIcon className={styless.button_assignment}></TimerIcon>
+      <List> please submit your work before :{assignmentact.dateLimite}</List>
+    </div>
+  );
+
+  /*******************************drawer */
   const assignment = useSelector((state) =>
     currentIdassign
       ? state.assignments?.values.find((c) => c._id === currentIdassign)
@@ -66,8 +113,6 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
   const classes = useStyles();
   return (
     <div>
-      {" "}
-     
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -82,28 +127,35 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
               </TableCell>
               <TableCell maxWidth="100px" align="right">
                 <IconButton>
-                  <VisibilityIcon
-                    onClick={() => setcurrentId(assignmentact._id)}
-                  />
+                  <div>
+                    {["left"].map((anchor) => (
+                      <React.Fragment key={anchor}>
+                        <VisibilityIcon
+                          className={styless.button_assignment}
+                          onClick={toggleDrawer(anchor, true)}
+                        >
+                          {anchor}
+                        </VisibilityIcon>
+
+                        <Drawer
+                          open={open}
+                          onClose={handleClose}
+                          anchor={anchor}
+                          open={state[anchor]}
+                          onClose={toggleDrawer(anchor, false)}
+                        >
+                          {list(anchor)}
+                        </Drawer>
+                      </React.Fragment>
+                    ))}
+                  </div>
                 </IconButton>
               </TableCell>
             </TableRow>
           </TableHead>
-          {/* <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody> */}
         </Table>
       </TableContainer>
+      {/* /******************************drawer */}
     </div>
   );
 }
