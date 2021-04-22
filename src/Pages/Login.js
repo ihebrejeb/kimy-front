@@ -5,7 +5,7 @@ import { auth } from "../Firebase";
 import "./Login.css";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
-
+import { login } from "../features/AppBase/user/actions/auth.js";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
@@ -14,18 +14,18 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import "./Login.css";
 import styles from "./SignUp.module.css";
-
+import { useDispatch, useSelector } from "react-redux";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
-
 import { Button, Divider } from "@material-ui/core";
+
 function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-
+  const dispatch = useDispatch();
   const history = useHistory();
-  const signIn = (e) => {
+  /* const signIn = (e) => {
     e.preventDefault();
 
     auth
@@ -35,7 +35,7 @@ function Login() {
         history.push("/app/courses");
       })
       .catch((error) => alert(error.message));
-  };
+  }; */
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -55,6 +55,19 @@ function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const signIn = (e) => {
+    e.preventDefault();
+  
+    
+      dispatch(login(email, password))
+        .then(() => {
+          history.push('/app/courses')
+        })
+        .catch(() => {
+        });
+  };
+
   return (
     <div className={styles.page}>
       <img

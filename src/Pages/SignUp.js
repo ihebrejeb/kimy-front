@@ -12,10 +12,13 @@ import { auth } from "../Firebase";
 import "./Login.css";
 import styles from "./SignUp.module.css";
 import FileBase from "react-file-base64";
-
+import firebase from 'firebase' ;
 import { Button, Divider } from "@material-ui/core";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
+import { register } from "../features/AppBase/user/actions/auth.js";
+import { useDispatch, useSelector } from "react-redux";
+
 
 function SignUp() {
   const [email, setemail] = useState("");
@@ -24,21 +27,49 @@ function SignUp() {
   const [username, setusername] = useState("");
   const [birthdate, setbirthdate] = useState(new Date());
   const [avatar, setavatar] = useState("");
-
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const register = (e) => {
+  /* const register = (e) => {
     e.preventDefault();
 
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         console.log(authUser);
+        history.push('/app/courses');
       })
       .catch((error) => {
         alert(error.message);
       });
   };
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+  const signInWithGoogle = () => {
+  
+  auth.signInWithPopup(googleProvider).then((res) => {
+    console.log(res.user);
+    history.push('/app/courses');
+  }).catch((error) => {
+    console.log(error.message)
+  })
+} */
+
+const handleRegister = (e) => {
+  e.preventDefault();
+  console.log(avatar)
+  
+    dispatch(register(username, email, password, confirmpassword, birthdate, avatar))
+      .then(() => {
+        console.log(username)
+        console.log(email)
+        console.log(password)
+        history.push('/app/courses')
+        window.location.reload(false);
+      })
+      .catch(() => {
+      });
+};
+
 
   const [values, setValues] = React.useState({
     amount: "",
@@ -47,10 +78,6 @@ function SignUp() {
     weightRange: "",
     showPassword: false,
   });
-
-  /* const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  }; */
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -152,9 +179,7 @@ function SignUp() {
             <FileBase
               type="file"
               multiple={false}
-              onDone={({ base64 }) =>
-                setavatar({ ...avatar, selectedFile: base64 })
-              }
+              onDone={({ base64 }) => setavatar(base64)}
             />
           </div>
 
@@ -162,12 +187,18 @@ function SignUp() {
             variant="outlined"
             size="small"
             color="primary"
-            onClick={register}
+            onClick={handleRegister}
           >
             Sign Up
           </Button>
         </form>
       </div>
+     {/*  <div>
+        <button onClick={signInWithGoogle}>
+        <img src="https://img.icons8.com/ios-filled/50/000000/google-logo.png" alt="google icon"/>
+        <span> Continue with Google</span>
+       </button>
+      </div> */}
     </div>
   );
 }
