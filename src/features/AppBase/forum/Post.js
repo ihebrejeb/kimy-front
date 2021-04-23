@@ -71,7 +71,7 @@ function Post({ showActions, Posts, currentId }) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar src={Posts.creator.avatar} aria-label="recipe" className={classes.avatar}></Avatar>
+          <Avatar aria-label="recipe" className={classes.avatar}></Avatar>
         }
         action={
           <IconButton aria-label="settings">
@@ -87,7 +87,7 @@ function Post({ showActions, Posts, currentId }) {
             />
           </IconButton>
         }
-        title={Posts.creator.username}
+        title=" Med habib"
         subheader={moment(Posts.date).format("MMMM Do YYYY")}
       />
 

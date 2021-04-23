@@ -1,7 +1,7 @@
 import React from "react";
 import AddPost from "../features/AppBase/forum/AddPost";
 import { getPosts,  searchThread } from "../features/AppBase/forum/ForumSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import ForumList from "../features/AppBase/forum/ForumList";
 import { useState } from "react";
@@ -19,7 +19,6 @@ function Forum() {
   const [setcurrentId] = useState(null);
   var [title, setTitle] = useState('');
  
-  const users = useSelector(state => state.users.userslist.users)
 
 
   useEffect(() => {
@@ -40,7 +39,7 @@ function Forum() {
        
          <AddPost />
 
-                <Sidebar title={title} setTitle={setTitle} users={users} />
+                <Sidebar title={title} setTitle={setTitle} />
                 <Tags/>
                 <NewsLeftSide/>
         </div>

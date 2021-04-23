@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert } from "@material-ui/lab";
 
 const schema = yup.object().shape({
+  creator : yup.string().required("you have to add a creator") , 
   title : yup.string().required(" your course should have a name ") , 
   message : yup.string().required(" please provide more details about your course") , 
 
@@ -36,7 +37,7 @@ function Addcourse({ currentId, setcurrentId }) {
   )
 
   const [courseData, setcourseData] = useState({
-    
+    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -53,6 +54,7 @@ function Addcourse({ currentId, setcurrentId }) {
     setOpen(true);
   };
   const handleError =() => {
+    errors.creator = '' ; 
     errors.title = '' ; 
     errors.message = '' ; 
   }
@@ -71,6 +73,7 @@ function Addcourse({ currentId, setcurrentId }) {
   const clear = () => {
     setcurrentId(null);
     setcourseData({
+      creator: " ",
       title: "",
       message: "",
     
@@ -126,7 +129,7 @@ function Addcourse({ currentId, setcurrentId }) {
         <DialogContent>
                    
            
-            {/* <TextField
+            <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
               variant="outlined"
@@ -138,7 +141,8 @@ function Addcourse({ currentId, setcurrentId }) {
               onChange={(e) =>
                 setcourseData({ ...courseData, creator: e.target.value })
               }
-            /> */}
+            />
+            <p className={styles.warning}>{errors.creator?.message} </p> 
             <TextField
               InputLabelProps={{ className: styles.text }}
               InputProps={{ className: styles.field }}
