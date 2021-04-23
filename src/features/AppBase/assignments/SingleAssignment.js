@@ -43,6 +43,22 @@ import Divider from "@material-ui/core/Divider";
 
 import TimerIcon from "@material-ui/icons/Timer";
 function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
+  //****************************** */
+  const downloadTxtFile = () => {
+    const element = document.createElement("a");
+    const file = new Blob([document.getElementById("input").value], {
+      type: "text/plain;charset=utf-8",
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = "myFile.txt";
+    document.body.appendChild(element);
+    element.click();
+  };
+
+  /************************ */
+  const [assignmentData, setassignmentData] = useState({
+    file: "",
+  });
   const useStylesAnchor = makeStyles({
     list: {
       width: 250,
@@ -75,7 +91,7 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <p > Details about the assignment</p>
+      <p> Details about the assignment</p>
       <List>{assignmentact.title}</List>
       <Divider />
       <List> {assignmentact.description}</List>
@@ -84,10 +100,28 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
       <List>
         {" "}
         <span className={styless.text_assignment}>
-          please submit your work before :
+          Please submit your work sheet before :
         </span>{" "}
         {assignmentact.dateLimite}
       </List>
+      {/* <img src={assignmentact.ass} alt={name}> */}
+      <div className={styles.fileInput}>
+        {/* <img src={assignmentact.Assignmentfile}></img> */}
+        <div>
+          <input id="input" />
+          <button onClick={downloadTxtFile()}>Download</button>
+        </div>
+
+        <FileBase
+          type="file"
+          value={assignmentData.file}
+          multiple={false}
+          onDone={({ base64 }) =>
+            setassignmentData({ ...assignmentData, file: base64 })
+          }
+        />
+      </div>
+      <button className={styles.addButton}>Submit my work </button>
     </div>
   );
 
