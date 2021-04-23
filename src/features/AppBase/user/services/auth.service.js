@@ -30,7 +30,21 @@ const login = (email, password) => {
     .then((response) => {
         console.log('local storage')
         localStorage.setItem("user", JSON.stringify(response.data));
-      return response.data;
+      return response.data; 
+    });
+};
+
+
+const UpdatePassword = (id, email, password, newpassword) => {
+  console.log('updatin password first')
+  return axios.post("http://localhost:4000/user/updatepassword", {
+      id,
+      email,
+      password,
+      newpassword
+    }).then((response) => {
+      localStorage.removeItem("user");
+      window.location.reload(false);
     });
 };
 
@@ -43,4 +57,5 @@ export default {
   register,
   login,
   logout,
+  UpdatePassword
 };

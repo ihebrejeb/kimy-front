@@ -16,30 +16,56 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Modal from "@material-ui/core/Modal";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { logout } from "../features/AppBase/user/actions/auth.js";
-import { deleteUser } from "../features/AppBase/actions/actioncrud.js";
+import { logout, updatePass } from "../features/AppBase/user/actions/auth.js";
+import { deleteUser, updateUser } from "../features/AppBase/actions/actioncrud.js";
 import { Button, Divider } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
 import { SignalWifiOffOutlined } from "@material-ui/icons";
+import Moment from 'moment';
+import {
+  UPDATEPASSWORD
+} from "../features/AppBase/user/actions/types";
+import axios from "axios";
 
 
 
 function Userprofile() {
+  Moment.locale('en');
+  const user = useSelector(state => state.user.user.data.user);
+  const userr = useSelector(state => state.user.user);
+  const resu = useSelector(state => state.user.user);
+  /* const usert = JSON.parse(localStorage.getItem("user"));
+  console.log('its t')
+  console.log(usert) */
+  //console.log(resu.token)
   const dispatch = useDispatch();
   const history = useHistory();
+  if (!userr){
+    history.push('/')
+  }
+  console.log('this is userr')
+  console.log(userr)
+  const [updateData, setupdateData] = useState({
+    id : user.id,
+    username: user.username,
+    email: user.email,
+    birthdate: user.brthdate,
+    avatar: user.avatar
+  });
+  /* console.log('tawa')
+  localStorage.setItem("users", JSON.stringify(updateData));
+  console.log(JSON.parse(localStorage.getItem("users")).email.id) */
+  
   const [email, setemail] = useState("");
+  const [currentpassword, setcurrentpassword] = useState("");
   const [password, setpassword] = useState("");
   const [confirmpassword, setconfirmpassword] = useState("");
   const [username, setusername] = useState("");
   const [birthdate, setbirthdate] = useState(new Date());
-  const [avatar, setavatar] = useState("");
-  const user = useSelector(state => state.user.user.data.user);
-  const resu = useSelector(state => state.user.user);
-  console.log(user)
-  console.log(resu.token)
+  
 
   const [open, setOpen] = React.useState(false);
 
@@ -74,12 +100,28 @@ function Userprofile() {
     setOpen(false);
   };
 
+  const mdpok = false;
+
+  const UpdatePasss = (id, email, password, newpassword) => {
+    console.log('updatin password first')
+    return axios.post("http://localhost:4000/user/updatepassword", {
+        id,
+        email,
+        password,
+        newpassword
+      }).then((response) => {
+        localStorage.removeItem("user");
+        history.push('/')
+        window.location.reload(false);
+      });
+  };
+
 
   const doLogout = (e) => {
   
       console.log('const dologout')
       dispatch(logout());
-      history.push('/')
+      //history.push('/')
       window.location.reload(false);
   };
 
@@ -90,6 +132,25 @@ function Userprofile() {
     localStorage.removeItem("user");
     history.push('/'); 
     window.location.reload(false);
+  };
+
+  const doUpdate = (e) => {
+  
+    console.log('const doUpdate')
+    dispatch(updateUser(user._id,updateData));
+    doLogout();
+    //usert.username=updateData.username;
+    window.location.reload(false);
+  };
+
+  const doUpdatepassword = (e) => {
+  
+    console.log('const doUpdatepassword')
+    UpdatePasss(user.id, user.email, currentpassword, password);
+  dispatch({
+    type: UPDATEPASSWORD,
+  });
+    
   };
   
 
@@ -131,7 +192,7 @@ function Userprofile() {
         <h3 className={styles.attributess}>Email</h3>
         <p className={styles.p}>{user.email}</p>
         <h3 className={styles.attributess}>Birthdate</h3>
-        <p className={styles.p}>{user.birthdate}</p> 
+        <p className={styles.p}>{Moment(user.birthdate).format('D/M/Y')}</p> 
         <Button
           variant="outlined"
           color="Secondary"
@@ -141,31 +202,77 @@ function Userprofile() {
           Delete user
         </Button>
       </div>
-
+            <div>
       <div className={styles.update}>
-        <h2 className={styles.title}>Update infos</h2>
+        <h2 className={styles.titleupdate}>Update infos</h2>
 
         <Divider variant="middle" className={styles.divider} />
         <form className={styles.form}>
           <TextField
-            value={username}
-            onChange={(e) => setusername(e.target.value)}
+            onChange={(e) => setupdateData({ ...updateData, username: e.target.value })}
             label="Username"
-            placeholder={user.email}
+            placeholder={user.username}
             type="text"
           />
-
           <TextField
-            value={email}
-            onChange={(e) => setemail(e.target.value)}
+            onChange={(e) => setupdateData({ ...updateData, email: e.target.value })}
             label="Email"
             placeholder={user.email}
             type="email"
           />
+          {/* <TextField
+            value={birthdate}
+            onChange={(e) => setbirthdate(e.target.value)}
+            label="Birthdate"
+            type="date"
+            defaultValue={user.birthdate}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          /> */}
+          <p>Upload your avatar</p>
+          <div className={styles.fileInput}>
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) => setupdateData({ ...updateData, avatar: base64 })}
+            />
+          </div>
 
+          <Button variant="outlined" color="Primary" onClick={doUpdate}>
+            Update
+          </Button>
+        </form>
+      </div>
+      <div className={styles.reset}>
+        <h2 className={styles.titlereset}>Reset password</h2>
+        <form className={styles.form}>
           <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
-              Password
+            Current password
+            </InputLabel>
+
+            <Input
+              value={currentpassword}
+              onChange={(e) => setcurrentpassword(e.target.value)}
+              id="standard-adornment-password"
+              type={values.showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+      <FormControl>
+            <InputLabel htmlFor="standard-adornment-password">
+              New password
             </InputLabel>
 
             <Input
@@ -187,9 +294,9 @@ function Userprofile() {
             />
           </FormControl>
 
-          <FormControl>
+          {/* <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
-              Confirm password
+              Confirm new password
             </InputLabel>
 
             <Input
@@ -209,47 +316,12 @@ function Userprofile() {
                 </InputAdornment>
               }
             />
-          </FormControl>
-
-          <TextField
-            value={birthdate}
-            onChange={(e) => setbirthdate(e.target.value)}
-            label="Birthdate"
-            type="date"
-            defaultValue="2017-05-24"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-
-          <p>Upload your avatar</p>
-          <div className={styles.fileInput}>
-            <FileBase
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) =>
-                setavatar({ ...avatar, selectedFile: base64 })
-              }
-            />
-          </div>
-
-          {/* <FormControlLabel
-            control={<Checkbox name="checkedC" />}
-            label="I agree to terms and conditions"
-          /> */}
-
-          <Button variant="outlined" color="Primary" onClick={doLogout}>
+          </FormControl> */}
+          <Button variant="outlined" color="Primary" onClick={doUpdatepassword}>
             Update
           </Button>
-          {/*  <h5>
-            <span className={styles.signup_grey}>
-              {" "}
-              Do you already have an account ?
-            </span>
-
-            <span className={styles.signup_link}   onClick={signIn}> Login </span>
-          </h5> */}
-        </form>
+          </form>
+      </div>
       </div>
     </div>
   );

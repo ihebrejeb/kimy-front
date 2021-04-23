@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER_SUCCESS, DELETE_USER } from "./actionType";
+import { FETCH_USER_SUCCESS, DELETE_USER, UPDATE_USER } from "./actionType";
 import { Axios } from "../user/axiosfile.js";
 
 const url = "http://localhost:4000/user/";
@@ -22,6 +22,21 @@ export function fetchUsers() {
         console.log("hello");
       });
   };
+}
+
+export function updateUser(_id, data) {
+  console.log(_id);
+  console.log(data);
+  return dispatch => {
+   Axios.patch(`/user/${_id}`, data)
+    .then(response =>{
+      dispatch({
+        type: UPDATE_USER,
+        user:response.data
+      })
+    })
+
+  }
 }
 
 export function deleteUser(_id) {

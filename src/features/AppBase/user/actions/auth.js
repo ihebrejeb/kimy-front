@@ -5,6 +5,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
+  UPDATEPASSWORD
 } from "./types";
 
 import AuthService from "../services/auth.service";
@@ -82,5 +83,13 @@ export const logout = () => (dispatch) => {
   console.log('logout action auth.js')
   dispatch({
     type: LOGOUT,
+  });
+};
+
+export const updatePass = (user, password, newpassword) => (dispatch) => {
+  AuthService.UpdatePassword(user.id, user.email, password, newpassword);
+  console.log('update password second')
+  dispatch({
+    type: UPDATEPASSWORD,
   });
 };
