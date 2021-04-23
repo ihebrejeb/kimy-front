@@ -30,14 +30,14 @@ function Course({ courses, setCurrentId }) {
      
     <Card className={styles.card}>
       <CardHeader
-        avatar={<Avatar aria-label="course"></Avatar>}
+        avatar={<Avatar src= {courses.creator.avatar} ></Avatar>}
         action={
           <IconButton aria-label="settings">
             <EditIcon onClick={() => setCurrentId(courses._id)} />
           </IconButton>
         }
         title={courses.title}
-        subheader={courses.creator}
+        subheader={courses.creator.username}
       />
 
       <CardMedia
