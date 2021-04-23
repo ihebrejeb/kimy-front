@@ -1,6 +1,7 @@
 
 import { Axios } from '../features/AppBase/user/axiosfile';
 const url = '/forum' ;
+const url0='/forum/getbyCourse'
 const url1 = '/forum/like' ;
 const url3 = '/forum/rate' ;
 const url4 = '/forum/unlike' ;
@@ -14,7 +15,7 @@ export const fetchViral =() => Axios.get(url9)
 export const fetchSorted =  () =>   Axios.get(url6);
 export const fetchSortedByRate =  () =>   Axios.get(url7);
 export const fetchSortedByViews =  () =>   Axios.get(url8);
-export const fetchPosts =  () =>   Axios.get(url);
+export const fetchPosts =  (courseid) =>   Axios.get(`${url0}/${courseid}`);
 export const CreatePost =  (newPost) => Axios.post(url , newPost);
 export const UpdatePosts = (id , updatedPost) => Axios.patch(`${url}/${id}` , updatedPost);
 export const deletePosts = (id ) => Axios.delete(`${url}/${id}` );

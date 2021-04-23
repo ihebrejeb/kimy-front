@@ -58,7 +58,7 @@ function Course({ courses, setCurrentId }) {
           <Button
             size="small"
             color="primary"
-            onClick={() => history.push("/app/activites")}
+            onClick={() => history.push(`/app/forum/${courses._id}`)}
           >
             <AddCircleOutlineIcon fontSize="small" /> Open
           </Button>

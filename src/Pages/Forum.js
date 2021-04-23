@@ -13,20 +13,21 @@ import HotThread from "../features/AppBase/forum/HotThread";
 import NewsList from "../features/AppBase/NewsApi/NewsList";
 import NewsLeftSide from "../features/AppBase/NewsApi/NewsLeftSide";
 import HotThreadList from "../features/AppBase/forum/HotThreadList";
+import { useParams } from "react-router";
 function Forum() {
   const dispatch = useDispatch();
   const [setcurrentId] = useState(null);
   var [title, setTitle] = useState('');
- 
+   let {courseid}  = useParams(); 
 
 
   useEffect(() => {
     if (title !== '') {
         dispatch(searchThread(title));
     } else {
-        dispatch(getPosts());
+        dispatch(getPosts(courseid));
     }
-}, [title , dispatch]);
+}, [title , dispatch, courseid]);
 
 
 

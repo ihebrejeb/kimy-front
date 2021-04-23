@@ -16,9 +16,9 @@ function CommentItem({ comment, postId }) {
     <div className="section">
       <div className="comment">
         <div className="post__header">
-          <Avatar />
+          <Avatar src={comment.avatar} />
           <div className="post__info">
-            <h2>med habib dridi</h2>
+            <h2>{comment.name}</h2>
             {moment(comment.date).format("MMMM Do YYYY")}
           </div>
         </div>

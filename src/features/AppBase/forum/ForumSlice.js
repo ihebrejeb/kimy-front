@@ -93,9 +93,9 @@ export const {
 //thunk
 
 // get posts 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (courseid) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
+    const { data } = await api.fetchPosts(courseid);
 
     dispatch(getPost(data.data));
   } catch (error) {
