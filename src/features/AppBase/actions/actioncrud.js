@@ -29,12 +29,16 @@ export function updateUser(_id, data) {
   console.log(data);
   return dispatch => {
    Axios.patch(`/user/${_id}`, data)
-    .then(response =>{
-      dispatch({
-        type: UPDATE_USER,
-        user:response.data
-      })
-    })
+    .then((response) => {
+      localStorage.setItem("user", JSON.stringify(response.data));
+      console.log('we here')
+      console.log(JSON.parse(localStorage.getItem("user")));
+      console.log('repsones')
+      console.log(response.data)
+      window.location.reload(false);
+    }).catch((error) => {
+      console.log("notound");
+    });
 
   }
 }

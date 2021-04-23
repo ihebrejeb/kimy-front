@@ -110,8 +110,6 @@ function Userprofile() {
         password,
         newpassword
       }).then((response) => {
-        localStorage.removeItem("user");
-        history.push('/')
         window.location.reload(false);
       });
   };
@@ -138,9 +136,9 @@ function Userprofile() {
   
     console.log('const doUpdate')
     dispatch(updateUser(user._id,updateData));
-    doLogout();
+    //doLogout();
     //usert.username=updateData.username;
-    window.location.reload(false);
+    
   };
 
   const doUpdatepassword = (e) => {
