@@ -34,3 +34,7 @@
     font-weight: 400;
 
 }
+.info  {
+    display: flex;
+    justify-content: space-between;
+}

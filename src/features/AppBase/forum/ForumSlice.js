@@ -26,6 +26,7 @@ export const forumslice = createSlice({
   initialState: {
     values: [],
     post: {},
+    viral: [],
   },
   reducers: {
     getPost: (state, action) => {
@@ -34,7 +35,9 @@ export const forumslice = createSlice({
     getSortedByLikes : (state , action )=> {
       state.values= action.payload ;
     },
-
+    getViral: (state, action) => {
+      state.viral = action.payload;
+    },
     UnlistPost: (state, action) => {
       const payload = action.payload;
 
@@ -82,6 +85,7 @@ export const {
   getOne,
   DeleteCommento,
   Like,
+  getViral,
   searchAction,
   getSortedByLikes
 } = forumslice.actions;
@@ -94,6 +98,16 @@ export const getPosts = () => async (dispatch) => {
     const { data } = await api.fetchPosts();
 
     dispatch(getPost(data.data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getViralPost = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchViral();
+
+    dispatch(getViral(data));
+    console.log(data)
   } catch (error) {
     console.log(error.message);
   }
@@ -197,5 +211,5 @@ export const addrate = (postId, formData) => async (dispatch) => {
 //selectors
 export const selectForum = (state) => state.forum.values;
 export const selectPost = (state) => state.forum.post;
-
+export const selectViral = (state) => state.forum.viral;
 export default forumslice.reducer;

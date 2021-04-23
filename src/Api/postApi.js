@@ -8,9 +8,9 @@ const url5 = '/forum/search' ;
 const url6 = '/forum/sort' ;
 const url7= '/forum/sortByRate' ;
 const url8= '/forum/sortByViews' ;
+const url9 ='/forum/topPost'; 
 
-
-
+export const fetchViral =() => Axios.get(url9)
 export const fetchSorted =  () =>   Axios.get(url6);
 export const fetchSortedByRate =  () =>   Axios.get(url7);
 export const fetchSortedByViews =  () =>   Axios.get(url8);
