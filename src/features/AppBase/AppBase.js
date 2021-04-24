@@ -11,6 +11,7 @@ import {
   useHistory,
   useLocation,
   NavLink,
+  useParams,
 } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
@@ -28,7 +29,7 @@ import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
 import Testuser from "../../Pages/Testuser";
-import { selectedcourse } from "./onlinseSession/CourseDemoSlice";
+import { selectCourse, selectedcourse } from "./onlinseSession/CourseDemoSlice";
 import {
   Avatar,
   ClickAwayListener,
@@ -50,8 +51,10 @@ import {
   SlowMotionVideo,
 } from "@material-ui/icons";
 import Container from "../../Pages/Container";
+import { selectcourses } from "./courses/CoursesSlice";
 
 const drawerWidth = 200;
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -127,6 +130,7 @@ export default function ClippedDrawer() {
   const joinLobby = () => {
     history.push("/app/video/" + course.id);
   };
+  
   return (
     <>
       <CssBaseline />
@@ -153,7 +157,7 @@ export default function ClippedDrawer() {
                 Activities
               </NavLink>
               <NavLink
-                to="/app/forum"
+                to={`/app/forum/${course.id}`}
                 className={classes.link}
                 activeStyle={{
                   fontWeight: "bold",
@@ -262,9 +266,9 @@ export default function ClippedDrawer() {
           </Route>
 
           <Route exact path="/app/courses">
-            <Courses></Courses>
+            <Courses ></Courses>
           </Route>
-          <Route exact path="/app/forum">
+          <Route exact path="/app/forum/:courseid">
             <Forum></Forum>
           </Route>
           <Route exact path="/app/singlepost/:id">
@@ -293,7 +297,7 @@ export default function ClippedDrawer() {
           <Route exact path="/app/calendar">
             <Calendrier></Calendrier>
           </Route>
-          <Route exact path="/app/activites">
+          <Route exact path="/app/activites/">
             <CourseActivitiesMainPage />
           </Route>
           <Route exact path="/app/whiteboard">
