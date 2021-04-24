@@ -28,7 +28,6 @@ import SortassigmentsDesc from "./SortassigmentsDesc";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import clsx from "clsx";
 import styless from "./assignmentList.module.css";
-
 import {
   createnewAssignment,
   GetAssignments,
@@ -40,8 +39,14 @@ import CourseActivity from "../CourseActivity/CourseActivity";
 import AssignmentList from "./AssignmentsList";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
+import PDF from "../../../assignment.pdf";
 
 import TimerIcon from "@material-ui/icons/Timer";
+import BorderColorIcon from "@material-ui/icons/BorderColor";
+import DescriptionIcon from "@material-ui/icons/Description";
+
+import DownloadLFile from "./DownloadLFile";
+import ShowAssignment from "./ShowAssignment";
 function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
   //****************************** */
   // const downloadTxtFile = () => {
@@ -67,6 +72,7 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
       width: "auto",
     },
   });
+  const [openPDF, setOpenPDF] = React.useState(false);
 
   const classesAnchor = useStylesAnchor();
   const [state, setState] = React.useState({
@@ -82,6 +88,17 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
 
     setState({ ...state, [anchor]: open });
   };
+
+  const showPDF = () => {
+    // <embed
+    //   target="_blank"
+    //   src={PDF}
+    //   type="application/pdf"
+    //   height={200}
+    //   width={200}
+    // />
+    <ShowAssignment />;
+  };
   const list = (anchor) => (
     <div
       className={clsx(classesAnchor.list, {
@@ -92,26 +109,33 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <p> Details about the assignment</p>
-      <List>{assignmentact.title}</List>
-      <Divider />
-      <List> {assignmentact.description}</List>
-      <Divider />
-      <TimerIcon className={styless.button_assignment}></TimerIcon>
       <List>
         {" "}
+        <BorderColorIcon
+          className={styless.button_assignment}
+        ></BorderColorIcon>
+        {assignmentact.title}
+      </List>
+      <Divider />
+      <List>
+        {" "}
+        <DescriptionIcon className={styless.button_assignment} />
+        {assignmentact.description}
+      </List>
+      <Divider />
+      <List>
+        {" "}
+        <TimerIcon className={styless.button_assignment}></TimerIcon>
         <span className={styless.text_assignment}>
           Please submit your work sheet before :
         </span>{" "}
-        {assignmentact.dateLimite}
+        <span className={styless.text_assignment}>
+          {" "}
+          {assignmentact.dateLimite}
+        </span>
       </List>
       {/* <img src={assignmentact.ass} alt={name}> */}
       <div className={styles.fileInput}>
-        <input type="file" src={assignmentact.Assignmentfile}></input>
-        {/* <div>
-          <input id="input" />
-          <button>Download</button>
-        </div> */}
-
         <FileBase
           type="file"
           value={assignmentData.file}
@@ -136,15 +160,14 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
   }, [currentIdassign]);
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handlePDF = () => {
+    setOpenPDF(true);
   };
   const handleClose = () => {
     // clear();
     setOpen(false);
   };
-  const [items, setItems] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+
   const useStyles = makeStyles((theme) => ({
     root: {
       width: "105%",
@@ -158,15 +181,18 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell maxWidth="100px" align="left">
+              <TableCell width="500px" align="left">
                 {assignmentact.title}
               </TableCell>
-              <TableCell maxWidth="100px" align="left">
+              <TableCell width="200px" align="right">
                 <p lassName={styless.text_assignment}>
                   {assignmentact.dateLimite}
                 </p>
               </TableCell>
-              <TableCell maxWidth="100px" align="right">
+              <TableCell width="200px" align="right">
+                <ShowAssignment></ShowAssignment>
+              </TableCell>
+              <TableCell width="100px" align="right">
                 <IconButton>
                   <div>
                     {["left"].map((anchor) => (
