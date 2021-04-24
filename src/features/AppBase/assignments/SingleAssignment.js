@@ -44,16 +44,16 @@ import Divider from "@material-ui/core/Divider";
 import TimerIcon from "@material-ui/icons/Timer";
 function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
   //****************************** */
-  const downloadTxtFile = () => {
-    const element = document.createElement("a");
-    const file = new Blob([document.getElementById("input").value], {
-      type: "text/plain;charset=utf-8",
-    });
-    element.href = URL.createObjectURL(file);
-    element.download = "myFile.txt";
-    document.body.appendChild(element);
-    element.click();
-  };
+  // const downloadTxtFile = () => {
+  //   const element = document.createElement("a");
+  //   const file = new Blob([document.getElementById("input").value], {
+  //     type: "text/plain;charset=utf-8",
+  //   });
+  //   element.href = URL.createObjectURL(file);
+  //   element.download = "myFile.txt";
+  //   document.body.appendChild(element);
+  //   element.click();
+  // };
 
   /************************ */
   const [assignmentData, setassignmentData] = useState({
@@ -106,11 +106,11 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
       </List>
       {/* <img src={assignmentact.ass} alt={name}> */}
       <div className={styles.fileInput}>
-        {/* <img src={assignmentact.Assignmentfile}></img> */}
-        <div>
+        <input type="file" src={assignmentact.Assignmentfile}></input>
+        {/* <div>
           <input id="input" />
-          <button onClick={downloadTxtFile()}>Download</button>
-        </div>
+          <button>Download</button>
+        </div> */}
 
         <FileBase
           type="file"
