@@ -39,7 +39,17 @@
   align-items: center;
   text-align: center;
   gap: 20px;
-  padding-left: 120px;
+  padding-left: 180px;
+}
+
+.reset {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding-left: 180px;
 }
 
 .icons {
@@ -120,6 +130,17 @@ span {
   color: #2000d2;
   margin-top: 70px;
 }
+
+.titleupdate {
+  color: #2000d2;
+  margin-top: 100px;
+}
+
+.titlereset {
+  color: #2000d2;
+}
+
+
 .divider {
   width: 100%;
 }

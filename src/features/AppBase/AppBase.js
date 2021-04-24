@@ -105,7 +105,8 @@ export default function ClippedDrawer() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  //const user = useSelector(state => state.user.user);
+  const user = useSelector(state => state.user.user.data.user);
+  console.log(user.avatar)
   const course = useSelector(selectedcourse);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -197,9 +198,9 @@ export default function ClippedDrawer() {
               className={classes.avatar}
               aria-controls="simple-menu"
               aria-haspopup="true"
+              src={user.avatar}
               onClick={handleClick}
             >
-              IR
             </Avatar>
             <Popper
               open={Boolean(anchorEl)}
