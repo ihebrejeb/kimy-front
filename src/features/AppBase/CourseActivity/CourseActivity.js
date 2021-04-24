@@ -26,6 +26,9 @@ import { store } from "react-notifications-component";
 import SingleAssignment from "../assignments/SingleAssignment";
 import DeleteAlert from "./DeleteAlert";
 import Alert from "@material-ui/lab/Alert";
+import ShowAssignment from "../assignments/ShowAssignment";
+import PDF from "../../../assignment.pdf";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   // store.addNotification({
@@ -132,7 +135,15 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                     <FolderIcon></FolderIcon>
                   </Typography>
                 </AccordionSummary>
-                <Typography>{coursesActivities.file}</Typography>
+                <Typography>
+                  <a href={PDF} target="_blank">
+                    <button>
+                      {" "}
+                      <GetAppIcon height="200px"></GetAppIcon>
+                      {coursesActivities.title + ".pdf"}
+                    </button>
+                  </a>
+                </Typography>
               </Accordion>
             </AccordionDetails>
             <AccordionDetails>
