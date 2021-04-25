@@ -98,8 +98,79 @@ class Board extends React.Component {
 
     var mouse = { x: 0, y: 0 };
     var last_mouse = { x: 0, y: 0 };
+    var startingX = 0;
 
+    var recentWords = [];
+    var undoLst = [];
+
+    function undo() {
+      undoLst.pop();
+      var imgData = undoLst(undoLst.length - 1);
+      var image = new Image();
+      image.src = imgData;
+      image.onload = function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(
+          image,
+          0,
+          0,
+          canvas.width,
+          canvas.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+      };
+    }
+
+    function saveState() {
+      undoLst.push(canvas.toDataURL());
+    }
+    saveState();
     /* Mouse Capturing Work */
+    canvas.addEventListener(
+      "click",
+      function (e) { b
+        mouse.x = e.pageX - canvas.offsetLeft;
+        mouse.y = e.pageY - canvas.offsetTop;
+        startingX = mouse.x;
+        //restart
+        recentWords = [];
+        return false;
+      },
+      false
+    );
+
+    //add keydwon event  to document
+
+    document.addEventListener(
+      "keydown",
+      function (e) {
+        ctx.font = "50px Arial ";
+        if (e.keyCode === 0) {
+          //backspace
+          undo();
+          //remove
+          var recentWord = recentWords[recentWords.length - 1];
+          mouse.x -= ctx.measureText(recentWord).width;
+          recentWords.pop();
+        } else if (e.keyCode === 13) {
+          // enter key presed
+          mouse.x = startingX;
+          mouse.y += 54;
+        } else {
+          ctx.fillText(e.key, mouse.x, mouse.y);
+
+          //move cursor
+          mouse.x += ctx.measureText(e.key).width;
+          saveState();
+          recentWords.push(e.key);
+        }
+      },
+      false
+    );
+
     canvas.addEventListener(
       "mousemove",
       function (e) {
@@ -111,8 +182,6 @@ class Board extends React.Component {
       },
       false
     );
-
-    /* Drawing on Paint App */
     ctx.lineWidth = this.props.size;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";

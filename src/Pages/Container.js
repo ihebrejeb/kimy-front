@@ -28,7 +28,7 @@ class Container extends React.Component {
   render() {
     return (
       <div className="container">
-        <div class="tools-section">
+        <div className="tools-section">
           <div className="color-picker-container">
             Select Brush Color : &nbsp;
             <input
@@ -36,7 +36,7 @@ class Container extends React.Component {
               value={this.state.color}
               onChange={this.changeColor.bind(this)}
             />
-            <input type="button" value="erase" onclick="use_tool('erase');" />
+            <input type="button" value="erase" onClick="use_tool('erase');" />
           </div>
 
           <div className="brushsize-container">
@@ -55,7 +55,7 @@ class Container extends React.Component {
           </div>
         </div>
 
-        <div class="board-container">
+        <div className="board-container">
           <Board color={this.state.color} size={this.state.size}></Board>
         </div>
       </div>
