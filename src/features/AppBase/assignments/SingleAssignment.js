@@ -47,6 +47,9 @@ import DescriptionIcon from "@material-ui/icons/Description";
 
 import DownloadLFile from "./DownloadLFile";
 import ShowAssignment from "./ShowAssignment";
+import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
+import GetAppIcon from "@material-ui/icons/GetApp";
+
 function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
   //****************************** */
   // const downloadTxtFile = () => {
@@ -190,7 +193,9 @@ function SingleAssignment({ currentIdassign, assignmentact, setcurrentId }) {
                 </p>
               </TableCell>
               <TableCell width="200px" align="right">
-                <ShowAssignment></ShowAssignment>
+                <a href={PDF} target="_blank" height="20px">
+                  <PictureAsPdfIcon className={styless.button_assignment} />
+                </a>
               </TableCell>
               <TableCell width="100px" align="right">
                 <IconButton>
