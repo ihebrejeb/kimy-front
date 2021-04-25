@@ -75,7 +75,7 @@ function AddActivity({ currentId, setcurrentId }) {
   };
   const [activityData, setactivityData] = useState({
     title: "",
-    file: "",
+    file: [],
     video: "",
     description: "",
     nbSeances: "",
@@ -110,7 +110,7 @@ function AddActivity({ currentId, setcurrentId }) {
     setcurrentId(null);
     setactivityData({
       title: " ",
-      file: "",
+      file: [],
       video: "",
       description: "",
       nbSeances: "",
@@ -191,12 +191,13 @@ function AddActivity({ currentId, setcurrentId }) {
               <div className={styles.fileInput}>
                 <FileBase
                   type="file"
-                  multiple={false}
+                  multiple={true}
                   value={activityData.file}
                   onDone={({ base64 }) =>
                     setactivityData({ ...activityData, file: base64 })
                   }
                 />
+                {/* <input multiple type="file" value={activityData.file}></input> */}
               </div>
               <div className={styles.fileInput}>
                 Select a video from the recordings
