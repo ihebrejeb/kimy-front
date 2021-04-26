@@ -1,0 +1,213 @@
+.logo {
+  position: fixed;
+  left: 0;
+  width: 100px;
+  object-fit: contain;
+  padding-left: 10px;
+  cursor: pointer;
+  top: 10px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.piepie {
+  display: flex;
+  margin-left: 80px;
+  align-items: center; 
+}
+
+.hr {
+  background-color: #0056d2;
+}
+
+.greencol {
+  color: rgb(33, 209, 107);
+}
+.redcol {
+  color: rgb(255, 65, 90);
+}
+.por {
+  color: #0056d2;
+}
+.porle {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  color: #0056d2;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+.or {
+  color: #0056d2;
+}
+.infos {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-right: 2px solid #a6cafd;
+  gap: 20px;
+  padding-right: 220px;
+}
+
+.update {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding-left: 180px;
+}
+
+.reset {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding-left: 180px;
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+}
+.icon {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  padding: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}
+.linkedin {
+  color: #0e76a8;
+}
+.github {
+  color: #1d202d;
+}
+.twitter {
+  color: #00acee;
+}
+
+.text_field {
+  height: 30px;
+}
+
+.signup_grey {
+  color: blue;
+}
+.signup_link:hover {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.signup_link {
+  color: black;
+}
+.tos {
+  display: flex;
+  flex-direction: row;
+}
+
+.imeg {
+  object-fit: cover;
+  width:100px;
+  height:100px;
+  border-radius: 50%;
+}
+
+.deletebtn {
+  border: 2px solid red;
+}
+
+.attributess {
+  color: #0056d2;
+  font-size: 18px;
+}
+
+p {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.p {
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+span {
+  font-size: 12px;
+  font-weight: 400;
+}
+.title {
+  color: #2000d2;
+  margin-top: 70px;
+}
+
+.titleupdate {
+  color: #2000d2;
+  margin-top: 100px;
+}
+
+.titlereset {
+  color: #2000d2;
+}
+
+
+.divider {
+  width: 100%;
+}
+
+.fullHeightCard {
+  height: 100%;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 15px;
+  height: 100%;
+  position: absolute;
+}
+.overlay {
+  top: 40px;
+  left: 20px;
+  color: black;
+}
+.overlay2 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+}
+.grid {
+  display: "flex";
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+.cardActions {
+  padding: 0 16px 8px 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.edit {
+  float: right;
+}
