@@ -224,8 +224,11 @@ class Board extends React.Component {
     const uploadImage = (e) => {
       reader.onload = () => {
         img.onload = () => {
-          canvas.width = img.width;
-          canvas.height = img.height;
+          // canvas.width = img.width - 200;
+          img.width = canvas.width - 500;
+          img.height = canvas.height - 700;
+
+          // canvas.height = img.height;
           ctx.drawImage(img, 0, 0);
         };
         img.src = reader.result;
