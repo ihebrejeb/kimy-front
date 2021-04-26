@@ -10,7 +10,13 @@
   display: inline;
   color: white;
 }
-
+.instructions {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
 .brushsize-container {
   display: inline;
   color: white;

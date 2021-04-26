@@ -100,12 +100,12 @@ class Board extends React.Component {
     var last_mouse = { x: 0, y: 0 };
     var startingX = 0;
 
-    var recentWords = [];
+    var recentWordsTab = [];
     var undoLst = [];
 
     function undo() {
       undoLst.pop();
-      var imgData = undoLst(undoLst.length - 1);
+      var imgData = undoLst[undoLst.length - 1];
       var image = new Image();
       image.src = imgData;
       image.onload = function () {
@@ -131,12 +131,12 @@ class Board extends React.Component {
     /* Mouse Capturing Work */
     canvas.addEventListener(
       "click",
-      function (e) { b
+      function (e) {
         mouse.x = e.pageX - canvas.offsetLeft;
         mouse.y = e.pageY - canvas.offsetTop;
         startingX = mouse.x;
         //restart
-        recentWords = [];
+        recentWordsTab = [];
         return false;
       },
       false
@@ -148,13 +148,13 @@ class Board extends React.Component {
       "keydown",
       function (e) {
         ctx.font = "50px Arial ";
-        if (e.keyCode === 0) {
+        if (e.keyCode === 8) {
           //backspace
           undo();
           //remove
-          var recentWord = recentWords[recentWords.length - 1];
+          var recentWord = recentWordsTab[recentWordsTab.length - 1];
           mouse.x -= ctx.measureText(recentWord).width;
-          recentWords.pop();
+          recentWordsTab.pop();
         } else if (e.keyCode === 13) {
           // enter key presed
           mouse.x = startingX;
@@ -165,7 +165,7 @@ class Board extends React.Component {
           //move cursor
           mouse.x += ctx.measureText(e.key).width;
           saveState();
-          recentWords.push(e.key);
+          recentWordsTab.push(e.key);
         }
       },
       false
