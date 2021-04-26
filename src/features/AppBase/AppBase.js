@@ -16,6 +16,7 @@ import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
 import Calendrier from "../../Pages/Calendrier";
 import Userprofile from "../../Pages/Userprofile";
+import LivQuiT from "../../Pages/LivQuiT";
 import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
 import { useSelector, useDispatch } from "react-redux";
 import LiveChat from "../AppBase/chat/LiveChat";
@@ -275,6 +276,9 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/chat">
             <LiveChat />
+          </Route>
+          <Route exact path="/app/quiztest">
+            <LivQuiT />
           </Route>
 
           {/*   demo video chat */}

@@ -2,14 +2,27 @@ import React, { useEffect, useRef, useState } from "react";
 import "./test.css";
 import Participant from "./Participant";
 import { Modal } from "@material-ui/core";
-import LiveQuizz from "../../../Pages/LiveQuizz";
+import LiveQuizz from "../livequizz/LiveQuizz";
+import AnswerQuizz from "../livequizz/AnswerQuizz";
 import LiveChat from "../chat/LiveChat";
+import io from "socket.io-client";
+
 const Room = ({ room, me, isVideo, isAudio }) => {
   const [participants, setParticipants] = useState([]);
 
   const scene = useRef();
+  const ans = useRef();
+  const [livequi, setlivequi] = useState(null)
 
   useEffect(() => {
+    ans.current = io.connect("http://localhost:4000");
+    ans.current.on("finished quizz", ({}) => {
+      handleCloseans();
+    });
+    ans.current.on("new live quizz", ({ livequiz }) => {
+      console.log(setlivequi(livequiz));
+      handleOpenans();
+    });
     const participantConnected = (participant) => {
       setParticipants((prevParticipants) => [...prevParticipants, participant]);
     };
@@ -29,16 +42,30 @@ const Room = ({ room, me, isVideo, isAudio }) => {
     };
   }, [room]);
   const [open, setOpen] = React.useState(false);
-
+  const [openans, setOpenans] = React.useState(false);
+  
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    ans.current.emit("finished quizz",{})
   };
-  return (
-    <div className="flex">
+
+  const handleOpenans = () => {
+    setOpenans(true);
+  };
+
+  const handleCloseans = () => {
+    setOpenans(false);
+  };
+
+  const modalsRender = () => {
+    if(open)
+    {
+      return (
+        <div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -47,6 +74,36 @@ const Room = ({ room, me, isVideo, isAudio }) => {
       >
         <LiveQuizz></LiveQuizz>
       </Modal>
+        </div>
+      )
+    }
+    else
+    return (
+      <div>
+        
+        <Modal
+        open={openans}
+        onClose={handleCloseans}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <AnswerQuizz livequi={livequi}></AnswerQuizz>
+      </Modal>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <LiveQuizz></LiveQuizz>
+      </Modal>
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex">
+      {modalsRender()}
       <div className="room">
         <div ref={scene} id="Scenary">
           <Test scene={scene} participants={participants}></Test>
@@ -65,6 +122,7 @@ const Room = ({ room, me, isVideo, isAudio }) => {
       <div className="chat">
         <LiveChat></LiveChat>
       </div>
+      {/* <AnswerQuizz></AnswerQuizz> */}
     </div>
   );
 };
