@@ -21,10 +21,10 @@ class Board extends React.Component {
       var img = new Image();
       img.src = url;
       img.onload = function () {
-        var width = Math.min(500, img.width);
-        var height = img.height * (width / img.width);
-        // var height = "200px";
-        // var width = "200px";
+        // var width = Math.min(500, img.width);
+        // var height = img.height * (width / img.width);
+        var height = "200px";
+        var width = "200px";
 
         canvasImage.width = width;
         canvasImage.height = height;
@@ -222,9 +222,10 @@ class Board extends React.Component {
   render() {
     return (
       <div class="sketch" id="sketch">
-        <canvas className="board" id="board"></canvas>
-        {/* <canvas className="box" id="canvasImage"></canvas> */}
-        <input type="button" v />
+        <canvas className="board" id="board"></canvas>{" "}
+        <label for="uploader">Select file:</label>
+        <input type="file" id="uploader" />
+        <button>Download</button>
       </div>
     );
   }
