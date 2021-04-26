@@ -217,6 +217,31 @@ class Board extends React.Component {
         root.socket.emit("canvas-data", base64ImageData);
       }, 1000);
     };
+
+    /*********************image section */
+    const reader = new FileReader();
+    const img = new Image();
+    const uploadImage = (e) => {
+      reader.onload = () => {
+        img.onload = () => {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    };
+    const imageLoader = document.getElementById("uploader");
+    imageLoader.addEventListener("change", uploadImage);
+    function download() {
+      const image = canvas.toDataURL();
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "image.png";
+      link.click();
+    }
+    document.querySelector("button").addEventListener("click", download);
   }
 
   render() {
