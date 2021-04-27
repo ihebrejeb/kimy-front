@@ -34,7 +34,7 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
     related_activity: "",
     Assignmentfile: "",
     description: "",
-    dateCreation: "",
+    dateCreation: Date.now(),
     dateLimite: "",
   });
   const dispatch = useDispatch();
@@ -82,11 +82,11 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
     });
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     dispatch(createnewAssignment(assignmentData));
 
-    console.log(assignmentData);
+    ///console.log(assignmentData);
 
     setOpen(false);
     clear();
@@ -142,8 +142,12 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
               <FileBase
                 type="file"
                 multiple={false}
+                value={assignmentData.Assignmentfile}
                 onDone={({ base64 }) =>
-                  setassignmentData({ ...assignmentData, file: base64 })
+                  setassignmentData({
+                    ...assignmentData,
+                    Assignmentfile: base64,
+                  })
                 }
               />
             </div>

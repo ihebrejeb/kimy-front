@@ -7,7 +7,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../CourseActivity/addActivity.module.css";
-import { FormControl, TextField } from "@material-ui/core";
+import { FormControl, Snackbar, TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { createCourseActivities, update } from "./CoursesActivitiesSlice";
 import { useHistory } from "react-router";
@@ -22,19 +22,20 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
 
 import WarningIcon from "@material-ui/icons/Warning";
+import { Alert } from "@material-ui/lab";
 
 const schema = yup.object().shape({
   title: yup.string().required(" PLEASE ADD A TITLE   "),
   description: yup.string().required(" PLEASE ADD A DESCRIPTION"),
 });
 function AddActivity({ currentId, setcurrentId }) {
+  /*****************************email */
   const emailSend = (templateId, variables) => {
     window.emailjs
       .send("service_p9zk5po", templateId, variables)
       .then((res) => {
         console.log("Email successfully sent!");
       })
-      // Handle errors here however you like, or use a React error boundary
       .catch((err) =>
         console.error(
           "Oh well, you failed. Here some thoughts on the error that occured:",
@@ -74,7 +75,7 @@ function AddActivity({ currentId, setcurrentId }) {
   };
   const [activityData, setactivityData] = useState({
     title: "",
-    file: "",
+    file: [],
     video: "",
     description: "",
     nbSeances: "",
@@ -82,8 +83,16 @@ function AddActivity({ currentId, setcurrentId }) {
   });
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const [openNotif, setOpenNotif] = React.useState(false);
+  const displayNotif = () => {
+    setOpenNotif(true);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
+  };
+  const closeNotif = () => {
+    setOpenNotif(false);
   };
   useEffect(() => {
     if (currentId) setOpen(true);
@@ -101,7 +110,7 @@ function AddActivity({ currentId, setcurrentId }) {
     setcurrentId(null);
     setactivityData({
       title: " ",
-      file: "",
+      file: [],
       video: "",
       description: "",
       nbSeances: "",
@@ -111,17 +120,18 @@ function AddActivity({ currentId, setcurrentId }) {
   const add = (e) => {
     //e.preventDefault();
     const templateId = "template_ujublkd";
-
+    displayNotif();
     if (currentId) {
       dispatch(update(currentId, activityData));
     } else {
       dispatch(createCourseActivities(activityData));
-      emailSend("template_ujublkd", {
-        message_html:
-          "A new activity has been added to the course you are subscribed to ! check it out ",
-        from_name: "Gmail",
-        reply_to: "khaoulakhmiri2022@gmail.com",
-      });
+
+      // emailSend("template_ujublkd", {
+      //   message_html:
+      //     "A new activity has been added to the course you are subscribed to ! check it out ",
+      //   from_name: "Gmail",
+      //   reply_to: "khaoulakhmiri2022@gmail.com",
+      // });
       //emailjs.send(serviceID, templateID, templateParams, userID);
     }
 
@@ -181,11 +191,13 @@ function AddActivity({ currentId, setcurrentId }) {
               <div className={styles.fileInput}>
                 <FileBase
                   type="file"
-                  multiple={false}
+                  multiple={true}
+                  value={activityData.file}
                   onDone={({ base64 }) =>
                     setactivityData({ ...activityData, file: base64 })
                   }
                 />
+                {/* <input multiple type="file" value={activityData.file}></input> */}
               </div>
               <div className={styles.fileInput}>
                 Select a video from the recordings
@@ -253,6 +265,16 @@ function AddActivity({ currentId, setcurrentId }) {
             <button onClick={handleSubmit(add)} type="submit">
               Add activity to the course
             </button>
+            <Snackbar
+              openNotif={openNotif}
+              autoHideDuration={3000}
+              onClose={closeNotif}
+            >
+              <Alert onClose={closeNotif} severity="success">
+                the activity has been added
+              </Alert>
+            </Snackbar>
+            ;
           </DialogActions>
         </Dialog>
       </FormControl>
