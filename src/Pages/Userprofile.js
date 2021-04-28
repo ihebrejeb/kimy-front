@@ -9,6 +9,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { auth, signInWithGoogle } from "../Firebase";
 import "./Login.css";
+import firebase from 'firebase' ;
 import LiveQuizz from "./LiveQuizz.js";
 import styles from "./userprofile.module.css";
 import FileBase from "react-file-base64";
@@ -29,20 +30,48 @@ import {
   UPDATEPASSWORD
 } from "../features/AppBase/user/actions/types";
 import axios from "axios";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Alert } from "@material-ui/lab";
 
 
+const schema = yup.object().shape({
+  username : yup.string().min(6) ,  
+
+})
 
 function Userprofile() {
+
+  const { register, handleSubmit,  formState: { errors } } = useForm(
+    {
+      resolver: yupResolver(schema),
+
+
+    }
+  )
+
+
   Moment.locale('en');
+  console.log('auth')
+  auth.onAuthStateChanged(function(user) {
+    if (user) {
+      console.log(auth.currentUser)
+    } else {
+      console.log('boo')
+    }
+  });
+    
+  
   const user = useSelector(state => state.user.user.data.user);
+  console.log(user)
   const userr = useSelector(state => state.user.user);
   const resu = useSelector(state => state.user.user);
-  /* const usert = JSON.parse(localStorage.getItem("user"));
-  console.log('its t')
-  console.log(usert) */
-  //console.log(resu.token)
   const dispatch = useDispatch();
   const history = useHistory();
+  const isgoogle= user.isgoogle;
+  console.log('this is google')
+  console.log(isgoogle)
   if (!userr){
     history.push('/')
   }
@@ -55,9 +84,6 @@ function Userprofile() {
     birthdate: user.brthdate,
     avatar: user.avatar
   });
-  /* console.log('tawa')
-  localStorage.setItem("users", JSON.stringify(updateData));
-  console.log(JSON.parse(localStorage.getItem("users")).email.id) */
   
   const [email, setemail] = useState("");
   const [currentpassword, setcurrentpassword] = useState("");
@@ -69,25 +95,6 @@ function Userprofile() {
 
   const [open, setOpen] = React.useState(false);
 
-  /* var usr = auth.currentUser;
-        console.log('gola');
-        console.log(usr);
-        const updateprofile = () => {
-  
-          usr.updateProfile({
-            displayName: "Jane Q. User",
-            photoURL: "https://picsum.photos/200/300"
-          }).then(function() {
-            // Update successful.
-          }).catch(function(error) {
-            // An error happened.
-          });
-        }
-       console.log("  Name: " + usr.displayName);
-    console.log("  Email: " + usr.email);
-    console.log("  Photo URL: " + usr.photoURL); */
-
-    
 
   useEffect(() => {
     dispatch(selectCourse(null));
@@ -110,6 +117,7 @@ function Userprofile() {
         password,
         newpassword
       }).then((response) => {
+        
         window.location.reload(false);
       });
   };
@@ -126,6 +134,7 @@ function Userprofile() {
   const doDelete = (e) => {
   
     console.log('const dodelete')
+    auth.currentUser.delete()
     dispatch(deleteUser(user._id));
     localStorage.removeItem("user");
     history.push('/'); 
@@ -144,6 +153,7 @@ function Userprofile() {
   const doUpdatepassword = (e) => {
   
     console.log('const doUpdatepassword')
+    auth.currentUser.updatePassword(password)
     UpdatePasss(user.id, user.email, currentpassword, password);
   dispatch({
     type: UPDATEPASSWORD,
@@ -172,7 +182,7 @@ function Userprofile() {
     event.preventDefault();
   };
 
-  return (
+  return isgoogle ? (
     <div className={styles.page}>
       <div className={styles.infos}>
         <h2 className={styles.title}>User infos</h2>
@@ -212,13 +222,70 @@ function Userprofile() {
             placeholder={user.username}
             type="text"
           />
+           <p className={styles.warning}>{errors.username?.message} </p> 
+          <p>Upload your avatar</p>
+          <div className={styles.fileInput}>
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) => setupdateData({ ...updateData, avatar: base64 })}
+            />
+          </div>
+
+          <Button variant="outlined" color="Primary" onClick={handleSubmit(doUpdate)}>
+            Update
+          </Button>
+        </form>
+      </div>
+      </div>
+    </div>
+  ) : (
+    <div className={styles.page}>
+      <div className={styles.infos}>
+        <h2 className={styles.title}>User infos</h2>
+        <Divider variant="middle" className={styles.divider} />
+        <div></div>
+        <img
+          className={styles.imeg}
+          //src="https://picsum.photos/400"
+          src={user.avatar ||
+            "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"}
+          alt=""
+        ></img>
+        <h3 className={styles.attributess}>Username</h3>
+        <p className={styles.p}>{user.username}</p>
+        <h3 className={styles.attributess}>Email</h3>
+        <p className={styles.p}>{user.email}</p>
+        <h3 className={styles.attributess}>Birthdate</h3>
+        <p className={styles.p}>{Moment(user.birthdate).format('D/M/Y')}</p> 
+        <Button
+          variant="outlined"
+          color="Secondary"
+          startIcon={<DeleteIcon />}
+          onClick={doDelete}
+        >
+          Delete user
+        </Button>
+      </div>
+            <div>
+      <div className={styles.update}>
+        <h2 className={styles.titleupdate}>Update infos</h2>
+
+        <Divider variant="middle" className={styles.divider} />
+        <form className={styles.form}>
           <TextField
+            onChange={(e) => setupdateData({ ...updateData, username: e.target.value })}
+            label="Username"
+            placeholder={user.username}
+            type="text"
+          />
+          {/*<TextField
             onChange={(e) => setupdateData({ ...updateData, email: e.target.value })}
             label="Email"
             placeholder={user.email}
             type="email"
           />
-          {/* <TextField
+           <TextField
             value={birthdate}
             onChange={(e) => setbirthdate(e.target.value)}
             label="Birthdate"
