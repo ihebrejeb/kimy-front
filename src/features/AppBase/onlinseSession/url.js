@@ -55,3 +55,11 @@ export const getAttendance = async (roomId) => {
   const res = await Axios.get("/attendance/" + roomId);
   return res;
 };
+export const getRoomById = async (roomId) => {
+  const res = await Axios.get("/rooms/one/" + roomId);
+  return res;
+};
+export const getRoomStats = async (roomId) => {
+  const res = await Axios.get("/twilio/createStats/" + roomId);
+  return res;
+};

@@ -269,9 +269,9 @@ export default function ClippedDrawer() {
           </Route>
 
           {/*   demo video chat */}
-          <Route exact path="/app/videodemo">
+          {/* <Route exact path="/app/videodemo">
             <CourseDemo></CourseDemo>
-          </Route>
+          </Route> */}
           <Route exact path="/app/course/recordings">
             <CourseRecordings />
           </Route>
