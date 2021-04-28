@@ -123,6 +123,7 @@ export default function ClippedDrawer() {
     console.log("const dologout");
     dispatch(logout());
     history.push("/");
+
   };
 
   const joinLobby = () => {

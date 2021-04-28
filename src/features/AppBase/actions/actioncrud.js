@@ -46,7 +46,7 @@ export function updateUser(_id, data) {
 export function deleteUser(_id) {
   console.log(_id);
   return (dispatch) => {
-    axios.delete(`http://localhost:4000/user//${_id}`).then((response) => {
+    Axios.delete(`/user//${_id}`).then((response) => {
       dispatch({
         type: DELETE_USER,
         id: _id,
