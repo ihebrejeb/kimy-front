@@ -7,7 +7,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import { login } from "../features/AppBase/user/actions/auth.js";
 import InputLabel from "@material-ui/core/InputLabel";
-import { Alert } from "@material-ui/lab";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
@@ -25,7 +24,6 @@ import firebase from 'firebase' ;
 function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [logsucc, setlogsucc] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -33,7 +31,7 @@ function Login() {
   
   auth.signInWithPopup(googleProvider).then((res) => {
     console.log(res.user);
-    history.push('/signupgoogle');
+    history.push('/app/courses');
   }).catch((error) => {
     console.log(error.message)
   })
@@ -60,37 +58,15 @@ function Login() {
 
   const signIn = (e) => {
     e.preventDefault();
-    console.log(setlogsucc(true))
   
-      auth.signInWithEmailAndPassword(email, password)
+    
       dispatch(login(email, password))
         .then(() => {
           history.push('/app/courses')
         })
         .catch(() => {
-          console.log(setlogsucc(false))
         });
   };
-
-  const redirectforget = (e) => {
-    history.push('/forgetpassword')
-  };
-
-  const erroralert = (e) => {
-    if(logsucc){
-      console.log(logsucc)
-      return (
-        <div></div>
-      )
-    }
-    else
-      return (
-       <div>
-         <Alert variant="outlined" severity="error">Email or password wrong!</Alert>
-       </div> 
-      )
-  }
-
 
   return (
     <div className={styles.page}>
@@ -133,7 +109,6 @@ function Login() {
         </div>
         <Divider variant="middle" className={styles.divider} />
         <p className={styles.or}>Or</p>
-        {erroralert()}
         <form className={styles.form}>
           <TextField
             value={email}
@@ -170,7 +145,7 @@ function Login() {
           <h5 style={{ marginTop: "20px" }}>
             <span className={styles.signup_grey}> Forgot your Passord ?</span>
 
-            <span className={styles.signup_link} onClick={redirectforget}>
+            <span className={styles.signup_link} onClick={signIn}>
               {" "}
               Click Here{" "}
             </span>

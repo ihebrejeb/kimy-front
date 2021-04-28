@@ -1,12 +1,9 @@
 import React from "react";
 import styles from "./Landing.module.css";
 import { useHistory } from "react-router-dom";
-import firebase from 'firebase' ;
-import { auth } from "../Firebase";
 
 function LandingPage() {
   const history = useHistory();
-  console.log(auth.currentUser)
   return (
     <div className={styles.LandingPage}>
       <div className={styles.nav}>
