@@ -122,7 +122,9 @@ export default function ClippedDrawer() {
   
     console.log('const dologout')
     dispatch(logout());
+    auth.signOut()
     history.push('/')
+    window.location.reload(false);
   };
 
   const joinLobby = () => {
