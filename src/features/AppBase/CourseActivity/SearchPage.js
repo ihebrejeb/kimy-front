@@ -5,13 +5,14 @@ import { Card, Typography, CardHeader, IconButton } from "@material-ui/core/";
 import SortIcon from "@material-ui/icons/Sort";
 import SearchIcon from "@material-ui/icons/Search";
 import styles from "./SearchBar.module.css";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
 
 function SearchPage({ setTitle, title }) {
   return (
     <div className={styles.header__search}>
-      <SearchIcon></SearchIcon>
+      <FindInPageIcon></FindInPageIcon>
       <input
-        placeholder="Search  here"
+        placeholder="Type your keyword here "
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}

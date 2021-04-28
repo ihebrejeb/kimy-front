@@ -1,5 +1,11 @@
-import React from "react";
-import { Card, Typography, CardHeader, IconButton } from "@material-ui/core/";
+import React, { useState } from "react";
+import {
+  Card,
+  Typography,
+  CardHeader,
+  IconButton,
+  Snackbar,
+} from "@material-ui/core/";
 import { useDispatch } from "react-redux";
 import { deleteCourseActivities } from "./CoursesActivitiesSlice";
 import classes from "../CourseActivity/CourseActivity.module.css";
@@ -14,11 +20,35 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DescriptionIcon from "@material-ui/icons/Description";
 import EditIcon from "@material-ui/icons/Edit";
 import VideocamIcon from "@material-ui/icons/Videocam";
-import SortIcon from "@material-ui/icons/Sort";
-import SortActivities from "./SortActivities";
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import { store } from "react-notifications-component";
+import SingleAssignment from "../assignments/SingleAssignment";
+import DeleteAlert from "./DeleteAlert";
+import Alert from "@material-ui/lab/Alert";
+import ShowAssignment from "../assignments/ShowAssignment";
+import PDF from "../../../assignment.pdf";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
+  // store.addNotification({
+  //   title: "Wonderful!",
+  //   message: "teodosii@react-notifications-component",
+  //   type: "success",
+  //   insert: "top",
+  //   container: "top-right",
+  //   animationIn: ["animate__animated", "animate__fadeIn"],
+  //   animationOut: ["animate__animated", "animate__fadeOut"],
+  //   dismiss: {
+  //     duration: 5000,
+  //     onScreen: true,
+  //   },
+  // });
   const dispatch = useDispatch();
+  const [deleteAlert, confirmDelete] = useState({
+    isOpen: false,
+    title: "",
+  });
 
   const useStylescard = makeStyles({
     root: {
@@ -35,6 +65,9 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
     },
     pos: {
       marginBottom: 12,
+    },
+    heading: {
+      width: "200px",
     },
     noMargin: {
       margin: 0,
@@ -62,14 +95,22 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
 
               <IconButton>
                 <DeleteIcon
-                  onClick={() =>
-                    dispatch(deleteCourseActivities(coursesActivities._id))
-                  }
+                  onClick={() => {
+                    confirmDelete({
+                      isOpen: true,
+                      title:
+                        "Are you certain you want to delete this activity?",
+                      onConfirm: () => {
+                        dispatch(deleteCourseActivities(coursesActivities._id));
+                      },
+                    });
+                  }}
                 />
               </IconButton>
             </div>
           }
         />
+        <DeleteAlert deleteAlert={deleteAlert} confirmDelete={confirmDelete} />
         <div>
           <Accordion className={carddesign.noMargin}>
             <AccordionSummary
@@ -90,10 +131,19 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                   id="panel1a-header"
                 >
                   <Typography className={classes.heading}>
-                    Files <FolderIcon></FolderIcon>
+                    Files
+                    <FolderIcon></FolderIcon>
                   </Typography>
                 </AccordionSummary>
-                <Typography>{coursesActivities.file}</Typography>
+                <Typography>
+                  <a href={PDF} target="_blank">
+                    <button>
+                      {" "}
+                      <GetAppIcon height="200px"></GetAppIcon>
+                      {coursesActivities.title + ".pdf"}
+                    </button>
+                  </a>
+                </Typography>
               </Accordion>
             </AccordionDetails>
             <AccordionDetails>
@@ -107,7 +157,6 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                     Videos <VideocamIcon></VideocamIcon>
                   </Typography>
                 </AccordionSummary>
-                <Typography>videos </Typography>
               </Accordion>
             </AccordionDetails>
             <AccordionSummary

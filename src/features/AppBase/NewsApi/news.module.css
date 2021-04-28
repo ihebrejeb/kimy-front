@@ -1,0 +1,18 @@
+.card{
+    width: 400px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.image{
+    width: 100%;
+}
+.link{
+    color: blue;
+}
+.description{
+    color: black;
+    font-size: 15px;
+}

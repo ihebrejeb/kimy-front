@@ -1,15 +1,16 @@
 import axios from "axios";
-import { FETCH_USER_SUCCESS, DELETE_USER } from "./actionType";
+import { FETCH_USER_SUCCESS, DELETE_USER, UPDATE_USER } from "./actionType";
+import { Axios } from "../user/axiosfile.js";
 
 const url = "http://localhost:4000/user/";
 
 export const fetchUser = () => axios.get(url);
 
 export function fetchUsers() {
-  console.log("hellz");
+  console.log("into fetch users");
   return (dispatch) => {
-    axios
-      .get("http://localhost:4000/user/")
+    Axios
+      .get("/user/")
       .then((response) => {
         console.log(response.data);
         dispatch({
@@ -21,6 +22,25 @@ export function fetchUsers() {
         console.log("hello");
       });
   };
+}
+
+export function updateUser(_id, data) {
+  console.log(_id);
+  console.log(data);
+  return dispatch => {
+   Axios.patch(`/user/${_id}`, data)
+    .then((response) => {
+      localStorage.setItem("user", JSON.stringify(response.data));
+      console.log('we here')
+      console.log(JSON.parse(localStorage.getItem("user")));
+      console.log('repsones')
+      console.log(response.data)
+      window.location.reload(false);
+    }).catch((error) => {
+      console.log("notound");
+    });
+
+  }
 }
 
 export function deleteUser(_id) {

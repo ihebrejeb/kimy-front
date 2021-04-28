@@ -21,6 +21,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { useParams } from "react-router";
 const schema = yup.object().shape({
   text: yup.string().required("did you forget to write something ?"),
   title: yup.string().required("Please Submit A Thread Title"),
@@ -32,7 +33,8 @@ function AddPost() {
     resolver: yupResolver(schema),
 
   });
-  const [forumData, setforumData] = useState({ title: "", text: "" });
+  let {courseid} = useParams()
+  const [forumData, setforumData] = useState({ title: "", text: "" , courses :courseid});
   const [openDialog, setOpenDialog] = React.useState(false);
 
   const clear = () => {

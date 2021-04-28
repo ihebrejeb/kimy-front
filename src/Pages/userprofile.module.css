@@ -39,7 +39,17 @@
   align-items: center;
   text-align: center;
   gap: 20px;
-  padding-left: 120px;
+  padding-left: 180px;
+}
+
+.reset {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding-left: 180px;
 }
 
 .icons {
@@ -87,12 +97,19 @@
 }
 
 .imeg {
-  width: 100px;
+  object-fit: cover;
+  width:100px;
+  height:100px;
   border-radius: 50%;
 }
 
 .deletebtn {
   border: 2px solid red;
+}
+
+.attributess {
+  color: #0056d2;
+  font-size: 18px;
 }
 
 p {
@@ -102,6 +119,7 @@ p {
 
 .p {
   font-size: 15px;
+  margin-right: 20px;
 }
 
 span {
@@ -109,8 +127,20 @@ span {
   font-weight: 400;
 }
 .title {
-  color: #0056d2;
+  color: #2000d2;
+  margin-top: 70px;
 }
+
+.titleupdate {
+  color: #2000d2;
+  margin-top: 100px;
+}
+
+.titlereset {
+  color: #2000d2;
+}
+
+
 .divider {
   width: 100%;
 }

@@ -29,7 +29,7 @@ function Userr({ users }) {
               <MoreHorizIcon />
             </IconButton>
           }
-          title={users.name}
+          title={users.username}
           subheader={users.email}
         />
 

@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,7 +14,9 @@ const AppBase = React.lazy(() => import("./features/AppBase/AppBase"));
 const NoRoute = React.lazy(() => import("./Pages/NoRoute"));
 const SignUp = React.lazy(() => import("./Pages/SignUp"));
 
+
 function App() {
+  const user = useSelector(state => state.user.user);
   /* useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
@@ -33,6 +36,23 @@ function App() {
   return (
     <Suspense fallback={<p>...Loading page please wait</p>}>
       <Router>
+      {!user ? (
+          <Switch>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+            <Route exact path="/login">
+            <Login />
+            </Route>
+
+            <Route exact path="/404">
+              <NoRoute />
+            </Route>
+          </Switch>
+        ) : (
         <Switch>
           <Route exact path="/">
             <LandingPage />
@@ -40,17 +60,12 @@ function App() {
           <Route path="/app">
             <AppBase />
           </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
           <Route exact path="/404">
             <NoRoute />
           </Route>
           <Redirect to="/404"></Redirect>
         </Switch>
+        )}
       </Router>
     </Suspense>
   );

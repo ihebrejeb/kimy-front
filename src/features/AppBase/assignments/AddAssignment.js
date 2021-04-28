@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
+
 import {
   createnewAssignment,
   GetAssignments,
@@ -33,7 +34,7 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
     related_activity: "",
     Assignmentfile: "",
     description: "",
-    dateCreation: "",
+    dateCreation: Date.now(),
     dateLimite: "",
   });
   const dispatch = useDispatch();
@@ -81,18 +82,20 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
     });
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     dispatch(createnewAssignment(assignmentData));
 
-    console.log(assignmentData);
+    ///console.log(assignmentData);
 
     setOpen(false);
     clear();
   };
   return (
     <div>
-      <button onClick={handleClickOpen}>create an assignment</button>
+      <button onClick={handleClickOpen} className={styles.addButton}>
+        create an assignment
+      </button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -139,8 +142,12 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
               <FileBase
                 type="file"
                 multiple={false}
+                value={assignmentData.Assignmentfile}
                 onDone={({ base64 }) =>
-                  setassignmentData({ ...assignmentData, file: base64 })
+                  setassignmentData({
+                    ...assignmentData,
+                    Assignmentfile: base64,
+                  })
                 }
               />
             </div>
@@ -163,9 +170,10 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
               }
             />
             <TextField
-              id="datetime-local"
+              min="Date.now()"
+              id="date"
               label="Deadline"
-              type="datetime-local"
+              type="date"
               name="dateLimite"
               value={assignmentData.dateLimite}
               onChange={(e) =>
