@@ -1,4 +1,4 @@
-import axios from "axios";
+/* import axios from "axios";
 
 export const API_URL = "http://localhost:4000";
 const token =
@@ -6,7 +6,8 @@ const token =
 export const Axios = axios.create({
   baseURL: API_URL,
   headers: { Authorization: "Bearer " + token },
-});
+}); */
+import { Axios } from "../user/axiosfile";
 
 export const createRoom = async (roomSID, course) => {
   Axios.post("/rooms", {
