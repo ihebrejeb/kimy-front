@@ -15,7 +15,6 @@ export default function CourseRecordings() {
   const u = useSelector((state) => state.user.user.data.user);
   useEffect(() => {
     if (!course._id) history.push("/app");
-    alert(JSON.stringify(course.creator));
     setIsOwner(course.creator._id === u._id);
     const getRooms = async () => {
       const { data } = await getRoomsByCourseId(course._id);
