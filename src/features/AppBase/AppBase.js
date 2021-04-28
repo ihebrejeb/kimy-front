@@ -122,7 +122,9 @@ export default function ClippedDrawer() {
   const doLogout = (e) => {
     console.log("const dologout");
     dispatch(logout());
-    history.push("/");
+    auth.signOut()
+    history.push('/')
+    window.location.reload(false);
 
   };
 
