@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Card, Typography, CardHeader, IconButton } from "@material-ui/core/";
+import {
+  Card,
+  Typography,
+  CardHeader,
+  IconButton,
+  Snackbar,
+} from "@material-ui/core/";
 import { useDispatch } from "react-redux";
 import { deleteCourseActivities } from "./CoursesActivitiesSlice";
 import classes from "../CourseActivity/CourseActivity.module.css";
@@ -20,6 +26,9 @@ import { store } from "react-notifications-component";
 import SingleAssignment from "../assignments/SingleAssignment";
 import DeleteAlert from "./DeleteAlert";
 import Alert from "@material-ui/lab/Alert";
+import ShowAssignment from "../assignments/ShowAssignment";
+import PDF from "../../../assignment.pdf";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   // store.addNotification({
@@ -93,10 +102,6 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                         "Are you certain you want to delete this activity?",
                       onConfirm: () => {
                         dispatch(deleteCourseActivities(coursesActivities._id));
-                        // <Alert variant="filled" severity="error">
-                        //   This is an info alert — check it out!
-                        // </Alert>;
-                        <ReactNotification />;
                       },
                     });
                   }}
@@ -130,7 +135,15 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                     <FolderIcon></FolderIcon>
                   </Typography>
                 </AccordionSummary>
-                <Typography>{coursesActivities.file}</Typography>
+                <Typography>
+                  <a href={PDF} target="_blank">
+                    <button>
+                      {" "}
+                      <GetAppIcon height="200px"></GetAppIcon>
+                      {coursesActivities.title + ".pdf"}
+                    </button>
+                  </a>
+                </Typography>
               </Accordion>
             </AccordionDetails>
             <AccordionDetails>

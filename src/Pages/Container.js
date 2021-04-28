@@ -28,34 +28,37 @@ class Container extends React.Component {
   render() {
     return (
       <div className="container">
-        <div class="tools-section">
-          <div className="color-picker-container">
-            Select Brush Color : &nbsp;
-            <input
-              type="color"
-              value={this.state.color}
-              onChange={this.changeColor.bind(this)}
-            />
-            <input type="button" value="erase" onclick="use_tool('erase');" />
-          </div>
+        <div className="tools-section">
+          <div className="instructions">
+            <div className="color-picker-container">
+              Select Brush Color : &nbsp;
+              <input
+                type="color"
+                value={this.state.color}
+                onChange={this.changeColor.bind(this)}
+              />
+              <input type="button" value="erase" onClick="use_tool('erase');" />
+            </div>
 
-          <div className="brushsize-container">
-            Select Brush Size : &nbsp;
-            <select
-              value={this.state.size}
-              onChange={this.changeSize.bind(this)}
-            >
-              <option> 5 </option>
-              <option> 10 </option>
-              <option> 15 </option>
-              <option> 20 </option>
-              <option> 25 </option>
-              <option> 30 </option>
-            </select>
+            <div className="brushsize-container">
+              Select Brush Size : &nbsp;
+              <select
+                value={this.state.size}
+                onChange={this.changeSize.bind(this)}
+              >
+                <option> 5 </option>
+                <option> 10 </option>
+                <option> 15 </option>
+                <option> 20 </option>
+                <option> 25 </option>
+                <option> 30 </option>
+              </select>
+            </div>
           </div>
+          <div className="brushsize-container"> Click to add a text</div>
         </div>
 
-        <div class="board-container">
+        <div className="board-container">
           <Board color={this.state.color} size={this.state.size}></Board>
         </div>
       </div>

@@ -12,11 +12,10 @@ import ReplayIcon from "@material-ui/icons/Replay";
 import { selectassignments } from "./AssignmentsSlice";
 import { useEffect } from "react";
 import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
-import { Dialog } from "@material-ui/core";
+import { Dialog, IconButton } from "@material-ui/core";
 import styles from "./assignmentList.module.css";
 import SearchPage from "../CourseActivity/SearchPage";
 import SortAssignmentAsc from "./SortAssignmentAsc";
-import SortassigmentsDesc from "./SortassigmentsDesc";
 
 function AssignmentList({ setcurrentId }) {
   const dispatch = useDispatch();
@@ -73,6 +72,7 @@ function AssignmentList({ setcurrentId }) {
         aria-labelledby="form-dialog-title"
       >
         <div className={styles.listItem}>
+          
           <SortAssignmentAsc setsort={setsort}></SortAssignmentAsc>
           <SearchPage setTitle={setTitle} title={title} />
         </div>

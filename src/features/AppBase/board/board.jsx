@@ -14,51 +14,6 @@ class Board extends React.Component {
     super(props);
 
     this.socket.on("canvas-data", function (data) {
-      var url =
-        "https://cloud.githubusercontent.com/assets/4652816/12771961/5341c3c4-ca68-11e5-844c-f659831d9c00.jpg";
-      var canvasImage = document.querySelector("#canvasImage");
-      var ctx = canvasImage.getContext("2d");
-      var img = new Image();
-      img.src = url;
-      img.onload = function () {
-        var width = Math.min(500, img.width);
-        var height = img.height * (width / img.width);
-        // var height = "200px";
-        // var width = "200px";
-
-        canvasImage.width = width;
-        canvasImage.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
-      };
-      var isPress = false;
-      var old = null;
-      canvasImage.addEventListener("mousedown", function (e) {
-        isPress = true;
-        old = { x: e.offsetX, y: e.offsetY };
-      });
-      canvasImage.addEventListener("mousemove", function (e) {
-        if (isPress) {
-          var x = e.offsetX;
-          var y = e.offsetY;
-          ctx.globalCompositeOperation = "destination-out";
-
-          ctx.beginPath();
-          ctx.arc(x, y, 10, 0, 2 * Math.PI);
-          ctx.fill();
-
-          ctx.lineWidth = 20;
-          ctx.beginPath();
-          ctx.moveTo(old.x, old.y);
-          ctx.lineTo(x, y);
-          ctx.stroke();
-
-          old = { x: x, y: y };
-        }
-      });
-      canvasImage.addEventListener("mouseup", function (e) {
-        isPress = false;
-      });
-      /******************************************** */
       var root = this;
       var interval = setInterval(function () {
         if (root.isDrawing) return;
@@ -98,8 +53,79 @@ class Board extends React.Component {
 
     var mouse = { x: 0, y: 0 };
     var last_mouse = { x: 0, y: 0 };
+    var startingX = 0;
 
+    var recentWordsTab = [];
+    var undoLst = [];
+
+    function undo() {
+      undoLst.pop();
+      var imgData = undoLst[undoLst.length - 1];
+      var image = new Image();
+      image.src = imgData;
+      image.onload = function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(
+          image,
+          0,
+          0,
+          canvas.width,
+          canvas.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+      };
+    }
+
+    function saveState() {
+      undoLst.push(canvas.toDataURL());
+    }
+    saveState();
     /* Mouse Capturing Work */
+    canvas.addEventListener(
+      "click",
+      function (e) {
+        mouse.x = e.pageX - canvas.offsetLeft;
+        mouse.y = e.pageY - canvas.offsetTop;
+        startingX = mouse.x;
+        //restart
+        recentWordsTab = [];
+        return false;
+      },
+      false
+    );
+
+    //add keydwon event  to document
+
+    document.addEventListener(
+      "keydown",
+      function (e) {
+        ctx.font = "50px Arial ";
+        if (e.keyCode === 8) {
+          //backspace
+          undo();
+          //remove
+          var recentWord = recentWordsTab[recentWordsTab.length - 1];
+          mouse.x -= ctx.measureText(recentWord).width;
+          recentWordsTab.pop();
+        } else if (e.keyCode === 13) {
+          // enter key presed
+          mouse.x = startingX;
+          mouse.y += 54;
+        } else {
+          ctx.fillText(e.key, mouse.x, mouse.y);
+
+          //move cursor
+          mouse.x += ctx.measureText(e.key).width;
+          saveState();
+          recentWordsTab.push(e.key);
+        }
+      },
+      false
+    );
+
     canvas.addEventListener(
       "mousemove",
       function (e) {
@@ -111,8 +137,6 @@ class Board extends React.Component {
       },
       false
     );
-
-    /* Drawing on Paint App */
     ctx.lineWidth = this.props.size;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
@@ -148,14 +172,43 @@ class Board extends React.Component {
         root.socket.emit("canvas-data", base64ImageData);
       }, 1000);
     };
+
+    /*********************image section */
+    const reader = new FileReader();
+    const img = new Image();
+    const uploadImage = (e) => {
+      reader.onload = () => {
+        img.onload = () => {
+          // canvas.width = img.width - 200;
+          img.width = canvas.width - 500;
+          img.height = canvas.height - 700;
+
+          // canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    };
+    const imageLoader = document.getElementById("uploader");
+    imageLoader.addEventListener("change", uploadImage);
+    function download() {
+      const image = canvas.toDataURL();
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "image.png";
+      link.click();
+    }
+    document.querySelector("button").addEventListener("click", download);
   }
 
   render() {
     return (
       <div class="sketch" id="sketch">
-        <canvas className="board" id="board"></canvas>
-        {/* <canvas className="box" id="canvasImage"></canvas> */}
-        <input type="button" v />
+        <canvas className="board" id="board"></canvas>{" "}
+        <label for="uploader">Select file:</label>
+        <input type="file" id="uploader" />
+        <button>Download</button>
       </div>
     );
   }

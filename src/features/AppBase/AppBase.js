@@ -11,6 +11,7 @@ import {
   useHistory,
   useLocation,
   NavLink,
+  useParams,
 } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
@@ -29,7 +30,7 @@ import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
 import Testuser from "../../Pages/Testuser";
-import { selectedcourse } from "./onlinseSession/CourseDemoSlice";
+import { selectCourse, selectedcourse } from "./onlinseSession/CourseDemoSlice";
 import {
   Avatar,
   ClickAwayListener,
@@ -51,9 +52,9 @@ import {
   SlowMotionVideo,
 } from "@material-ui/icons";
 import Container from "../../Pages/Container";
+import { selectcourses } from "./courses/CoursesSlice";
 
 const drawerWidth = 200;
-
 
 const useStyles = makeStyles((theme) => ({
   links: {
@@ -106,8 +107,8 @@ export default function ClippedDrawer() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.user.data.user);
-  console.log(user.avatar)
+  const user = useSelector((state) => state.user.user.data.user);
+  console.log(user.avatar);
   const course = useSelector(selectedcourse);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -119,17 +120,16 @@ export default function ClippedDrawer() {
   };
 
   const doLogout = (e) => {
-  
-    console.log('const dologout')
+    console.log("const dologout");
     dispatch(logout());
-    auth.signOut()
-    history.push('/')
-    window.location.reload(false);
+    history.push("/");
+
   };
 
   const joinLobby = () => {
-    history.push("/app/video/" + course.id);
+    history.push("/app/video/" + course._id);
   };
+
   return (
     <>
       <CssBaseline />
@@ -156,7 +156,7 @@ export default function ClippedDrawer() {
                 Activities
               </NavLink>
               <NavLink
-                to="/app/forum"
+                to={`/app/forum/${course._id}`}
                 className={classes.link}
                 activeStyle={{
                   fontWeight: "bold",
@@ -180,7 +180,7 @@ export default function ClippedDrawer() {
             </div>
           )}
           <div className={classes.flex}>
-            {course && location.pathname !== "/app/video/" + course.id && (
+            {course && location.pathname !== "/app/video/" + course._id && (
               <Tooltip title="Start video conference">
                 <IconButton color="primary" onClick={joinLobby}>
                   <SlowMotionVideo></SlowMotionVideo>
@@ -203,8 +203,7 @@ export default function ClippedDrawer() {
               aria-haspopup="true"
               src={user.avatar}
               onClick={handleClick}
-            >
-            </Avatar>
+            ></Avatar>
             <Popper
               open={Boolean(anchorEl)}
               anchorEl={anchorEl}
@@ -226,7 +225,7 @@ export default function ClippedDrawer() {
                         <MenuItem
                           onClick={() => {
                             handleClose();
-                            console.log('aa')
+                            console.log("aa");
                             history.push("/app/users");
                           }}
                         >
@@ -267,7 +266,7 @@ export default function ClippedDrawer() {
           <Route exact path="/app/courses">
             <Courses></Courses>
           </Route>
-          <Route exact path="/app/forum">
+          <Route exact path="/app/forum/:courseid">
             <Forum></Forum>
           </Route>
           <Route exact path="/app/singlepost/:id">
@@ -284,9 +283,9 @@ export default function ClippedDrawer() {
           </Route>
 
           {/*   demo video chat */}
-          <Route exact path="/app/videodemo">
+          {/* <Route exact path="/app/videodemo">
             <CourseDemo></CourseDemo>
-          </Route>
+          </Route> */}
           <Route exact path="/app/course/recordings">
             <CourseRecordings />
           </Route>
@@ -299,7 +298,7 @@ export default function ClippedDrawer() {
           <Route exact path="/app/calendar">
             <Calendrier></Calendrier>
           </Route>
-          <Route exact path="/app/activites">
+          <Route exact path="/app/activites/">
             <CourseActivitiesMainPage />
           </Route>
           <Route exact path="/app/whiteboard">

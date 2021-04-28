@@ -24,15 +24,6 @@ function CourseActivitiesMainPage() {
 
   const dispatch = useDispatch();
 
-  const [course] = useState({
-    id: "604e13f2f436251ef0edf376",
-    // title: "React Pi dev",
-    owner: "605469fc09b917eb1fef8b6f",
-  });
-  useEffect(() => {
-    dispatch(selectCourse(course));
-  }, [course, dispatch]);
-
   useEffect(() => {
     if (title !== "") {
       dispatch(searchThread(title));

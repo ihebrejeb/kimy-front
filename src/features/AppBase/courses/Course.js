@@ -15,29 +15,35 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { useDispatch } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { deleteCourse } from "./CoursesSlice";
+import { selectCourse } from "../onlinseSession/CourseDemoSlice";
+
 import { useHistory } from "react-router";
 import EditIcon from "@material-ui/icons/Edit";
-import ConfirmDialog from '../Confirmation/ConfirmDialog'
+import ConfirmDialog from "../Confirmation/ConfirmDialog";
 import { useState } from "react";
-
 
 function Course({ courses, setCurrentId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   return (
-     
     <Card className={styles.card}>
       <CardHeader
-        avatar={<Avatar aria-label="course"></Avatar>}
+        avatar={
+          <Avatar src={courses.creator.avatar} aria-label="course"></Avatar>
+        }
         action={
           <IconButton aria-label="settings">
             <EditIcon onClick={() => setCurrentId(courses._id)} />
           </IconButton>
         }
         title={courses.title}
-        subheader={courses.creator}
+        subheader={courses.creator.username}
       />
 
       <CardMedia
@@ -58,7 +64,10 @@ function Course({ courses, setCurrentId }) {
           <Button
             size="small"
             color="primary"
-            onClick={() => history.push("/app/activites")}
+            onClick={() => {
+              history.push(`/app/forum/${courses._id}`);
+              dispatch(selectCourse(courses));
+            }}
           >
             <AddCircleOutlineIcon fontSize="small" /> Open
           </Button>
@@ -66,27 +75,26 @@ function Course({ courses, setCurrentId }) {
           <Button
             size="small"
             color="primary"
-            
             onClick={() => {
               setConfirmDialog({
-                  isOpen: true,
-                  title: 'Are you sure to delete this course?',
-                  subTitle: "You can't undo this operation",
-                   onConfirm: () => { dispatch(deleteCourse(courses._id)) }
-              })
-          }}
+                isOpen: true,
+                title: "Are you sure to delete this course?",
+                subTitle: "You can't undo this operation",
+                onConfirm: () => {
+                  dispatch(deleteCourse(courses._id));
+                },
+              });
+            }}
           >
             <ExitToAppIcon fontSize="small" /> Leave
           </Button>
         </div>
       </CardActions>
       <ConfirmDialog
-     confirmDialog={confirmDialog}
-     setConfirmDialog={setConfirmDialog}
- />
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </Card>
-    
- 
   );
 }
 
