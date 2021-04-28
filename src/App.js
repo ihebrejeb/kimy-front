@@ -8,15 +8,11 @@ import {
   Redirect,
 } from "react-router-dom";
 
-
 const LandingPage = React.lazy(() => import("./Pages/LandingPage"));
 const Login = React.lazy(() => import("./Pages/Login"));
-const Loginn = React.lazy(() => import("./Pages/Loginn"));
-const ForgetPassword = React.lazy(() => import("./Pages/ForgetPassword"));
 const AppBase = React.lazy(() => import("./features/AppBase/AppBase"));
 const NoRoute = React.lazy(() => import("./Pages/NoRoute"));
 const SignUp = React.lazy(() => import("./Pages/SignUp"));
-const SignUpGoogle = React.lazy(() => import("./Pages/SignUpGoogle"));
 
 
 function App() {
@@ -48,17 +44,8 @@ function App() {
             <Route exact path="/signup">
               <SignUp />
             </Route>
-            <Route exact path="/signupgoogle">
-              <SignUpGoogle />
-            </Route>
             <Route exact path="/login">
             <Login />
-            </Route>
-            <Route exact path="/loginn">
-            <Loginn />
-            </Route>
-            <Route exact path="/forgetpassword">
-            <ForgetPassword />
             </Route>
 
             <Route exact path="/404">

@@ -7,9 +7,6 @@
   cursor: pointer;
   top: 10px;
 }
-.warning{
-  color :rgb(255, 0, 55);
-}
 .form {
   display: flex;
   flex-direction: column;

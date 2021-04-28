@@ -20,34 +20,9 @@
 }
 .or {
   color: #0056d2;
-  margin-right: 20px;
 }
 .signIn {
   padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 0px 5px rgba(103, 89, 246, 0.75);
-  border-radius: 20px;
-  text-align: center;
-  gap: 20px;
-}
-
-.signInwg {
-  padding: 30px;
-  margin-right: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 0px 5px rgba(103, 89, 246, 0.75);
-  border-radius: 20px;
-  text-align: center;
-  gap: 20px;
-}
-
-.signUp {
-  padding: 30px;
-  margin-left: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;

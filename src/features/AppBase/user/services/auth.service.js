@@ -21,39 +21,11 @@ const register = (username, email, password, confirmpassword, birthdate, avatar)
   });
 };
 
-const registerg = (username, email, birthdate, avatar, isgoogle) => {
-  return axios.post("http://localhost:4000/user/signupg", {
-    username,
-    email,
-    birthdate,
-    avatar,
-    isgoogle,
-  }).then((response) => {
-    
-      console.log('local storage')
-      localStorage.setItem("user", JSON.stringify(response.data));
-
-    return response.data;
-  });
-};
-
 const login = (email, password) => {
   console.log('im here')
   return axios.post("http://localhost:4000/user/login", {
       email,
       password,
-    })
-    .then((response) => {
-        console.log('local storage')
-        localStorage.setItem("user", JSON.stringify(response.data));
-      return response.data; 
-    });
-};
-
-const loging = (email) => {
-  console.log('im here')
-  return axios.post("http://localhost:4000/user/loging", {
-      email,
     })
     .then((response) => {
         console.log('local storage')
@@ -83,9 +55,7 @@ const logout = () => {
 
 export default {
   register,
-  registerg,
   login,
-  loging,
   logout,
   UpdatePassword
 };
