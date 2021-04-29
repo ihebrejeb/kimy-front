@@ -18,7 +18,6 @@ export const coursesSlice = createSlice({
   initialState,
   reducers: {
     getcourses: (state, action) => {
-      //state.values = action.payload;
       state.values = action.payload;
     },
     updateCourse: (state, action) => {
@@ -33,6 +32,9 @@ export const coursesSlice = createSlice({
 
       state.values = state.values.filter((course) => course._id !== payload);
     },
+    searchAction:(state,action)=> {
+        state.values = action.payload
+    }
   },
 
   extraReducers: {
@@ -46,6 +48,7 @@ export const {
   getcourses,
   updateCourse,
   deletecourseRedcuer,
+  searchAction,
 } = coursesSlice.actions;
 
 //thunk
@@ -74,15 +77,15 @@ export const deleteCourse = (id) => async (dispatch) => {
     dispatch(deletecourseRedcuer(id));
   } catch {}
 };
-//  export const createCourse =(courses )=> async(dispatch) => {
-//    try {
-//      const {data} = await api.CreateCourses(courses) ;
-//      dispatch( AddCourse( data) )
-//    }
-//    catch(error) {
-//      console.log(error.message)
-//    }
-//  }
+export const searchCourse = (search) => async (dispatch) => {
+  try {
+    const { data } = await api.searchByCode(search);
+
+    dispatch(searchAction(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 export const selectcourses = (state) => state.courses.values;
 

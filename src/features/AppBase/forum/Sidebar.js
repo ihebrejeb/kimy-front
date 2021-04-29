@@ -27,7 +27,7 @@ const dispatch = useDispatch()
 
           <div className={styles.header__search}>
                     <SearchIcon></SearchIcon>
-                    <input placeholder="Search  here" type="text"   value={title}
+                    <input  placeholder="Search  here" type="text"   value={title}
                                         onChange={e => setTitle(e.target.value )}
                                         className="px-16"
                                         disableUnderline

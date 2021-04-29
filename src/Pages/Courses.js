@@ -4,24 +4,29 @@ import CoursesList from "../features/AppBase/courses/CoursesList";
 import styles from "./Courses.module.css";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { GetCourses } from "../features/AppBase/courses/CoursesSlice";
+import { GetCourses, searchCourse } from "../features/AppBase/courses/CoursesSlice";
 import { useState } from "react";
 
 import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
-import Sidebar from "../features/AppBase/forum/Sidebar";
 
 function Courses() {
   const [currentId, setcurrentId] = useState(null);
   const dispatch = useDispatch();
+  var [code, setcode] = useState("")
 
   useEffect(() => {
+    if (code !== '') {
+      dispatch(searchCourse(code))
+    }
+   else { 
     dispatch(GetCourses());
     dispatch(selectCourse(null));
-  }, [dispatch]);
+  }
+  }, [code,dispatch]);
 
   return (
     <div className={styles.fluid}>
-      <Addcourse currentId={currentId} setcurrentId={setcurrentId} />
+      <Addcourse currentId={currentId} setcurrentId={setcurrentId} code={code}  setcode={setcode} />
 
       <div className={styles.courses}>
         {" "}

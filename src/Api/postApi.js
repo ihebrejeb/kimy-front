@@ -11,7 +11,7 @@ const url7= '/forum/sortByRate' ;
 const url8= '/forum/sortByViews' ;
 const url9 ='/forum/topPost'; 
 
-export const fetchViral =() => Axios.get(url9)
+export const fetchViral =(courseid) => Axios.get(`${url9}/${courseid}`)
 export const fetchSorted =  () =>   Axios.get(url6);
 export const fetchSortedByRate =  () =>   Axios.get(url7);
 export const fetchSortedByViews =  () =>   Axios.get(url8);

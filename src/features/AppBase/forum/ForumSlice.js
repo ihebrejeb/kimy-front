@@ -102,9 +102,9 @@ export const getPosts = (courseid) => async (dispatch) => {
     console.log(error.message);
   }
 };
-export const getViralPost = () => async (dispatch) => {
+export const getViralPost = (courseid) => async (dispatch) => {
   try {
-    const { data } = await api.fetchViral();
+    const { data } = await api.fetchViral(courseid);
 
     dispatch(getViral(data));
     console.log(data)
