@@ -42,23 +42,23 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  useEffect(() => {
-    let unmounted = false;
+  // useEffect(() => {
+  //   let unmounted = false;
 
-    async function getCharacters() {
-      const response = await fetch("http://localhost:4000/activity");
-      const body = await response.json();
-      console.log(body);
-      if (!unmounted) {
-        setItems(body.data.map(({ title }) => ({ title: title })));
-        setLoading(false);
-      }
-    }
-    getCharacters();
-    return () => {
-      unmounted = true;
-    };
-  }, []);
+  //   async function getCharacters() {
+  //     const response = await fetch("http://localhost:4000/activity");
+  //     const body = await response.json();
+  //     console.log(body);
+  //     if (!unmounted) {
+  //       setItems(body.data.map(({ title }) => ({ title: title })));
+  //       setLoading(false);
+  //     }
+  //   }
+  //   getCharacters();
+  //   return () => {
+  //     unmounted = true;
+  //   };
+  // }, []);
   useEffect(() => {
     if (currentIdassign) setOpen(true);
   }, [currentIdassign]);

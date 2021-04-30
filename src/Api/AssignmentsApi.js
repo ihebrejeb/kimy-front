@@ -1,15 +1,15 @@
-import axios from "axios";
-const url = "http://localhost:4000/assignments/";
-const urlsearch = "http://localhost:4000/assignments/searchassignment";
-const urlSortAsc = "http://localhost:4000/assignments/sortAsc";
-const urlSortDesc = "http://localhost:4000/assignments/sortDesc";
+import { Axios } from "../features/AppBase/user/axiosfile";
+const url = "/assignments/";
+const urlsearch = "/assignments/searchassignment";
+const urlSortAsc = "/assignments/sortAsc";
+const urlSortDesc = "/assignments/sortDesc";
 
-export const fetchAssignments = () => axios.get(url);
-export const CreateAssignment = (assignment) => axios.post(url, assignment);
+export const fetchAssignments = () => Axios.get(url);
+export const CreateAssignment = (assignment) => Axios.post(url, assignment);
 export const UpdateAssignments = (id, updatedAssignment) =>
-  axios.patch(`${url}/${id}`, updatedAssignment);
-export const deleteAssignment = (id) => axios.delete(`${url}/${id}`);
-export const search = (search) => axios.get(`${urlsearch}/${search}`);
-export const fetchSortedAsc = () => axios.get(urlSortAsc);
-export const fetchSortedDesc = () => axios.get(urlSortDesc);
-export const fetchOneAssignment = (id) => axios.get(`${url}/${id}`);
+  Axios.patch(`${url}/${id}`, updatedAssignment);
+export const deleteAssignment = (id) => Axios.delete(`${url}/${id}`);
+export const search = (search) => Axios.get(`${urlsearch}/${search}`);
+export const fetchSortedAsc = () => Axios.get(urlSortAsc);
+export const fetchSortedDesc = () => Axios.get(urlSortDesc);
+export const fetchOneAssignment = (id) => Axios.get(`${url}/${id}`);
