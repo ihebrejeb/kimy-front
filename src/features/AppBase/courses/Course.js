@@ -14,7 +14,7 @@ import {
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { useDispatch } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { deleteCourse } from "./CoursesSlice";
+import { createStudent, deleteCourse } from "./CoursesSlice";
 import { selectCourse } from "../onlinseSession/CourseDemoSlice";
 
 import { useHistory } from "react-router";
@@ -67,6 +67,7 @@ function Course({ courses, setCurrentId }) {
             onClick={() => {
               history.push(`/app/forum/${courses._id}`);
               dispatch(selectCourse(courses));
+              // dispatch(createStudent(courses._id))
             }}
           >
             <AddCircleOutlineIcon fontSize="small" /> Open

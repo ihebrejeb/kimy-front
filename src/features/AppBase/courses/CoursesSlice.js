@@ -10,6 +10,16 @@ export const createCourse = createAsyncThunk(
   }
 );
 
+export const createStudent = createAsyncThunk(
+  "courses/addcourse",
+  async ( id, thunkAPI) => {
+    const response = await api.Enroll(id);
+    console.log(response.data)
+
+    return response.data;
+  }
+);
+
 let initialState = {
   values: [],
 };
@@ -27,6 +37,8 @@ export const coursesSlice = createSlice({
       );
       console.log(action.payload);
     },
+     
+    
     deletecourseRedcuer: (state, action) => {
       const payload = action.payload;
 
@@ -41,6 +53,9 @@ export const coursesSlice = createSlice({
     [createCourse.fulfilled]: (state, action) => {
       state.values.push(action.payload.data);
     },
+    [createStudent.fulfilled]: (state, action) => {
+      state.values.push(action.payload);
+    },
   },
 });
 
@@ -49,6 +64,7 @@ export const {
   updateCourse,
   deletecourseRedcuer,
   searchAction,
+  addStudent
 } = coursesSlice.actions;
 
 //thunk
