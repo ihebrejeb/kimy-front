@@ -3,6 +3,7 @@ const url = "/assignments/";
 const urlsearch = "/assignments/searchassignment";
 const urlSortAsc = "/assignments/sortAsc";
 const urlSortDesc = "/assignments/sortDesc";
+const urlActivityAssignment = "/activity/getbyActivity";
 
 export const fetchAssignments = () => Axios.get(url);
 export const CreateAssignment = (assignment) => Axios.post(url, assignment);
@@ -13,3 +14,5 @@ export const search = (search) => Axios.get(`${urlsearch}/${search}`);
 export const fetchSortedAsc = () => Axios.get(urlSortAsc);
 export const fetchSortedDesc = () => Axios.get(urlSortDesc);
 export const fetchOneAssignment = (id) => Axios.get(`${url}/${id}`);
+export const fetchAssignmentByActivity = (activityid) =>
+  Axios.get(`${urlActivityAssignment}/${activityid}`);

@@ -30,6 +30,7 @@ import Alert from "@material-ui/lab/Alert";
 import ShowAssignment from "../assignments/ShowAssignment";
 import PDF from "../../../assignment.pdf";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import AddAssignment from "../assignments/AddAssignment";
 
 function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   // store.addNotification({
@@ -93,7 +94,13 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
               <IconButton>
                 <EditIcon onClick={() => setcurrentId(coursesActivities._id)} />
               </IconButton>
-
+              <IconButton>
+                {" "}
+                <AddAssignment
+                  onClick={() => setcurrentId(coursesActivities._id)}
+                  activityid={coursesActivities._id}
+                ></AddAssignment>
+              </IconButton>
               <IconButton>
                 <DeleteIcon
                   onClick={() => {

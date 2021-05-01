@@ -49,11 +49,12 @@ function CourseActivitiesMainPage() {
   return (
     <div className={styles.content}>
       <div className={styles.addActivity}>
+        <AssignmentsList></AssignmentsList>
+
         <SortActivities setsort={setsort}></SortActivities>
 
         <SearchPage setTitle={setTitle} title={title} />
-        <AddAssignment currentIdassign={currentIdassign} />
-        <AssignmentsList></AssignmentsList>
+        {/* <AddAssignment currentIdassign={currentIdassign} /> */}
 
         <AddActivity currentId={currentId} setcurrentId={setcurrentId} />
       </div>
