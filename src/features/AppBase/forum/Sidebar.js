@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { getPosts, getSortedWithLikes, getSortedWithRating, getSortedWithViews } from './ForumSlice';
 
 
-function Sidebar({setsort,setTitle  ,title ,setsortViews}) {
+function Sidebar({setsort,setTitle  ,title ,setsortViewsn ,courseid}) {
 
  
 
@@ -36,19 +36,19 @@ const dispatch = useDispatch()
 
                 <div className={styles.withicon}> 
                 <RefreshIcon/>
-           <div  className={styles.button} onClick={()=>dispatch(getPosts()) }> Home</div>
+           <div  className={styles.button} onClick={()=>dispatch(getPosts(courseid)) }> Home</div>
            </div>
             <div className={styles.withicon}> 
             <SortIcon/>
-           <div  className={styles.button} onClick={()=> dispatch(getSortedWithLikes())}> Most Liked Threads </div>
+           <div  className={styles.button} onClick={()=> dispatch(getSortedWithLikes(courseid))}> Most Liked Threads </div>
            </div>
            <div className={styles.withicon}> 
             <RemoveRedEyeOutlinedIcon/>
-           <div  className={styles.button} onClick={()=>  dispatch(getSortedWithViews())} > Most viewed  Threads </div>
+           <div  className={styles.button} onClick={()=>  dispatch(getSortedWithViews(courseid))} > Most viewed  Threads </div>
            </div>
            <div className={styles.withicon}> 
             <GradeIcon/>
-           <div  className={styles.button}  onClick={()=>  dispatch(getSortedWithRating())} > Top rated Threads </div>
+           <div  className={styles.button}  onClick={()=>  dispatch(getSortedWithRating(courseid))} > Top rated Threads </div>
            </div>
            <div className={styles.withicon}> 
             <SettingsIcon/>

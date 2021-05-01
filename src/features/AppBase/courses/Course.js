@@ -67,7 +67,7 @@ function Course({ courses, setCurrentId }) {
             onClick={() => {
               history.push(`/app/forum/${courses._id}`);
               dispatch(selectCourse(courses));
-              // dispatch(createStudent(courses._id))
+              dispatch(createStudent(courses._id))
             }}
           >
             <AddCircleOutlineIcon fontSize="small" /> Open

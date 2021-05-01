@@ -23,7 +23,7 @@ function Forum() {
 
   useEffect(() => {
     if (title !== '') {
-        dispatch(searchThread(title));
+        dispatch(searchThread(title,courseid));
     } else {
         dispatch(getPosts(courseid));
     }
@@ -39,7 +39,7 @@ function Forum() {
        
          <AddPost />
 
-                <Sidebar title={title} setTitle={setTitle} />
+                <Sidebar title={title} setTitle={setTitle} courseid={courseid}/>
                 <Tags/>
                 <NewsLeftSide/>
         </div>
