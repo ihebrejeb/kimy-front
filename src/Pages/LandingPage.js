@@ -162,7 +162,7 @@ function LandingPage() {
         </div>
       </div>
       <div>
-        <img src="/cover.jpg" className={styles.cover}></img>
+        <img src="/cover.jpg" alt='' className={styles.cover}></img>
       </div>
       {/* <div className={styles.content}>
         <div>
