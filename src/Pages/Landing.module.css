@@ -5,6 +5,11 @@
   cursor: pointer;
 }
 
+.cover {
+  max-width: 1262px;
+  margin-top: 20px;
+}
+
 .nav {
   padding-top: 20px;
   position: relative;

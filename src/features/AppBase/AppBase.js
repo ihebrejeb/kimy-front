@@ -26,6 +26,7 @@ import CourseDemo from "./onlinseSession/CourseDemo";
 import CourseRecordings from "./onlinseSession/CourseRecordings";
 import Lobby from "./onlinseSession/Lobby";
 import Attendance from "./onlinseSession/Attendance";
+import Quizzs from "./livequizz/Quizzs";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
@@ -295,6 +296,9 @@ export default function ClippedDrawer() {
           </Route>
           <Route exact path="/app/attendance/:roomId">
             <Attendance></Attendance>
+          </Route>
+          <Route exact path="/app/quizzs/:roomId">
+            <Quizzs></Quizzs>
           </Route>
           <Route exact path="/app/calendar">
             <Calendrier></Calendrier>
