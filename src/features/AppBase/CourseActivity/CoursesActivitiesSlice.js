@@ -79,9 +79,9 @@ export const searchThread = (search) => async (dispatch) => {
   }
 };
 
-export const GetCoursesActivities = () => async (dispatch) => {
+export const GetCoursesActivities = (courseid) => async (dispatch) => {
   try {
-    const { data } = await api.fetchCoursesActivities();
+    const { data } = await api.fetchActivitiesByCourse(courseid);
 
     dispatch(getcoursesActivities(data.data));
   } catch (error) {

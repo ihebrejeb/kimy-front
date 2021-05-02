@@ -9,7 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "../assignments/addAssignment.module.css";
 import { TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
-
+import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import {
   createnewAssignment,
   GetAssignments,
@@ -17,8 +17,11 @@ import {
 } from "./AssignmentsSlice";
 
 import { useHistory } from "react-router";
+import { useParams } from "react-router";
 
-function AddAssignment({ currentIdassign, setcurrentIdassign }) {
+function AddAssignment({ currentIdassign, setcurrentIdassign, activityid }) {
+  //activityid = useParams();
+
   const assignment = useSelector((state) =>
     currentIdassign
       ? state.assignments?.values.find((c) => c._id === currentIdassign)
@@ -36,29 +39,30 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
     description: "",
     dateCreation: Date.now(),
     dateLimite: "",
+    activity: activityid,
   });
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
-  useEffect(() => {
-    let unmounted = false;
+  // useEffect(() => {
+  //   let unmounted = false;
 
-    async function getCharacters() {
-      const response = await fetch("http://localhost:4000/activity");
-      const body = await response.json();
-      console.log(body);
-      if (!unmounted) {
-        setItems(body.data.map(({ title }) => ({ title: title })));
-        setLoading(false);
-      }
-    }
-    getCharacters();
-    return () => {
-      unmounted = true;
-    };
-  }, []);
+  //   async function getCharacters() {
+  //     const response = await fetch("http://localhost:4000/activity");
+  //     const body = await response.json();
+  //     console.log(body);
+  //     if (!unmounted) {
+  //       setItems(body.data.map(({ title }) => ({ title: title })));
+  //       setLoading(false);
+  //     }
+  //   }
+  //   getCharacters();
+  //   return () => {
+  //     unmounted = true;
+  //   };
+  // }, []);
   useEffect(() => {
     if (currentIdassign) setOpen(true);
   }, [currentIdassign]);
@@ -93,9 +97,7 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
   };
   return (
     <div>
-      <button onClick={handleClickOpen} className={styles.addButton}>
-        create an assignment
-      </button>
+      <NoteAddIcon onClick={handleClickOpen}>create an assignment</NoteAddIcon>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -110,19 +112,19 @@ function AddAssignment({ currentIdassign, setcurrentIdassign }) {
             onSubmit={handleSubmit}
             // onSubmit={sendEmail}
           >
-            <select
-              value={assignmentData.related_activity}
+            {/* <select
+              value={assignmentData.activityid}
               onChange={(e) =>
                 setassignmentData({
                   ...assignmentData,
-                  related_activity: e.target.value,
+                  activityid: e.target.value,
                 })
               }
             >
               {items.map((item) => (
                 <option key={item.title}>{item.title}</option>
               ))}
-            </select>
+            </select> */}
 
             <TextField
               InputLabelProps={{ className: styles.text }}

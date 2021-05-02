@@ -23,12 +23,15 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import WarningIcon from "@material-ui/icons/Warning";
 import { Alert } from "@material-ui/lab";
+import { useParams } from "react-router";
 
 const schema = yup.object().shape({
   title: yup.string().required(" PLEASE ADD A TITLE   "),
   description: yup.string().required(" PLEASE ADD A DESCRIPTION"),
 });
 function AddActivity({ currentId, setcurrentId }) {
+  let { courseid } = useParams();
+
   /*****************************email */
   const emailSend = (templateId, variables) => {
     window.emailjs
@@ -80,6 +83,7 @@ function AddActivity({ currentId, setcurrentId }) {
     description: "",
     nbSeances: "",
     ressources: "",
+    courses: courseid,
   });
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);

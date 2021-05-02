@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 import {
   Card,
   Typography,
@@ -6,7 +7,7 @@ import {
   IconButton,
   Snackbar,
 } from "@material-ui/core/";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteCourseActivities } from "./CoursesActivitiesSlice";
 import classes from "../CourseActivity/CourseActivity.module.css";
 import Accordion from "@material-ui/core/Accordion";
@@ -29,6 +30,7 @@ import Alert from "@material-ui/lab/Alert";
 import ShowAssignment from "../assignments/ShowAssignment";
 import PDF from "../../../assignment.pdf";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import AddAssignment from "../assignments/AddAssignment";
 
 function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   // store.addNotification({
@@ -45,6 +47,8 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
   //   },
   // });
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user.data.user);
+
   const [deleteAlert, confirmDelete] = useState({
     isOpen: false,
     title: "",
@@ -84,15 +88,19 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
         <CardHeader
           className={carddesign.header}
           title={coursesActivities.title}
-          subheader={
-            "Description of the Activity : " + coursesActivities?.description
-          }
+          subheader={"Creator of the activity :" + user.username}
           action={
             <div>
               <IconButton>
                 <EditIcon onClick={() => setcurrentId(coursesActivities._id)} />
               </IconButton>
-
+              <IconButton>
+                {" "}
+                <AddAssignment
+                  onClick={() => setcurrentId(coursesActivities._id)}
+                  activityid={coursesActivities._id}
+                ></AddAssignment>
+              </IconButton>
               <IconButton>
                 <DeleteIcon
                   onClick={() => {
@@ -165,6 +173,20 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
               id="panel1a-header"
             ></AccordionSummary>
           </Accordion>
+          <Accordion className={carddesign.noMargin}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography className={classes.heading}>
+                Description of the activity <DescriptionIcon></DescriptionIcon>
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography> {coursesActivities.description} </Typography>
+            </AccordionDetails>
+          </Accordion>
 
           <Accordion className={carddesign.noMargin}>
             <AccordionSummary
@@ -173,7 +195,7 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
               id="panel2a-header"
             >
               <Typography className={classes.heading}>
-                Assignments <DescriptionIcon></DescriptionIcon>
+                Assignments <AssignmentIcon></AssignmentIcon>
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -192,7 +214,7 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>Insert Resources here</Typography>
+              <Typography>{coursesActivities.resources}</Typography>
             </AccordionDetails>
           </Accordion>
         </div>
