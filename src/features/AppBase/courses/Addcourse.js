@@ -22,7 +22,7 @@ const schema = yup.object().shape({
   message : yup.string().required(" please provide more details about your course") , 
 
 })
-function Addcourse({ currentId, setcurrentId }) {
+function Addcourse({ currentId, setcurrentId , code , setcode}) {
   const course = useSelector((state) =>
     currentId ? state.courses.values.find((c) => c._id === currentId) : null
   );
@@ -113,7 +113,7 @@ function Addcourse({ currentId, setcurrentId }) {
         </button>
         <div className={styles.header__search}>
                     <SearchIcon></SearchIcon>
-                    <input placeholder="Enter your Code here" type="text"/>
+                    <input placeholder="Enter your Code here" type="text" values={code} onChange={e => setcode(e.target.value )}/>
                 </div>
       </div>
      <FormControl> 

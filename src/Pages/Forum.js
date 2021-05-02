@@ -9,7 +9,7 @@ import styles from './forum.module.css'
 import Sidebar from "../features/AppBase/forum/Sidebar";
 import Tags from "../features/AppBase/forum/Tags";
 import OnlineUsers from "../features/AppBase/forum/OnlineUsers";
-import HotThread from "../features/AppBase/forum/HotThread";
+// import HotThread from "../features/AppBase/forum/HotThread";
 import NewsList from "../features/AppBase/NewsApi/NewsList";
 import NewsLeftSide from "../features/AppBase/NewsApi/NewsLeftSide";
 import HotThreadList from "../features/AppBase/forum/HotThreadList";
@@ -23,7 +23,7 @@ function Forum() {
 
   useEffect(() => {
     if (title !== '') {
-        dispatch(searchThread(title));
+        dispatch(searchThread(title,courseid));
     } else {
         dispatch(getPosts(courseid));
     }
@@ -39,7 +39,7 @@ function Forum() {
        
          <AddPost />
 
-                <Sidebar title={title} setTitle={setTitle} />
+                <Sidebar title={title} setTitle={setTitle} courseid={courseid}/>
                 <Tags/>
                 <NewsLeftSide/>
         </div>
@@ -51,7 +51,7 @@ function Forum() {
       <div className={styles.fields}> 
      
       <OnlineUsers/>
-      <HotThreadList/>
+      <HotThreadList courseid={courseid}/>
             <NewsList/>
 
      

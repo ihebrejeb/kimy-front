@@ -61,7 +61,6 @@ export const forumslice = createSlice({
       state.values = state.values.map((forum) =>
         forum._id === payload ? action.payload : forum
       );
-      console.log(action.payload);
     },
     rate: (state, action) => {
       state.post.rate.push(action.payload);
@@ -102,9 +101,9 @@ export const getPosts = (courseid) => async (dispatch) => {
     console.log(error.message);
   }
 };
-export const getViralPost = () => async (dispatch) => {
+export const getViralPost = (courseid) => async (dispatch) => {
   try {
-    const { data } = await api.fetchViral();
+    const { data } = await api.fetchViral(courseid);
 
     dispatch(getViral(data));
     console.log(data)
@@ -113,9 +112,9 @@ export const getViralPost = () => async (dispatch) => {
   }
 };
 // sorted list of posts  by likes
-export const getSortedWithLikes = () => async (dispatch) => {
+export const getSortedWithLikes = (courseid) => async (dispatch) => {
   try {
-    const { data } = await api.fetchSorted();
+    const { data } = await api.fetchSorted(courseid);
 
     dispatch(getSortedByLikes(data));
     console.log(data)
@@ -123,9 +122,9 @@ export const getSortedWithLikes = () => async (dispatch) => {
     console.log(error.message);
   }
 };
-export const getSortedWithViews = () => async (dispatch) => {
+export const getSortedWithViews = (courseid) => async (dispatch) => {
   try {
-    const { data } = await api.fetchSortedByViews();
+    const { data } = await api.fetchSortedByViews(courseid);
 
     dispatch(getPost(data));
     console.log(data)
@@ -133,9 +132,9 @@ export const getSortedWithViews = () => async (dispatch) => {
     console.log(error.message);
   }
 };
-export const getSortedWithRating = () => async (dispatch) => {
+export const getSortedWithRating = (courseid) => async (dispatch) => {
   try {
-    const { data } = await api.fetchSortedByRate();
+    const { data } = await api.fetchSortedByRate(courseid);
 
     dispatch(getPost(data));
     console.log(data)
@@ -154,9 +153,9 @@ export const getOnePost = (id) => async (dispatch) => {
   }
 };
 // search feature
-export const searchThread = (search) => async (dispatch) => {
+export const searchThread = (search , courseid) => async (dispatch) => {
   try {
-    const { data } = await api.search(search);
+    const { data } = await api.search(search,courseid);
 
     dispatch(searchAction(data));
   } catch (error) {
@@ -182,7 +181,6 @@ export const addLike = (id) => async (dispatch) => {
   try {
     const { data } = await api.AddLike(id);
     dispatch(Like(data));
-    console.log(data);
   } catch (error) {
     console.log(error.message);
   }
@@ -192,7 +190,6 @@ export const unlike = (id) => async (dispatch) => {
   try {
     const { data } = await api.removeLike(id);
     dispatch(Like(data));
-    console.log(data);
   } catch (error) {
     console.log(error.message);
   }
