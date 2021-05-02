@@ -121,6 +121,8 @@ function AddActivity({ currentId, setcurrentId }) {
       ressources: "",
     });
   };
+  const user = useSelector((state) => state.user.user.data.user);
+
   const add = (e) => {
     //e.preventDefault();
     const templateId = "template_ujublkd";
@@ -130,12 +132,12 @@ function AddActivity({ currentId, setcurrentId }) {
     } else {
       dispatch(createCourseActivities(activityData));
 
-      // emailSend("template_ujublkd", {
-      //   message_html:
-      //     "A new activity has been added to the course you are subscribed to ! check it out ",
-      //   from_name: "Gmail",
-      //   reply_to: "khaoulakhmiri2022@gmail.com",
-      // });
+      emailSend("template_ujublkd", {
+        message_html:
+          "A new activity has been added to the course you are subscribed to ! check it out ",
+        from_name: "Gmail",
+        reply_to: user.email,
+      });
       //emailjs.send(serviceID, templateID, templateParams, userID);
     }
 
