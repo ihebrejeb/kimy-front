@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import {
   Card,
@@ -29,10 +29,18 @@ import DeleteAlert from "./DeleteAlert";
 import Alert from "@material-ui/lab/Alert";
 import ShowAssignment from "../assignments/ShowAssignment";
 import PDF from "../../../assignment.pdf";
+import PDF1 from "../../../activity.pdf";
+
 import GetAppIcon from "@material-ui/icons/GetApp";
 import AddAssignment from "../assignments/AddAssignment";
+import { GetAssignments } from "../assignments/AssignmentsSlice";
 
-function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
+function CourseActivity({
+  setsort,
+  coursesActivities,
+  setcurrentId,
+  Assignment,
+}) {
   // store.addNotification({
   //   title: "Wonderful!",
   //   message: "teodosii@react-notifications-component",
@@ -53,6 +61,10 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
     isOpen: false,
     title: "",
   });
+
+  useEffect(() => {
+    dispatch(GetAssignments());
+  }, [dispatch]);
 
   const useStylescard = makeStyles({
     root: {
@@ -144,7 +156,7 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
                   </Typography>
                 </AccordionSummary>
                 <Typography>
-                  <a href={PDF} target="_blank">
+                  <a href={PDF1} target="_blank">
                     <button>
                       {" "}
                       <GetAppIcon height="200px"></GetAppIcon>
@@ -199,7 +211,15 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography> {coursesActivities.assignments} </Typography>
+              <Typography>
+                <a href={PDF} target="_blank">
+                  <button>
+                    {" "}
+                    <GetAppIcon height="200px"></GetAppIcon>
+                    {coursesActivities.title + "_assignment.pdf"}
+                  </button>
+                </a>
+              </Typography>
             </AccordionDetails>
           </Accordion>
 
@@ -214,7 +234,7 @@ function CourseActivity({ setsort, coursesActivities, setcurrentId }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{coursesActivities.resources}</Typography>
+              <Typography>{coursesActivities.ressources}</Typography>
             </AccordionDetails>
           </Accordion>
         </div>
