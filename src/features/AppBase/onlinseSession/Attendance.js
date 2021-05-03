@@ -43,7 +43,7 @@ function MyChart({ d }) {
   );
   return (
     <div className={styles.chart}>
-      <Chart data={data} axes={axes} series={series} />
+      <Chart data={data} axes={axes} />
     </div>
   );
 }
