@@ -16,6 +16,7 @@ import { Dialog, IconButton } from "@material-ui/core";
 import styles from "./assignmentList.module.css";
 import SearchPage from "../CourseActivity/SearchPage";
 import SortAssignmentAsc from "./SortAssignmentAsc";
+import { useParams } from "react-router";
 
 function AssignmentList({ setcurrentId }) {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function AssignmentList({ setcurrentId }) {
   const [open, setOpen] = React.useState(false);
   var [sort, setsort] = useState(false);
   var [sortdesc, setsortdesc] = useState(false);
+  let { activityid } = useParams();
 
   useEffect(() => {
     if (title !== "") {
@@ -61,7 +63,7 @@ function AssignmentList({ setcurrentId }) {
     <div>
       {" "}
       <div onClick={handleClickOpen}>
-        {" "}
+        {/* Display all the assignments */}
         <AssignmentOutlinedIcon
           className={styles.button_assignment}
         ></AssignmentOutlinedIcon>
@@ -72,7 +74,6 @@ function AssignmentList({ setcurrentId }) {
         aria-labelledby="form-dialog-title"
       >
         <div className={styles.listItem}>
-          
           <SortAssignmentAsc setsort={setsort}></SortAssignmentAsc>
           <SearchPage setTitle={setTitle} title={title} />
         </div>

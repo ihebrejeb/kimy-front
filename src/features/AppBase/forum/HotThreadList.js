@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import {  getViralPost,  selectViral } from './ForumSlice'
 import HotThread from './HotThread'
 
-function HotThreadList() {
+function HotThreadList({courseid}) {
     const dispatch = useDispatch()
     useEffect(() => {
 
-        dispatch(getViralPost())
-    }, [dispatch])
+        dispatch(getViralPost(courseid))
+    }, [courseid,dispatch])
     const post = useSelector(selectViral)
     return (
         <div>

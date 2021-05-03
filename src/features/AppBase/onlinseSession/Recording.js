@@ -87,6 +87,12 @@ export default function Recording({ room, isOwner, setRooms }) {
           >
             Attendance
           </Button>
+          <Button
+            color="primary"
+            onClick={() => history.push("/app/quizzs/" + room._id)}
+          >
+            Quizzs
+          </Button>
         </CardActions>
       </Card>
     </>

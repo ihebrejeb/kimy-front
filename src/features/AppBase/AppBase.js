@@ -26,6 +26,7 @@ import CourseDemo from "./onlinseSession/CourseDemo";
 import CourseRecordings from "./onlinseSession/CourseRecordings";
 import Lobby from "./onlinseSession/Lobby";
 import Attendance from "./onlinseSession/Attendance";
+import Quizzs from "./livequizz/Quizzs";
 import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
@@ -108,7 +109,7 @@ export default function ClippedDrawer() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user.data.user);
-  console.log(user.avatar);
+  // console.log(user.avatar);
   const course = useSelector(selectedcourse);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -122,10 +123,9 @@ export default function ClippedDrawer() {
   const doLogout = (e) => {
     console.log("const dologout");
     dispatch(logout());
-    auth.signOut()
-    history.push('/')
+    auth.signOut();
+    history.push("/");
     window.location.reload(false);
-
   };
 
   const joinLobby = () => {
@@ -147,7 +147,7 @@ export default function ClippedDrawer() {
           {course && (
             <div className={classes.links}>
               <NavLink
-                to="/app/activites"
+                to={`/app/activites/${course._id}`}
                 className={classes.link}
                 activeStyle={{
                   fontWeight: "bold",
@@ -297,10 +297,13 @@ export default function ClippedDrawer() {
           <Route exact path="/app/attendance/:roomId">
             <Attendance></Attendance>
           </Route>
+          <Route exact path="/app/quizzs/:roomId">
+            <Quizzs></Quizzs>
+          </Route>
           <Route exact path="/app/calendar">
             <Calendrier></Calendrier>
           </Route>
-          <Route exact path="/app/activites/">
+          <Route exact path="/app/activites/:courseid">
             <CourseActivitiesMainPage />
           </Route>
           <Route exact path="/app/whiteboard">

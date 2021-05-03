@@ -16,6 +16,8 @@ import SortActivities from "../features/AppBase/CourseActivity/SortActivities";
 import AssignmentsList from "../features/AppBase/assignments/AssignmentsList";
 import SingleAssignment from "../features/AppBase/assignments/SingleAssignment";
 import { GetAssignments } from "../features/AppBase/assignments/AssignmentsSlice";
+import { useParams } from "react-router";
+
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
   const [currentIdassign, setcurrentIdassign] = useState(null);
@@ -23,14 +25,14 @@ function CourseActivitiesMainPage() {
   var [sort, setsort] = useState(false);
 
   const dispatch = useDispatch();
-
+  let { courseid } = useParams();
   useEffect(() => {
     if (title !== "") {
       dispatch(searchThread(title));
     } else {
-      dispatch(GetCoursesActivities());
+      dispatch(GetCoursesActivities(courseid));
     }
-  }, [title, dispatch]);
+  }, [title, dispatch, courseid]);
 
   // useEffect(() => {
   //   dispatch(GetAssignments());
@@ -40,18 +42,19 @@ function CourseActivitiesMainPage() {
     if (sort === true) {
       dispatch(getSorted());
     } else {
-      dispatch(GetCoursesActivities());
+      dispatch(GetCoursesActivities(courseid));
     }
-  }, [sort, dispatch]);
+  }, [sort, dispatch, courseid]);
 
   return (
     <div className={styles.content}>
       <div className={styles.addActivity}>
+        <AssignmentsList></AssignmentsList>
+
         <SortActivities setsort={setsort}></SortActivities>
 
         <SearchPage setTitle={setTitle} title={title} />
-        <AddAssignment currentIdassign={currentIdassign} />
-        <AssignmentsList></AssignmentsList>
+        {/* <AddAssignment currentIdassign={currentIdassign} /> */}
 
         <AddActivity currentId={currentId} setcurrentId={setcurrentId} />
       </div>
