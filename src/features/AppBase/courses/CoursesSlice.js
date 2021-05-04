@@ -12,9 +12,9 @@ export const createCourse = createAsyncThunk(
 
 export const createStudent = createAsyncThunk(
   "courses/addStudent",
-  async ( id, thunkAPI) => {
+  async (id, thunkAPI) => {
     const response = await api.Enroll(id);
-    console.log(response.data)
+    console.log(response.data);
 
     return response.data;
   }
@@ -37,16 +37,15 @@ export const coursesSlice = createSlice({
       );
       console.log(action.payload);
     },
-     
-    
+
     deletecourseRedcuer: (state, action) => {
       const payload = action.payload;
 
       state.values = state.values.filter((course) => course._id !== payload);
     },
-    searchAction:(state,action)=> {
-        state.values = action.payload
-    }
+    searchAction: (state, action) => {
+      state.values = action.payload;
+    },
   },
 
   extraReducers: {
@@ -54,7 +53,7 @@ export const coursesSlice = createSlice({
       state.values.push(action.payload.data);
     },
     [createStudent.fulfilled]: (state, action) => {
-      state.values.push(action.payload);
+      state.values.push(action.payload.data);
     },
   },
 });
@@ -64,7 +63,7 @@ export const {
   updateCourse,
   deletecourseRedcuer,
   searchAction,
-  addStudent
+  addStudent,
 } = coursesSlice.actions;
 
 //thunk
