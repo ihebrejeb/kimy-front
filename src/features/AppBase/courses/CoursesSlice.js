@@ -11,7 +11,7 @@ export const createCourse = createAsyncThunk(
 );
 
 export const createStudent = createAsyncThunk(
-  "courses/addcourse",
+  "courses/addStudent",
   async ( id, thunkAPI) => {
     const response = await api.Enroll(id);
     console.log(response.data)
