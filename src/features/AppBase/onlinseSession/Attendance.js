@@ -23,15 +23,15 @@ function MyChart({ d }) {
     if (!d) return [];
     return [
       {
-        label: "Series 1",
+        label: "user faces",
         data: d,
       },
     ];
   }, [d]);
   const axes = React.useMemo(
     () => [
-      { primary: true, type: "linear", position: "bottom" },
-      { type: "linear", position: "left" },
+      { primary: true, type: "ordinal", position: "bottom" },
+      { type: "ordinal", position: "left" },
     ],
     []
   );
@@ -43,7 +43,7 @@ function MyChart({ d }) {
   );
   return (
     <div className={styles.chart}>
-      <Chart data={data} axes={axes} />
+      <Chart data={data} axes={axes} tooltip={{ anchor: "anchorClosest" }} />
     </div>
   );
 }
@@ -82,8 +82,8 @@ export default function Attendance() {
     if (room) dataPrep();
   }, [room]);
   async function getStats() {
-    let data = await getRoomStats(room.roomSID);
-    console.log(data);
+    let { data } = await getRoomStats(room.roomSID);
+    setRoom(data.data);
   }
   function RenderAttendance() {
     return attendance?.map(({ user }) => (
@@ -94,6 +94,7 @@ export default function Attendance() {
   return (
     <>
       {!room?.stats.totalFrames &&
+        room?.recordingStatus &&
         (room?.processing ? (
           <Button className={styles.buttonProgress}>
             getting stats
