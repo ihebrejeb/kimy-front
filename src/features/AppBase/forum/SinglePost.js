@@ -118,7 +118,7 @@ function SinglePost({ Posts }) {
               </IconButton>
             </div>
             <div>
-              <Link className="decoarion" to="/app/forum">
+              <Link className="decoarion" to="/app/forum/:courseid">
                 <IconButton aria-label="view">
                   <DynamicFeedIcon style={{ color: "blue" }} /> all Posts
                 </IconButton>

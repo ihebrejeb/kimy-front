@@ -30,8 +30,10 @@ function Course({ courses, setCurrentId }) {
     title: "",
     subTitle: "",
   });
+  
 
   return (
+    
     <Card className={styles.card}>
       <CardHeader
         avatar={
@@ -70,9 +72,9 @@ function Course({ courses, setCurrentId }) {
               dispatch(createStudent(courses._id))
             }}
           >
+            
             <AddCircleOutlineIcon fontSize="small" /> Open
           </Button>
-
           <Button
             size="small"
             color="primary"
@@ -87,8 +89,9 @@ function Course({ courses, setCurrentId }) {
               });
             }}
           >
+
             <ExitToAppIcon fontSize="small" /> Leave
-          </Button>
+          </Button> 
         </div>
       </CardActions>
       <ConfirmDialog

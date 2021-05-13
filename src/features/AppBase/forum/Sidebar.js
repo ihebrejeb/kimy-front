@@ -7,7 +7,7 @@ import { Avatar } from '@material-ui/core';
 import GradeIcon from '@material-ui/icons/Grade';
 import SettingsIcon from '@material-ui/icons/Settings';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPosts, getSortedWithLikes, getSortedWithRating, getSortedWithViews } from './ForumSlice';
 
 
@@ -15,13 +15,15 @@ function Sidebar({setsort,setTitle  ,title ,setsortViewsn ,courseid}) {
 
  
 
+
+
 const dispatch = useDispatch()
     return (
         <div className={styles.side}>
 
             <div className={styles.Avatar}> 
                 <Avatar src="https://c.files.bbci.co.uk/66CC/production/_116361362_tes1.png"/>
-                <div className={styles.user}> Med habib Dridi </div>
+                <div className={styles.user}> med habib dridi  </div>
                 
             </div>
 
