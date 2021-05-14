@@ -11,7 +11,7 @@
 ### Clone
 
 ```sh
-git clone https://github.com/ihebrejeb/kimy-front.git<br>
+git clone https://github.com/ihebrejeb/kimy-front.git
 ```
 
 ```sh
