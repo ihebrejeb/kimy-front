@@ -1,6 +1,6 @@
 /* import axios from "axios";
 
-export const API_URL = "http://http://floating-cliffs-13024.herokuapp.com/";
+export const API_URL = "http://floating-cliffs-13024.herokuapp.com";
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDNhZjUyZWUwZjE3MWQwOGRhZGYzMiIsImlhdCI6MTYxNzcxNTkyMywiZXhwIjoxNjIwMzA3OTIzfQ.MsZXfcKtR_lokPZADQ4vXJJYs_H0DWMH1ZUATga3OWI";
 export const Axios() = axios.create({

@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://http://floating-cliffs-13024.herokuapp.com//";
+const API_URL = "http://floating-cliffs-13024.herokuapp.com/";
 
 const getPublicContent = () => {
   return axios.get(API_URL + "all");

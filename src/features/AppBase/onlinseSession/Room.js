@@ -15,9 +15,7 @@ const Room = ({ room, me, isVideo, isAudio }) => {
   const [livequi, setlivequi] = useState(null);
 
   useEffect(() => {
-    ans.current = io.connect(
-      "http://http://floating-cliffs-13024.herokuapp.com/"
-    );
+    ans.current = io.connect("http://floating-cliffs-13024.herokuapp.com");
     ans.current.on("finished quizz", ({}) => {
       handleCloseans();
     });

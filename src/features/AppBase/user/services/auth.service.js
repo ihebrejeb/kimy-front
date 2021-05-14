@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const API_URL = "http://http://floating-cliffs-13024.herokuapp.com//";
+const API_URL = "http://floating-cliffs-13024.herokuapp.com/";
 
 const register = (
   username,
@@ -12,7 +12,7 @@ const register = (
   avatar
 ) => {
   return axios
-    .post("http://http://floating-cliffs-13024.herokuapp.com//user/signup", {
+    .post("http://floating-cliffs-13024.herokuapp.com/user/signup", {
       username,
       email,
       password,
@@ -30,7 +30,7 @@ const register = (
 
 const registerg = (username, email, birthdate, avatar, isgoogle) => {
   return axios
-    .post("http://http://floating-cliffs-13024.herokuapp.com//user/signupg", {
+    .post("http://floating-cliffs-13024.herokuapp.com/user/signupg", {
       username,
       email,
       birthdate,
@@ -48,7 +48,7 @@ const registerg = (username, email, birthdate, avatar, isgoogle) => {
 const login = (email, password) => {
   console.log("im here");
   return axios
-    .post("http://http://floating-cliffs-13024.herokuapp.com//user/login", {
+    .post("http://floating-cliffs-13024.herokuapp.com/user/login", {
       email,
       password,
     })
@@ -62,7 +62,7 @@ const login = (email, password) => {
 const loging = (email) => {
   console.log("im here");
   return axios
-    .post("http://http://floating-cliffs-13024.herokuapp.com//user/loging", {
+    .post("http://floating-cliffs-13024.herokuapp.com/user/loging", {
       email,
     })
     .then((response) => {
@@ -75,15 +75,12 @@ const loging = (email) => {
 const UpdatePassword = (id, email, password, newpassword) => {
   console.log("updatin password first");
   return axios
-    .post(
-      "http://http://floating-cliffs-13024.herokuapp.com//user/updatepassword",
-      {
-        id,
-        email,
-        password,
-        newpassword,
-      }
-    )
+    .post("http://floating-cliffs-13024.herokuapp.com/user/updatepassword", {
+      id,
+      email,
+      password,
+      newpassword,
+    })
     .then((response) => {
       localStorage.removeItem("user");
       window.location.reload(false);

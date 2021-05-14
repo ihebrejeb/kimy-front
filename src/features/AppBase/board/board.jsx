@@ -5,7 +5,7 @@ import "./style.css";
 
 class Board extends React.Component {
   timeout;
-  socket = io.connect("http://http://floating-cliffs-13024.herokuapp.com/");
+  socket = io.connect("http://floating-cliffs-13024.herokuapp.com");
 
   ctx;
   isDrawing = false;

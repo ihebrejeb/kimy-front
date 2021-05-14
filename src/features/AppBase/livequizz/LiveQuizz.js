@@ -57,7 +57,7 @@ export function LiveQuizz() {
   const charRef = useRef();
   useEffect(() => {
     socketRef.current = io.connect(
-      "http://http://floating-cliffs-13024.herokuapp.com/"
+      "http://floating-cliffs-13024.herokuapp.com"
     );
     socketRef.current.on("new live quizz", ({ livequiz }) => {
       setlivequi(livequiz);

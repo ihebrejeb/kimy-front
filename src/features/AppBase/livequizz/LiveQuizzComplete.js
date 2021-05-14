@@ -54,7 +54,7 @@ function LiveQuizzComplete({ livequizz }) {
 
   useEffect(() => {
     socketRef.current = io.connect(
-      "http://http://floating-cliffs-13024.herokuapp.com/"
+      "http://floating-cliffs-13024.herokuapp.com"
     );
     socketRef.current.on("new answer quizz", ({ doc, corect }) => {
       console.log(setlivequi(doc));
