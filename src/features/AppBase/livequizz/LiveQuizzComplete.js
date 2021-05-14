@@ -130,7 +130,7 @@ function LiveQuizzComplete({ livequizz }) {
               animationEasing="ease-out"
               style={{ height: "100px" }}
             />
-            ;
+            
           </div>
         </div>
       );
