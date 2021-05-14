@@ -1,18 +1,31 @@
+<p align="center">
+  <h3 align="center">Frontend for the kimy project</h3>
+
+  <p align="center">
+     <a href="https://github.com/ihebrejeb/kimy-back">Backend repo</a>
+  </p>
+</p>
+
 ## how to start with this project:
 
 ### Clone
 
+```sh
 git clone https://github.com/ihebrejeb/kimy-front.git<br>
+```
+
+```sh
 cd kimy-front
-
-### install yarn if you don't have it
-
-npm install --global yarn
+```
 
 ### Install dependencies
 
-yarn install
+```sh
+npm install
+```
 
 ### Start project
 
-yarn start
+```sh
+npm start
+```

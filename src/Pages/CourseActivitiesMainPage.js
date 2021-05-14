@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CourseActivitiesMainPage.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CoursesActivitiesList from "../features/AppBase/CourseActivity/CoursesActivitiesList";
 import {
   GetCoursesActivities,
@@ -8,19 +8,16 @@ import {
   searchThread,
 } from "../features/AppBase/CourseActivity/CoursesActivitiesSlice";
 import AddActivity from "../features/AppBase/CourseActivity/AddActivity";
-import AddAssignment from "../features/AppBase/assignments/AddAssignment";
-import { selectCourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
-import Container from "./Container";
 import SearchPage from "../features/AppBase/CourseActivity/SearchPage";
 import SortActivities from "../features/AppBase/CourseActivity/SortActivities";
 import AssignmentsList from "../features/AppBase/assignments/AssignmentsList";
-import SingleAssignment from "../features/AppBase/assignments/SingleAssignment";
-import { GetAssignments } from "../features/AppBase/assignments/AssignmentsSlice";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { selectedcourse } from "../features/AppBase/onlinseSession/CourseDemoSlice";
 
 function CourseActivitiesMainPage() {
   const [currentId, setcurrentId] = useState(null);
-  const [currentIdassign, setcurrentIdassign] = useState(null);
+  const course = useSelector(selectedcourse);
+  const history = useHistory();
   var [title, setTitle] = useState("");
   var [sort, setsort] = useState(false);
 
@@ -33,7 +30,11 @@ function CourseActivitiesMainPage() {
       dispatch(GetCoursesActivities(courseid));
     }
   }, [title, dispatch, courseid]);
-
+  useEffect(() => {
+    if (!course._id) {
+      history.push("/app");
+    }
+  }, [course._id, history]);
   // useEffect(() => {
   //   dispatch(GetAssignments());
   // }, [  dispatch]);
