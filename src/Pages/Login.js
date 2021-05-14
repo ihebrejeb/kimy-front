@@ -20,7 +20,7 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import { Button, Divider } from "@material-ui/core";
-import firebase from 'firebase' ;
+import firebase from "firebase";
 
 function Login() {
   const [email, setemail] = useState("");
@@ -30,14 +30,16 @@ function Login() {
   const history = useHistory();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   const signInG = () => {
-  
-  auth.signInWithPopup(googleProvider).then((res) => {
-    console.log(res.user);
-    history.push('/signupgoogle');
-  }).catch((error) => {
-    console.log(error.message)
-  })
-}
+    auth
+      .signInWithPopup(googleProvider)
+      .then((res) => {
+        console.log(res.user);
+        history.push("/signupgoogle");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -60,49 +62,47 @@ function Login() {
 
   const signIn = (e) => {
     e.preventDefault();
-    console.log(setlogsucc(true))
-  
-      auth.signInWithEmailAndPassword(email, password)
-      dispatch(login(email, password))
-        .then(() => {
-          history.push('/app/courses')
-        })
-        .catch(() => {
-          console.log(setlogsucc(false))
-        });
+    console.log(setlogsucc(true));
+
+    auth.signInWithEmailAndPassword(email, password);
+    dispatch(login(email, password))
+      .then(() => {
+        history.push("/app/courses");
+      })
+      .catch(() => {
+        console.log(setlogsucc(false));
+      });
   };
 
   const redirectforget = (e) => {
-    history.push('/forgetpassword')
+    history.push("/forgetpassword");
   };
 
   const erroralert = (e) => {
-    if(logsucc){
-      console.log(logsucc)
+    if (logsucc) {
+      console.log(logsucc);
+      return <div></div>;
+    } else
       return (
-        <div></div>
-      )
-    }
-    else
-      return (
-       <div>
-         <Alert variant="outlined" severity="error">Email or password wrong!</Alert>
-       </div> 
-      )
-  }
-
+        <div>
+          <Alert variant="outlined" severity="error">
+            Email or password wrong!
+          </Alert>
+        </div>
+      );
+  };
 
   return (
     <div className={styles.page}>
       <img
         className={styles.logo}
-        src="./logo.png"
+        src="/Logo.png"
         alt="KIMY"
         onClick={() => history.push("/")}
       />
       <div className={styles.signIn}>
-        <h2 className={styles.title}> Sign in   </h2>
-        
+        <h2 className={styles.title}> Sign in </h2>
+
         <Divider variant="middle" className={styles.divider} />
         {erroralert()}
         <form className={styles.form}>
@@ -113,7 +113,6 @@ function Login() {
             placeholder="email"
             type="email"
           />
-
           <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
               Password
@@ -137,7 +136,6 @@ function Login() {
               }
             />
           </FormControl>
-
           <h5 style={{ marginTop: "20px" }}>
             <span className={styles.signup_grey}> Forgot your Passord ?</span>
 
@@ -146,7 +144,6 @@ function Login() {
               Click Here{" "}
             </span>
           </h5>
-
           <Button
             variant="outlined"
             size="small"
@@ -154,13 +151,15 @@ function Login() {
             onClick={signIn}
           >
             Login{" "}
-          </Button> or 
-          <Button  variant="outlined"
+          </Button>{" "}
+          or
+          <Button
+            variant="outlined"
             size="small"
             color="primary"
-            onClick={signInG} > 
-            Login with google 
-            
+            onClick={signInG}
+          >
+            Login with google
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
