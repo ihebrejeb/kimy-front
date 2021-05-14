@@ -102,7 +102,7 @@ function Answersquizz({livequi}) {
         viewBoxSize={[100, 100]}
         animationEasing="ease-out"
         style={{ height: '100px' }}
-        />;  
+        /> 
 
         </div>   
       </div>
