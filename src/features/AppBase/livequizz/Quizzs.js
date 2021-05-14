@@ -11,7 +11,7 @@ function Quizzs() {
   const classes = useStyles;
   const [quizzs, setquizzs] = useState(null);
   const socketRef = useRef();
-  socketRef.current = io.connect("http://floating-cliffs-13024.herokuapp.com");
+  socketRef.current = io.connect("https://floating-cliffs-13024.herokuapp.com");
   socketRef.current.emit("get quizzs");
 
   useEffect(() => {

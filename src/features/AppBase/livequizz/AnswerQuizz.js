@@ -59,7 +59,7 @@ export function AnswerQuizz({ livequi }) {
   const [optionCorrect, setoptionCorrect] = React.useState(false);
   useEffect(() => {
     socketRef.current = io.connect(
-      "http://floating-cliffs-13024.herokuapp.com"
+      "https://floating-cliffs-13024.herokuapp.com"
     );
     /* socketRef.current.on("new live quizz", ({ livequiz }) => {
       setlivequi(livequiz);

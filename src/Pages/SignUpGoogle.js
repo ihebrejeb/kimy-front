@@ -39,7 +39,7 @@ function SignUpGoogle() {
   console.log(userexists);
   useEffect(() => {
     socketRef.current = io.connect(
-      "http://floating-cliffs-13024.herokuapp.com"
+      "https://floating-cliffs-13024.herokuapp.com"
     );
     socketRef.current.emit("find me user", { email });
     socketRef.current.on("result of user", ({ mybool }) => {

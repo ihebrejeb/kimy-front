@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://floating-cliffs-13024.herokuapp.com/user/";
+const url = "https://floating-cliffs-13024.herokuapp.com/user/";
 
 const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 

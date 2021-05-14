@@ -27,7 +27,7 @@ function LivQuiT() {
 
   useEffect(() => {
     socketRef.current = io.connect(
-      "http://floating-cliffs-13024.herokuapp.com"
+      "https://floating-cliffs-13024.herokuapp.com"
     );
     socketRef.current.on("finished quizz", ({}) => {
       handleClose();

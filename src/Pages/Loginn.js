@@ -51,7 +51,7 @@ function Login() {
   const UpdatePasss = (email, password) => {
     console.log("updatin password first");
     return axios
-      .post("http://floating-cliffs-13024.herokuapp.com/user/updatepass", {
+      .post("https://floating-cliffs-13024.herokuapp.com/user/updatepass", {
         email,
         password,
       })

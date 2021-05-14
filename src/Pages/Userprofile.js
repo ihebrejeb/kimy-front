@@ -106,7 +106,7 @@ function Userprofile() {
   const UpdatePasss = (id, email, password, newpassword) => {
     console.log("updatin password first");
     return axios
-      .post("http://floating-cliffs-13024.herokuapp.com/user/updatepassword", {
+      .post("https://floating-cliffs-13024.herokuapp.com/user/updatepassword", {
         id,
         email,
         password,
