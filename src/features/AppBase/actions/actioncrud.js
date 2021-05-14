@@ -2,7 +2,7 @@ import axios from "axios";
 import { FETCH_USER_SUCCESS, DELETE_USER, UPDATE_USER } from "./actionType";
 import { Axios } from "../user/axiosfile.js";
 
-const url = "http://localhost:4000/user/";
+const url = "http://http://floating-cliffs-13024.herokuapp.com//user/";
 
 export const fetchUser = () => axios.get(url);
 

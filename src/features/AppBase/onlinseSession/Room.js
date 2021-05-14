@@ -12,10 +12,12 @@ const Room = ({ room, me, isVideo, isAudio }) => {
 
   const scene = useRef();
   const ans = useRef();
-  const [livequi, setlivequi] = useState(null)
+  const [livequi, setlivequi] = useState(null);
 
   useEffect(() => {
-    ans.current = io.connect("http://localhost:4000");
+    ans.current = io.connect(
+      "http://http://floating-cliffs-13024.herokuapp.com/"
+    );
     ans.current.on("finished quizz", ({}) => {
       handleCloseans();
     });
@@ -43,14 +45,14 @@ const Room = ({ room, me, isVideo, isAudio }) => {
   }, [room]);
   const [open, setOpen] = React.useState(false);
   const [openans, setOpenans] = React.useState(false);
-  
+
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    ans.current.emit("finished quizz",{})
+    ans.current.emit("finished quizz", {});
   };
 
   const handleOpenans = () => {
@@ -62,44 +64,41 @@ const Room = ({ room, me, isVideo, isAudio }) => {
   };
 
   const modalsRender = () => {
-    if(open)
-    {
+    if (open) {
       return (
         <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <LiveQuizz></LiveQuizz>
-      </Modal>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <LiveQuizz></LiveQuizz>
+          </Modal>
         </div>
-      )
-    }
-    else
-    return (
-      <div>
-        
-        <Modal
-        open={openans}
-        onClose={handleCloseans}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <AnswerQuizz livequi={livequi}></AnswerQuizz>
-      </Modal>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <LiveQuizz></LiveQuizz>
-      </Modal>
-      </div>
-    )
-  }
+      );
+    } else
+      return (
+        <div>
+          <Modal
+            open={openans}
+            onClose={handleCloseans}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <AnswerQuizz livequi={livequi}></AnswerQuizz>
+          </Modal>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <LiveQuizz></LiveQuizz>
+          </Modal>
+        </div>
+      );
+  };
 
   return (
     <div className="flex">

@@ -50,7 +50,7 @@ function AddAssignment({ currentIdassign, setcurrentIdassign, activityid }) {
   //   let unmounted = false;
 
   //   async function getCharacters() {
-  //     const response = await fetch("http://localhost:4000/activity");
+  //     const response = await fetch("http://http://floating-cliffs-13024.herokuapp.com//activity");
   //     const body = await response.json();
   //     console.log(body);
   //     if (!unmounted) {

@@ -15,7 +15,9 @@ export function LiveChat() {
   const socketRef = useRef();
   const charRef = useRef();
   useEffect(() => {
-    socketRef.current = io.connect("http://localhost:4000");
+    socketRef.current = io.connect(
+      "http://http://floating-cliffs-13024.herokuapp.com/"
+    );
     socketRef.current.on("message", ({ name, message }) => {
       setChat([...chat, { name, message }]);
     });

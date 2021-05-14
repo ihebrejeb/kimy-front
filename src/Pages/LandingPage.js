@@ -154,7 +154,7 @@ function LandingPage() {
   return (
     <div className={styles.LandingPage}>
       <div className={styles.nav}>
-        <img className={styles.nav_img} src="/logo.png" alt="logo" />
+        <img className={styles.nav_img} src="/Logo.png" alt="logo" />
         {/* <div className={styles.navigation}>
           <p className={styles.screens}>Features</p>
           <p className={styles.screens}>pricing</p>

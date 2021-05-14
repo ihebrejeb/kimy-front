@@ -19,14 +19,9 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import { Button, Divider } from "@material-ui/core";
-import firebase from 'firebase' ;
-import {
-  UPDATEPASSWORDD
-} from "../features/AppBase/user/actions/types";
+import firebase from "firebase";
+import { UPDATEPASSWORDD } from "../features/AppBase/user/actions/types";
 import axios from "axios";
-
-
-
 
 function Login() {
   const [email, setemail] = useState("");
@@ -35,14 +30,16 @@ function Login() {
   const history = useHistory();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   const signInG = () => {
-  
-  auth.signInWithPopup(googleProvider).then((res) => {
-    console.log(res.user);
-    history.push('/signupgoogle');
-  }).catch((error) => {
-    console.log(error.message)
-  })
-}
+    auth
+      .signInWithPopup(googleProvider)
+      .then((res) => {
+        console.log(res.user);
+        history.push("/signupgoogle");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -52,30 +49,31 @@ function Login() {
   });
 
   const UpdatePasss = (email, password) => {
-    console.log('updatin password first')
-    return axios.post("http://localhost:4000/user/updatepass", {
-        email,
-        password
-      }).then((response) => {
+    console.log("updatin password first");
+    return axios
+      .post(
+        "http://http://floating-cliffs-13024.herokuapp.com//user/updatepass",
+        {
+          email,
+          password,
+        }
+      )
+      .then((response) => {
         dispatch(login(email, password))
-        .then(() => {
-          history.push('/app/courses') 
-        window.location.reload(false);
-        })
-        .catch(() => {
-        });
-        
+          .then(() => {
+            history.push("/app/courses");
+            window.location.reload(false);
+          })
+          .catch(() => {});
       });
   };
 
   const doUpdatepassword = (e) => {
-  
-    console.log('const doUpdatepassword')
+    console.log("const doUpdatepassword");
     UpdatePasss(email, password);
-  dispatch({
-    type: UPDATEPASSWORDD,
-  });
-    
+    dispatch({
+      type: UPDATEPASSWORDD,
+    });
   };
 
   const handleClickShowPassword = () => {
@@ -88,13 +86,15 @@ function Login() {
 
   const loginIn = (e) => {
     e.preventDefault();
-  
-      auth.signInWithEmailAndPassword(email, password).then(function() {
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(function () {
         doUpdatepassword();
-      }).catch(function(error) {
+      })
+      .catch(function (error) {
         window.location.reload(false);
       });
-      
   };
 
   return (

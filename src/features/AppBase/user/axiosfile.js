@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:4000";
+export const API_URL = "http://http://floating-cliffs-13024.herokuapp.com/";
 
 export const Axios = () =>
   axios.create({
