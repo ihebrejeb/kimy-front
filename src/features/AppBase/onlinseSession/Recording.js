@@ -78,21 +78,25 @@ export default function Recording({ room, isOwner, setRooms }) {
               ></CircularProgress>
             </Button>
           )}
-          <Button color="primary" onClick={deleteRoom}>
-            Delete recording
-          </Button>
-          <Button
-            color="primary"
-            onClick={() => history.push("/app/attendance/" + room._id)}
-          >
-            Attendance
-          </Button>
-          <Button
-            color="primary"
-            onClick={() => history.push("/app/quizzs/" + room._id)}
-          >
-            Quizzs
-          </Button>
+          {isOwner && (
+            <>
+              <Button color="primary" onClick={deleteRoom}>
+                Delete recording
+              </Button>
+              <Button
+                color="primary"
+                onClick={() => history.push("/app/attendance/" + room._id)}
+              >
+                Attendance
+              </Button>
+              <Button
+                color="primary"
+                onClick={() => history.push("/app/quizzs/" + room._id)}
+              >
+                Quizzs
+              </Button>
+            </>
+          )}
         </CardActions>
       </Card>
     </>

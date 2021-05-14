@@ -9,7 +9,7 @@ import useStyles from "./ListStyles";
 function CoursesList({ setcurrentId }) {
   const classes = useStyles;
   const courses = useSelector(selectcourses);
-  return (
+  return courses.length ? (
     <div>
       <Grid
         className={classes.container}
@@ -23,6 +23,15 @@ function CoursesList({ setcurrentId }) {
           </Grid>
         ))}
       </Grid>
+    </div>
+  ) : (
+    <div class="loader_container_small">
+      <img src="/Logo.png" width="150px" alt="logo"></img>
+      <div class="loader__wrapper">
+        <div class="loader__left"></div>
+        <div class="loader__right"></div>
+        <div class="loader__left"></div>
+      </div>
     </div>
   );
 }

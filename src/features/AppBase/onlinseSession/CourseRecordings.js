@@ -4,7 +4,6 @@ import { getRoomsByCourseId } from "./url";
 import styles from "./recordings.module.css";
 import { useSelector } from "react-redux";
 import { selectedcourse } from "./CourseDemoSlice";
-import {} from "../user/UserSlice";
 import { useHistory } from "react-router";
 
 export default function CourseRecordings() {
@@ -14,7 +13,10 @@ export default function CourseRecordings() {
   const course = useSelector(selectedcourse);
   const u = useSelector((state) => state.user.user.data.user);
   useEffect(() => {
-    if (!course._id) history.push("/app");
+    if (!course._id) {
+      history.push("/app");
+      return;
+    }
     setIsOwner(course.creator._id === u._id);
     const getRooms = async () => {
       const { data } = await getRoomsByCourseId(course._id);

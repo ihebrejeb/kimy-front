@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,7 +11,6 @@ import {
   useHistory,
   useLocation,
   NavLink,
-  useParams,
 } from "react-router-dom";
 import Courses from "../../Pages/Courses";
 import Forum from "../../Pages/Forum";
@@ -22,7 +21,6 @@ import CourseActivitiesMainPage from "../../Pages/CourseActivitiesMainPage";
 import { useSelector, useDispatch } from "react-redux";
 import LiveChat from "../AppBase/chat/LiveChat";
 import { logout } from "./user/actions/auth.js";
-import CourseDemo from "./onlinseSession/CourseDemo";
 import CourseRecordings from "./onlinseSession/CourseRecordings";
 import Lobby from "./onlinseSession/Lobby";
 import Attendance from "./onlinseSession/Attendance";
@@ -31,7 +29,7 @@ import AddPost from "./forum/AddPost";
 import SinglePost from "./forum/SinglePost";
 import { auth } from "../../Firebase";
 import Testuser from "../../Pages/Testuser";
-import { selectCourse, selectedcourse } from "./onlinseSession/CourseDemoSlice";
+import { selectedcourse } from "./onlinseSession/CourseDemoSlice";
 import {
   Avatar,
   ClickAwayListener,
@@ -53,7 +51,6 @@ import {
   SlowMotionVideo,
 } from "@material-ui/icons";
 import Container from "../../Pages/Container";
-import { selectcourses } from "./courses/CoursesSlice";
 
 const drawerWidth = 200;
 
@@ -189,16 +186,7 @@ export default function ClippedDrawer() {
                 </IconButton>
               </Tooltip>
             )}
-            <Tooltip title="Calendar">
-              <IconButton
-                color="primary"
-                onClick={() => {
-                  history.push("/app/calendar");
-                }}
-              >
-                <CalendarToday></CalendarToday>
-              </IconButton>
-            </Tooltip>
+
             <Avatar
               className={classes.avatar}
               aria-controls="simple-menu"

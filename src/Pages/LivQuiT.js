@@ -7,7 +7,7 @@ import AnswerQuizz from "../features/AppBase/livequizz/AnswerQuizz.js";
 import "./Login.css";
 import styles from "./SignUp.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import firebase from 'firebase' ;
+import firebase from "firebase";
 import { Modal } from "@material-ui/core";
 import { useRef } from "react";
 
@@ -23,10 +23,12 @@ function LivQuiT() {
     setOpen(false);
   };
 
-  const [livequi, setlivequi] = useState(null)
+  const [livequi, setlivequi] = useState(null);
 
   useEffect(() => {
-    socketRef.current = io.connect("http://localhost:4000");
+    socketRef.current = io.connect(
+      "https://floating-cliffs-13024.herokuapp.com"
+    );
     socketRef.current.on("finished quizz", ({}) => {
       handleClose();
     });
@@ -39,13 +41,13 @@ function LivQuiT() {
 
   return (
     <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <AnswerQuizz livequi={livequi}></AnswerQuizz>
-      </Modal>
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+    >
+      <AnswerQuizz livequi={livequi}></AnswerQuizz>
+    </Modal>
   );
 }
 

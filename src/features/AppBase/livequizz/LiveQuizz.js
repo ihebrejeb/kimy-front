@@ -3,7 +3,13 @@ import React from "react";
 import styles from "./livequizz.module.css";
 import LiveQuizzComplete from "./LiveQuizzComplete.js";
 import io from "socket.io-client";
-import { Button, Radio, FormControlLabel, RadioGroup, FormLabel } from "@material-ui/core";
+import {
+  Button,
+  Radio,
+  FormControlLabel,
+  RadioGroup,
+  FormLabel,
+} from "@material-ui/core";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
@@ -50,22 +56,30 @@ export function LiveQuizz() {
   const [open, setOpen] = React.useState(false);
   const charRef = useRef();
   useEffect(() => {
-    socketRef.current = io.connect("http://localhost:4000");
+    socketRef.current = io.connect(
+      "https://floating-cliffs-13024.herokuapp.com"
+    );
     socketRef.current.on("new live quizz", ({ livequiz }) => {
       setlivequi(livequiz);
-      console.log(livequiz)
-      console.log(livequi)  
+      console.log(livequiz);
+      console.log(livequi);
     });
-    
+
     //charRef.current.scrollTop = charRef.current.scrollHeight;
     return () => socketRef.current.disconnect();
   }, [chat]);
-  
-  
 
   const onQuizzSubmit = (e) => {
     //const { name, message } = state;
-    socketRef.current.emit("new live quizz", { question, optionOne, optionTwo, optionThree, optionFour, optionFive, optionCorrect });
+    socketRef.current.emit("new live quizz", {
+      question,
+      optionOne,
+      optionTwo,
+      optionThree,
+      optionFour,
+      optionFive,
+      optionCorrect,
+    });
     e.preventDefault();
     setOpen(true);
     //setState({ message: "", name });
@@ -86,18 +100,67 @@ export function LiveQuizz() {
     <div style={modalStyle} className={classes.paper}>
       <form onSubmit={onQuizzSubmit} className={styles.form}>
         <p className={styles.p}>Start your live quizz</p>
-        <TextField label="Question" type="text" onChange={(e) => setquestion(e.target.value)}></TextField>
+        <TextField
+          label="Question"
+          type="text"
+          onChange={(e) => setquestion(e.target.value)}
+        ></TextField>
         <RadioGroup aria-label="gender" name="gender1">
-        <TextField label="Option 1" type="text" onChange={(e) => setoptionOne(e.target.value)}></TextField>
-        <FormControlLabel value={optionOne} control={<Radio />} label="correct answer" onChange={(e) => setoptionCorrect(e.target.value)} />
-        <TextField label="Option 2" type="text" onChange={(e) => setoptionTwo(e.target.value)}></TextField>
-        <FormControlLabel value={optionTwo} control={<Radio />} label="correct answer" onChange={(e) => setoptionCorrect(e.target.value)} />
-        <TextField label="Option 3" type="text" onChange={(e) => setoptionThree(e.target.value)}></TextField>
-        <FormControlLabel value={optionThree} control={<Radio />} label="correct answer" onChange={(e) => setoptionCorrect(e.target.value)} />
-        <TextField label="Option 4" type="text" onChange={(e) => setoptionFour(e.target.value)}></TextField>
-        <FormControlLabel value={optionFour} control={<Radio />} label="correct answer" onChange={(e) => setoptionCorrect(e.target.value)} />
-        <TextField label="Option 5" type="text" onChange={(e) => setoptionFive(e.target.value)}></TextField>
-        <FormControlLabel value={optionFive} control={<Radio />} label="correct answer" onChange={(e) => setoptionCorrect(e.target.value)} />
+          <TextField
+            label="Option 1"
+            type="text"
+            onChange={(e) => setoptionOne(e.target.value)}
+          ></TextField>
+          <FormControlLabel
+            value={optionOne}
+            control={<Radio />}
+            label="correct answer"
+            onChange={(e) => setoptionCorrect(e.target.value)}
+          />
+          <TextField
+            label="Option 2"
+            type="text"
+            onChange={(e) => setoptionTwo(e.target.value)}
+          ></TextField>
+          <FormControlLabel
+            value={optionTwo}
+            control={<Radio />}
+            label="correct answer"
+            onChange={(e) => setoptionCorrect(e.target.value)}
+          />
+          <TextField
+            label="Option 3"
+            type="text"
+            onChange={(e) => setoptionThree(e.target.value)}
+          ></TextField>
+          <FormControlLabel
+            value={optionThree}
+            control={<Radio />}
+            label="correct answer"
+            onChange={(e) => setoptionCorrect(e.target.value)}
+          />
+          <TextField
+            label="Option 4"
+            type="text"
+            onChange={(e) => setoptionFour(e.target.value)}
+          ></TextField>
+          <FormControlLabel
+            value={optionFour}
+            control={<Radio />}
+            label="correct answer"
+            onChange={(e) => setoptionCorrect(e.target.value)}
+          />
+          <TextField
+            label="Option 5"
+            type="text"
+            onChange={(e) => setoptionFive(e.target.value)}
+          ></TextField>
+          <FormControlLabel
+            value={optionFive}
+            control={<Radio />}
+            label="correct answer"
+            onChange={(e) => setoptionCorrect(e.target.value)}
+          />
         </RadioGroup>
         <Button variant="contained" color="default" onClick={onQuizzSubmit}>
           Ask

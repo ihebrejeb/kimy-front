@@ -280,7 +280,6 @@ function AddActivity({ currentId, setcurrentId }) {
                 the activity has been added
               </Alert>
             </Snackbar>
-            ;
           </DialogActions>
         </Dialog>
       </FormControl>
