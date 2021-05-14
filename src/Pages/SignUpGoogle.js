@@ -81,7 +81,7 @@ function SignUpGoogle() {
     <div className={styles.page}>
       <img
         className={styles.logo}
-        src="./logo.png"
+        src="/Logo.png"
         alt="KIMY"
         onClick={() => history.push("/")}
       />

@@ -11,7 +11,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import "./Login.css";
 import styles from "./SignUp.module.css";
 import FileBase from "react-file-base64";
-import firebase from 'firebase' ;
+import firebase from "firebase";
 import { auth } from "../Firebase";
 import { Button, Divider } from "@material-ui/core";
 import { useState } from "react";
@@ -24,12 +24,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert } from "@material-ui/lab";
 
 const schema = yup.object().shape({
-  username : yup.string().required("Username required") , 
-  email : yup.string().required(" your course should have a name ") , 
-  birthdate : yup.string().required(" please provide more details about your course") , 
-
-})
-
+  username: yup.string().required("Username required"),
+  email: yup.string().required(" your course should have a name "),
+  birthdate: yup
+    .string()
+    .required(" please provide more details about your course"),
+});
 
 function SignUp() {
   const [email, setemail] = useState("");
@@ -48,7 +48,7 @@ function SignUp() {
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         console.log(authUser);
-        auth.signInWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword(email, password);
         //history.push('/app/courses');
       })
       .catch((error) => {
@@ -57,34 +57,35 @@ function SignUp() {
   };
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   const signInWithGoogle = () => {
-  
-  auth.signInWithPopup(googleProvider).then((res) => {
-    console.log(res.user);
-    history.push('/signupgoogle');
-    //window.location.reload(false);
-  }).catch((error) => {
-    console.log(error.message)
-  })
-} 
+    auth
+      .signInWithPopup(googleProvider)
+      .then((res) => {
+        console.log(res.user);
+        history.push("/signupgoogle");
+        //window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
-const handleRegister = (e) => {
-  e.preventDefault();
-  console.log(avatar)
-  registerFireB();
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log(avatar);
+    registerFireB();
 
-    dispatch(register(username, email, password, confirmpassword, birthdate, avatar))
+    dispatch(
+      register(username, email, password, confirmpassword, birthdate, avatar)
+    )
       .then(() => {
-        console.log(username)
-        console.log(email)
-        console.log(password)
-        history.push('/app/courses')
+        console.log(username);
+        console.log(email);
+        console.log(password);
+        history.push("/app/courses");
         window.location.reload(false);
       })
-      .catch(() => {
-      });
-
-};
-
+      .catch(() => {});
+  };
 
   const [values, setValues] = React.useState({
     amount: "",
@@ -106,14 +107,14 @@ const handleRegister = (e) => {
     <div className={styles.page}>
       <img
         className={styles.logo}
-        src="./logo.png"
+        src="/Logo.png"
         alt="KIMY"
         onClick={() => history.push("/")}
       />
-      
+
       <div className={styles.signUp}>
-      <h2 className={styles.title}>Sign up </h2>
-      
+        <h2 className={styles.title}>Sign up </h2>
+
         <form className={styles.form}>
           <TextField
             value={username}
@@ -122,7 +123,6 @@ const handleRegister = (e) => {
             placeholder="username"
             type="text"
           />
-
           <TextField
             value={email}
             onChange={(e) => setemail(e.target.value)}
@@ -130,7 +130,6 @@ const handleRegister = (e) => {
             placeholder="email"
             type="email"
           />
-
           <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
               Password
@@ -154,7 +153,6 @@ const handleRegister = (e) => {
               }
             />
           </FormControl>
-
           <FormControl>
             <InputLabel htmlFor="standard-adornment-password">
               Confirm password
@@ -178,7 +176,6 @@ const handleRegister = (e) => {
               }
             />
           </FormControl>
-
           <TextField
             value={birthdate}
             onChange={(e) => setbirthdate(e.target.value)}
@@ -189,7 +186,6 @@ const handleRegister = (e) => {
               shrink: true,
             }}
           />
-
           <p>Upload your avatar</p>
           <div className={styles.fileInput}>
             <FileBase
@@ -198,7 +194,6 @@ const handleRegister = (e) => {
               onDone={({ base64 }) => setavatar(base64)}
             />
           </div>
-
           <Button
             variant="outlined"
             size="small"
@@ -206,14 +201,15 @@ const handleRegister = (e) => {
             onClick={handleRegister}
           >
             Sign Up
-          </Button> or
-
-          <Button  variant="outlined"
+          </Button>{" "}
+          or
+          <Button
+            variant="outlined"
             size="small"
             color="primary"
-            onClick={signInWithGoogle} > 
-            sign up with Google 
-            
+            onClick={signInWithGoogle}
+          >
+            sign up with Google
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"

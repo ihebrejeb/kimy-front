@@ -19,7 +19,7 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import { Button, Divider } from "@material-ui/core";
-import firebase from 'firebase' ;
+import firebase from "firebase";
 
 function ForgetPassword() {
   const [email, setemail] = useState("");
@@ -28,14 +28,16 @@ function ForgetPassword() {
   const history = useHistory();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
   const signInG = () => {
-  
-  auth.signInWithPopup(googleProvider).then((res) => {
-    console.log(res.user);
-    history.push('/signupgoogle');
-  }).catch((error) => {
-    console.log(error.message)
-  })
-}
+    auth
+      .signInWithPopup(googleProvider)
+      .then((res) => {
+        console.log(res.user);
+        history.push("/signupgoogle");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const [values, setValues] = React.useState({
     amount: "",
     password: "",
@@ -58,38 +60,38 @@ function ForgetPassword() {
 
   const signIn = (e) => {
     e.preventDefault();
-  
-      auth.signInWithEmailAndPassword(email, password)
-      dispatch(login(email, password))
-        .then(() => {
-          history.push('/signupgoogle')
-        })
-        .catch(() => {
-        });
+
+    auth.signInWithEmailAndPassword(email, password);
+    dispatch(login(email, password))
+      .then(() => {
+        history.push("/signupgoogle");
+      })
+      .catch(() => {});
   };
 
   const resetpass = (e) => {
     e.preventDefault();
-  
-    auth.sendPasswordResetEmail(email).then(function() {
-      history.push('/loginn')
-    }).catch(function(error) {
-      window.location.reload(false);
-    });
+
+    auth
+      .sendPasswordResetEmail(email)
+      .then(function () {
+        history.push("/loginn");
+      })
+      .catch(function (error) {
+        window.location.reload(false);
+      });
   };
-
-
 
   return (
     <div className={styles.page}>
       <img
         className={styles.logo}
-        src="./logo.png"
+        src="/Logo.png"
         alt="KIMY"
         onClick={() => history.push("/")}
       />
       <div className={styles.signIn}>
-      <h2 className={styles.title}>Reset password</h2>
+        <h2 className={styles.title}>Reset password</h2>
         <form className={styles.form}>
           <TextField
             value={email}
