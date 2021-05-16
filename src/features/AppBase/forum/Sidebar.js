@@ -24,7 +24,7 @@ const dispatch = useDispatch()
 
             <div className={styles.Avatar}> 
                 <Avatar src={user.avatar}/>
-                <div className={styles.user}>habib  </div>
+                <div className={styles.user}>{user.username}  </div>
                 
             </div>
 
