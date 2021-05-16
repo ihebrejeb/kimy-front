@@ -8,12 +8,15 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { IconButton, TextField } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 
 export function LiveChat() {
-  const [state, setState] = useState({ message: "", name: "user" });
+  const [state, setState] = useState({ message: "", name: "" });
   const [chat, setChat] = useState([]);
   const socketRef = useRef();
   const charRef = useRef();
+  const user = useSelector((state) => state.user.user.data.user);
+
   useEffect(() => {
     socketRef.current = io.connect(
       "https://floating-cliffs-13024.herokuapp.com"
@@ -33,7 +36,7 @@ export function LiveChat() {
     const { name, message } = state;
     socketRef.current.emit("message", { name, message });
     e.preventDefault();
-    setState({ message: "", name });
+    setState({ message: "", name: user.username });
   };
 
   const renderChat = () => {
