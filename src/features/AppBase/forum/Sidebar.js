@@ -23,8 +23,8 @@ const dispatch = useDispatch()
         <div className={styles.side}>
 
             <div className={styles.Avatar}> 
-                <Avatar src="https://c.files.bbci.co.uk/66CC/production/_116361362_tes1.png"/>
-                <div className={styles.user}>{user.avatar}  </div>
+                <Avatar src={user.avatar}/>
+                <div className={styles.user}>habib  </div>
                 
             </div>
 
