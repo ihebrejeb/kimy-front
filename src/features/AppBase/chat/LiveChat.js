@@ -22,11 +22,11 @@ export function LiveChat() {
       "https://floating-cliffs-13024.herokuapp.com"
     );
     socketRef.current.on("message", ({ name, message }) => {
-      setChat([...chat, { name, message }]);
+      setChat([...chat, { name: user.username , message }]);
     });
     charRef.current.scrollTop = charRef.current.scrollHeight;
     return () => socketRef.current.disconnect();
-  }, [chat]);
+  }, [chat , user.username]);
 
   const onTextChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
