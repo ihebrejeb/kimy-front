@@ -14,6 +14,7 @@ import { getPosts, getSortedWithLikes, getSortedWithRating, getSortedWithViews }
 function Sidebar({setsort,setTitle  ,title ,setsortViewsn ,courseid}) {
 
  
+    const user = useSelector((state) => state.user.user.data.user);
 
 
 
@@ -23,7 +24,7 @@ const dispatch = useDispatch()
 
             <div className={styles.Avatar}> 
                 <Avatar src="https://c.files.bbci.co.uk/66CC/production/_116361362_tes1.png"/>
-                <div className={styles.user}> med habib dridi  </div>
+                <div className={styles.user}>{user.avatar}  </div>
                 
             </div>
 
