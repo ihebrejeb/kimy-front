@@ -51,6 +51,7 @@ function SignUpGoogle() {
       dispatch(loging(email))
         .then(() => {
           history.push("/app/courses");
+          window.location.reload(false);
         })
         .catch(() => {});
     }
