@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
+import { Typography } from '@material-ui/core';
 import logo from "./Logo.png";
 import {
   Route,
@@ -143,6 +144,20 @@ export default function ClippedDrawer() {
 
           {course && (
             <div className={classes.links}>
+              <NavLink
+                to={`/app/courses`}
+                className={classes.link}
+                activeStyle={{
+                  fontWeight: "bold",
+                  textDecoration: "underline",
+                  color: "blue",
+                }}
+              >
+                All courses/
+              </NavLink>
+              <Typography>
+               {course.title}
+              </Typography>
               <NavLink
                 to={`/app/activites/${course._id}`}
                 className={classes.link}
