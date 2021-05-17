@@ -153,11 +153,8 @@ export default function ClippedDrawer() {
                   color: "blue",
                 }}
               >
-                All courses/
+                All courses/ {course.title}
               </NavLink>
-              <Typography>
-               {course.title}
-              </Typography>
               <NavLink
                 to={`/app/activites/${course._id}`}
                 className={classes.link}
